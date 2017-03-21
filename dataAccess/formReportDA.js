@@ -18,7 +18,7 @@ class FormsReportDA extends BaseDA{
 		    .input('PointsOfInterestIds', sql.VarChar, filter.points)
 		    .input('IdUser', sql.Int, filter.idUser);
 		    sp.multiple = true;
-		    sp.execute('GetBIFormReport').then(function(r) {
+		    sp.execute('GetFormReportAnalizer').then(function(r) {
 		    	//console.log('recordsets', r);
 
 		    	if(r.length == 2 && r[0].length > 0){
@@ -29,7 +29,7 @@ class FormsReportDA extends BaseDA{
 		    		let q = null, a = null, question = null, completedForm = null;
 		    		for (let i = 0; i < rq.length; ++i) {
 		    			q = rq[i];
-		    			if(question == null || question.Id != q.Id){
+		    			if(question == null || question.Id != q.QuestionId){
 		    				question = { 
 		    					Id: q.QuestionId,
 		    					Type: q.Type,
@@ -61,15 +61,20 @@ class FormsReportDA extends BaseDA{
 		    				};
 		    				form.completedForms.push(completedForm);
 		    			}
-
+		    			
+		    			let base64Image = a.AnswerImageArray != null 
+		    				? new Buffer(a.AnswerImageArray, 'binary').toString('base64')
+		    				: '';
+		    			
     					completedForm.questions.push({
     						Id: a.QuestionId,
     						Type: a.QuestionType,
     						Text: a.QuestionText,
     						YesNoValue: a.AnswerYesNoOption,
     						FreeText: a.AnswerFreeText,
-    						SelectedOptionId: a.AnswerIdQuestionOptions,
-    						SelectedOptionName: a.AnswerOptionText
+    						SelectedOptionId: a.AnswerOptionId,
+    						SelectedOptionName: a.AnswerOptionText,
+    						ImageBase64: base64Image
     					});
 		    		}
 

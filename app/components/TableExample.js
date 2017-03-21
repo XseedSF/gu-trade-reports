@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import {Table, Column, Cell} from 'fixed-data-table';
-import {filterForms} from '../lib/utils'
+import {filterForms} from '../lib/utils';
+import ImageAnswer from './ImageAnswer.js';
 
 export default class TableExample extends Component {
   filterResponses() {
@@ -47,6 +48,8 @@ export default class TableExample extends Component {
                                 return q.SelectedOptionName;
                               case 'YN':
                                 return q.YesNoValue ? 'Sí' : 'No';
+                              case 'CAM':
+                                return q.ImageBase64 ? <ImageAnswer question={q} /> : 'Sin imagen';
                             }
                           })
                         }

@@ -162,9 +162,9 @@ class App extends Component {
         forms={this.state.forms}
         filters={this.state.filters} 
         handleFilter={this.handleFilter.bind(this)}/>
-        <QuestionTable questions={this.state.questions} 
-        filters={this.state.filters}
-        forms={this.state.forms} />
+        {/*<QuestionTable questions={this.state.questions} 
+                    filters={this.state.filters}
+                    forms={this.state.forms} />*/}
 
         <TableExample questions={this.state.questions} 
         filters={this.state.filters}
