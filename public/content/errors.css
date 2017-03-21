@@ -1,0 +1,27 @@
+.error-container{
+    padding-top: 25px;
+}
+
+.error-img {
+    margin: 0 auto;
+    display: block;
+}
+
+.error-title {
+    font-family: 'Open Sans' !important;
+    font-style: normal;
+    font-size: 86.48px;
+    color: #CBE6CD;margin: 0 auto;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error-message {
+    font-family: 'Open Sans' !important;
+    font-style: normal;
+    font-size: 39.17px;
+    color: #6D6E71;margin: 0 auto;
+    display: block;
+    text-align: center;
+}
