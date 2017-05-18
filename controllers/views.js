@@ -35,9 +35,9 @@ class ViewsController extends BaseController{
 		frda.getCompletedForms(filter, 
 			(data)=>{
 				// Generate Html of rendered react app
-				let reactHtml = ReactDOMServer.renderToString(App({form: data}));
+				//let reactHtml = ReactDOMServer.renderToString(App({form: data}));
 				// Render view with the rendered react app
-				res.render('formReport.ejs', { reactOutput: reactHtml, initialData: JSON.stringify(data) });
+				res.render('formReport.ejs', { reactOutput: '', initialData: JSON.stringify(data) });
 			},
 			(err)=> {
 				console.log('err', err);
