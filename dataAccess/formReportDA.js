@@ -25,7 +25,7 @@ class FormsReportDA extends BaseDA{
 		    		let rq = r[0];
 		    		let ra = r[1];
 
-		    		let form = { name: rq[0].Name, questions: [], completedForms: [] };
+		    		let form = { id: rq[0].Id, name: rq[0].Name, questions: [], completedForms: [] };
 		    		let q = null, a = null, question = null, completedForm = null;
 		    		for (let i = 0; i < rq.length; ++i) {
 		    			q = rq[i];
@@ -34,6 +34,7 @@ class FormsReportDA extends BaseDA{
 		    					Id: q.QuestionId,
 		    					Type: q.Type,
 		    					Text: q.Text,
+		    					Required: q.Required,
 		    					Options: []
 		    				};
 		    				form.questions.push(question);
@@ -68,16 +69,18 @@ class FormsReportDA extends BaseDA{
 		    			
     					completedForm.questions.push({
     						Id: a.QuestionId,
+		    				AnswerId: a.AnswerId,
     						Type: a.QuestionType,
     						Text: a.QuestionText,
     						YesNoValue: a.AnswerYesNoOption,
     						FreeText: a.AnswerFreeText,
     						SelectedOptionId: a.AnswerOptionId,
     						SelectedOptionName: a.AnswerOptionText,
-    						ImageBase64: base64Image
+    						ImageBase64: base64Image,
+    						value: getAnswerValue(a),
     					});
 		    		}
-
+		    		
 		    		success(form);
 		    	}else{
 		    		success(r);
@@ -86,6 +89,20 @@ class FormsReportDA extends BaseDA{
 
 		    }).catch(error);
 		}).catch(error);
+	}
+
+}
+const getAnswerValue = (a) => {
+	switch(a.QuestionType){
+		case 'CK':   return a.AnswerCheck;
+		case 'YN':   return a.AnswerYesNoOption;
+		case 'MO': 	 return a.AnswerOptionId;
+		case 'FT': 	 return !a.AnswerSkipped;
+		case 'CODE': return !a.AnswerSkipped;
+		case 'NUM':  return !a.AnswerSkipped;
+		case 'DATE': return !a.AnswerSkipped;
+		case 'SIG':  return !a.AnswerSkipped;
+		case 'IMG':  return !a.AnswerSkipped;
 	}
 }
 

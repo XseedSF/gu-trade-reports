@@ -28,9 +28,18 @@
     "jsonwebtoken": "^7.3.0",
     "mssql": "^3.3.0",
     "node": "0.0.0",
+    "normalizr": "^3.2.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-scripts": "0.8.5",
-    "recharts": "^0.21.1"
+    "recharts": "^0.21.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "install": "^0.10.1",
+    "npm": "^4.6.1"
   }
 }

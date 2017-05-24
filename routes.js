@@ -33,7 +33,7 @@ module.exports = function(app) {
 	});
 
 	/// API
-	app.get('/api/getCompletedForms',// ejwt(jwtConfig),
+	app.get('/api/getCompletedForms',
 		function(req, res) {
 			sess = req.session;
 			if(sess.userId){
@@ -50,7 +50,7 @@ module.exports = function(app) {
 	app.get('/scripts/bundle.js', browserify('./main.js', {
 		debug: true,
 		transform: ["babelify"],
-		minify: true,
+		minify: false,
 		cache: true,
 		precompile: true
 	}));

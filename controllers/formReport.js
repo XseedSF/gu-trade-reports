@@ -2,6 +2,7 @@
 const BaseController = require('./baseController.js');
 const DataAccess = require('../dataAccess');
 
+var sess;
 class FormsReportController extends BaseController{
 	constructor(app){
 		super(app);
@@ -9,21 +10,23 @@ class FormsReportController extends BaseController{
 
 	/// API
 	getCompletedForms(req,res){
+		sess = req.session;
 		let filter = { 	id: req.query.id ,
 			dateFrom: new Date(req.query.dateFrom) ,
 			dateTo: new Date(req.query.dateTo) ,
 			points: req.query.points == '' ? null: req.query.points ,
 			persons: req.query.persons == '' ? null: req.query.persons,
-			idUser: null  };
+			idUser: sess.userId   
+		};
 
-		let frda = new DataAccess.formReportDA("GeoV31");
+		let frda = new DataAccess.formReportDA(sess.ambient);
 		frda.getCompletedForms(filter, 
 			(data)=>{
-				console.log('ok', data);
+				//console.log('ok', data);
 				res.send({ error: false, data: data });
 			},
 			(err)=> {
-				console.log('err', err);
+				//console.log('err', err);
 				res.send({error: true, data: null});
 			}
 		);
