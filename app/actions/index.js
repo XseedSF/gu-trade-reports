@@ -1,20 +1,21 @@
 import { normalize } from 'normalizr';
 import * as schema from './schema';
 import * as api from '../api';
+import { actions } from '../constants';
 
 
 export const toggleAnswerFilter = (id, type, value) => ({
-	type: 'TOGGLE_ANSWER_FILTER',
+	type: actions.TOGGLE_ANSWER_FILTER,
 	payload: { id, value, type },
 });
 
-export const clearFilters = () => ({ type: 'CLEAR_FILTERS' });
+export const clearFilters = () => ({ type: actions.CLEAR_FILTERS });
 
 /// Fetch data
-export const requestForm = () => ({ type : 'REQUEST_FORM'});
+export const requestForm = () => ({ type: actions.REQUEST_FORM});
 
 export const requestFormSuccess = (response) => ({ 
-	type: 'REQUEST_FORM_SUCCESS',
+	type: actions.REQUEST_FORM_SUCCESS,
 	response,
 });
 

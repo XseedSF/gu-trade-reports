@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { formSelector, filtersSelector, filterFormIgnoringQuestions } from './common';
+import { formSelector, filtersSelector, filterFormsIgnoringQuestions } from './common';
 
 //--------- Selector questionsFilters ---------//
 // Create the filters that are going to be used
@@ -19,7 +19,7 @@ export const questionsFiltersSelector = createSelector(
   		const type = Type === 'MO' ? 'MULTI_SELECT' : 'SINGLE_SELECT';
 
       // Creo las opciones posibles
-  		let filterOptions = createFitlerOptions(question, options);
+  		let filterOptions = createFitlerOptions(question, options, filters);
       if(!filterOptions) return null;
 
       // Cuanto cantidad de formularios filtrados hay por opción
@@ -35,7 +35,7 @@ export const questionsFiltersSelector = createSelector(
 );
 
 const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filters, filterOptions, q) => {
-  const filterForm = filterFormIgnoringQuestions(answers, filters, q);
+  const filterForm = filterFormsIgnoringQuestions(answers, filters, q);
 
   const countForm = (cf) => {
       // sumar en la pregunta, ojo con los indices creo que uno es de anwer y el otro de question
@@ -43,7 +43,7 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
         .map((a) => answers[a] )
         .filter((a) => a.Id === q)
         .reduce((ac, a) => a.value ,null);
-      filterOptions[value].count += 1;
+      filterOptions[value].value += 1;
   };
 
   form.completedForms
@@ -53,38 +53,41 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 
 }
 
-const createFitlerOptions = (question, optionsById) => {
-  const { Type, Options, Required } = question;
+const createFitlerOptions = (question, optionsById, filters) => {
+  const { Id, Type, Options, Required } = question;
+  const filter = filters[Id];
+  const createOption = createFilterOption(filter);
   let options = null;
 
   switch(Type){
     // Una opción por opción de pregunta, numeros van a entrar aca en el futuro
     case 'MO':
       options = Options.reduce((ac,e) => {
-        ac[e] = createFilterOption(optionsById[e].Text);
+        ac[e] = createOption(optionsById[e].Text, e);
         return ac;
       }, {});
     break;
     // Opción si o no
     case 'YN': case 'CK':
       options = { 
-        true: createFilterOption("Si"),
-        false: createFilterOption("No"),
+        true: createOption("Si", true),
+        false: createOption("No", false),
       };
       if(!Required) 
-        options[null] = createFilterOption("No Completado");
+        options[null] = createOption("No Completado", null);
     break;
     // Opción completado y no completado
     case 'CODE': case 'DATE': case 'FT': case 'IMG': case 'NUM': case 'SIG':
       // Si es requerido no hay opciones de filtro
       if(!Required) 
         options = { 
-          true: createFilterOption("Completado"),
-          false: createFilterOption("No Completado"),
+          true: createOption("Completado", true),
+          false: createOption("No Completado", false),
         };
     break;
   }
   return options;
 }
 
-const createFilterOption = (text) => ({ text, count: 0})
+const createFilterOption = (filter) => ((name, option) => ({ name, selected: isFilterSelected(filter, option), value: 0, key: option }))
+const isFilterSelected = (filter, option) => filter && filter.options.includes(option)

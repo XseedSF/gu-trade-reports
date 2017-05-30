@@ -1,10 +1,2 @@
-import { questionsFiltersSelector } from './questionsFilters';
-import { filteredFormsSelector } from './filteredForms';
-
-export questionsFiltersSelector;
-export filteredFormsSelector;
-
-
-
-
-
+export { questionsFiltersSelector } from './questionsFilters';
+export { filteredFormsSelector } from './filteredForms';

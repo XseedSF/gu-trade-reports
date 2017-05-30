@@ -1,17 +1,17 @@
-
+import { actions, filterTypes } from '../constants';
 
 const filter = (state = {}, action) => {
 	switch (action.type){
-		case 'TOGGLE_ANSWER_FILTER':
+		case actions.TOGGLE_ANSWER_FILTER:
 			const { id, type, value } = action.payload;
 			const { selected = [] } = state;
 
 			const alreadySelected = selected.includes(value);
 
 			switch(type){
-				case 'SINGLE_SELECT':
+				case filterTypes.SINGLE_SELECT:
 					return { id, selected: alreadySelected ? selected.filter((e) => e!= value) : [ value ] };
-				case 'MULTI_SELECT': 
+				case filterTypes.MULTI_SELECT: 
 					return { id, selected: alreadySelected ? selected.filter((e) => e!= value) : [ ...selected, value ] };
 				default:
 					return state;
@@ -24,7 +24,7 @@ const filter = (state = {}, action) => {
 
 const filters = (state = {}, action) => {
 	switch (action.type){
-		case 'TOGGLE_ANSWER_FILTER':
+		case actions.TOGGLE_ANSWER_FILTER:
 			const { id } = action.payload;
 			const existingFilter = state[id];
 			const newFilter = filter(existingFilter, action);
@@ -33,7 +33,7 @@ const filters = (state = {}, action) => {
 
 			if (shouldRemove) return (({ [id]: deleted, ...state }) => state)(state);
 			else return { ...state, [id]: newFilter };
-		case 'CLEAR_FILTERS':
+		case actions.CLEAR_FILTERS:
 			return {};
 		default:
 			return state;
