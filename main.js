@@ -18,7 +18,7 @@ var store = configureStore();
 ReactDOM.render(
  	<Provider store={store}>
   		<App />
-  	</Provider>,
+	</Provider>,
   document.getElementById('root')
 );
 
@@ -31,6 +31,6 @@ store.subscribe(function() {
 		console.log(filters);
 	}
 });
-var questionFilters = questionsFiltersSelector(store.getState());
+// var questionFilters = questionsFiltersSelector(store.getState());
 
 initialData.remove(); 
