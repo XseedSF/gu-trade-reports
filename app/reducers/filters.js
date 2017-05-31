@@ -19,7 +19,6 @@ const filter = (state = {}, action) => {
     default:
       return state;
   }
-
 };
 
 const filters = (state = {}, action) => {
@@ -29,7 +28,7 @@ const filters = (state = {}, action) => {
       const existingFilter = state[id];
       const newFilter = filter(existingFilter, action);
 
-      const shouldRemove = newFilter.selected.length === 0;
+      const shouldRemove = newFilter.selected ? newFilter.selected.length === 0 : false;
 
       if (shouldRemove) return (({ [id]: deleted, ...state }) => state)(state);
       else return { ...state, [id]: newFilter };
@@ -38,7 +37,6 @@ const filters = (state = {}, action) => {
     default:
       return state;
   }
-
 };
 
 export default filters;
