@@ -3,8 +3,8 @@ import filters from './filters';
 import form from './form';
 
 const formReportApp = combineReducers({
-  form,
-  filters,
+	form,
+	filters,
 });
 
 export default formReportApp;

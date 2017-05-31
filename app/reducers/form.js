@@ -1,11 +1,11 @@
 const form = (state = {}, action) => {
-	if(action.response){
-		return {
-		  ...state,
-		  ...action.response,
-		}
-	}
-	return state; 
+  if (action.response) {
+    return {
+      ...state,
+      ...action.response,
+    }
+  }
+  return state;
 };
 
 

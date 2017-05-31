@@ -11,7 +11,7 @@ const Filters = ({ questionsFilters, toggleFilter, clearFilters }) => (
 				<Filter key={`filter-${f.id}`}
 					questionFilter={f}
 					toggleFilter={toggleFilter}
-				 />
+				/>
 			))}
 		</div>
 	</div>
@@ -25,29 +25,29 @@ Filters.propTypes = {
 
 export default Filters;
 
-const Filter = ({ questionFilter, toggleFilter }) => {	
+const Filter = ({ questionFilter, toggleFilter }) => {
 	let specificFilter = null;
-  	switch(questionFilter.type) {
-		case filterTypes.MULTI_SELECT:		  
-			specificFilter = <CustomBarChart  key={questionFilter.id}
-						questionFilter={questionFilter}
-						toggleFilter={toggleFilter}
-				  	/>;
-		break;
+	switch (questionFilter.type) {
+		case filterTypes.MULTI_SELECT:
+			specificFilter = <CustomBarChart key={questionFilter.id}
+				questionFilter={questionFilter}
+				toggleFilter={toggleFilter}
+			/>;
+			break;
 		case filterTypes.SINGLE_SELECT:
 			specificFilter = <CustomPieChart key={questionFilter.id}
-						questionFilter={questionFilter}
-						toggleFilter={toggleFilter}
-				  	/>
-		break;
-  	}  	
+				questionFilter={questionFilter}
+				toggleFilter={toggleFilter}
+			/>
+			break;
+	}
 
-  	return (
-  		<div>
-  			<FilterTitle text={questionFilter.text} />
-  			{specificFilter}
-  		</div>
-  	);
+	return (
+		<div>
+			<FilterTitle text={questionFilter.text} />
+			{specificFilter}
+		</div>
+	);
 }
 
 Filter.propTypes = {
@@ -56,8 +56,8 @@ Filter.propTypes = {
 }
 
 const FilterTitle = ({ text }) => (
-	<div className='question-title-container'> 
-		<label className='question-title'> Pregunta: { text } </label>
+	<div className='question-title-container'>
+		<label className='question-title'> Pregunta: {text} </label>
 	</div>
 )
 

@@ -5,7 +5,7 @@ import { Filters } from '../components'
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		questionsFilters: state.form.result !== undefined ? questionsFiltersSelector(state): [],
+		questionsFilters: state.form.result !== undefined ? questionsFiltersSelector(state) : [],
 	}
 }
 

@@ -3,7 +3,7 @@ import { Header } from '../components'
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		formName: state.form.result !== undefined ? state.form.entities.forms[state.form.result].name: "",
+		formName: state.form.result !== undefined ? state.form.entities.forms[state.form.result].name : "",
 	}
 }
 

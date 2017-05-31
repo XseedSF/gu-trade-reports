@@ -12,9 +12,9 @@ export const toggleAnswerFilter = (id, type, value) => ({
 export const clearFilters = () => ({ type: actions.CLEAR_FILTERS });
 
 /// Fetch data
-export const requestForm = () => ({ type: actions.REQUEST_FORM});
+export const requestForm = () => ({ type: actions.REQUEST_FORM });
 
-export const requestFormSuccess = (response) => ({ 
+export const requestFormSuccess = (response) => ({
 	type: actions.REQUEST_FORM_SUCCESS,
 	response,
 });
@@ -26,7 +26,7 @@ export const fetchForm = (data) => (
 			.then(form => {
 				dispatch(requestFormSuccess(normalize(form, schema.form)))
 			}
-		);
+			);
 	}
 );
 

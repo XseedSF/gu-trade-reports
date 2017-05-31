@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Title = ({ children }) => (
 	<div className='nav_menu'>
 		<div className='nav-form-name'>
-		{children}
+			{children}
 		</div>
 	</div>
 )
@@ -14,5 +14,3 @@ Title.propTypes = {
 }
 
 export default Title;
-
-

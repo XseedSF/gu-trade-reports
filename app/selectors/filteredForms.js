@@ -14,7 +14,7 @@ export const filteredFormsSelector = createSelector(
     const filterForm = filterFormIgnoringQuestions(answers, filters, -1);
 
     return form.completedForms
-      .map((cf) =>  completedForms[cf] )
+      .map((cf) => completedForms[cf])
       .filter(filterForm);
   }
 );

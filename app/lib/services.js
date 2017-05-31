@@ -7,6 +7,6 @@ const baseUrl = 'http://192.168.1.140:8080/'
 }*/
 
 export const loadFormAndCompletedForms = () => {
-	return fetch(baseUrl+'form')
+	return fetch(baseUrl + 'form')
 		.then(res => res.json())
 }
