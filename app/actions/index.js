@@ -25,8 +25,7 @@ export const fetchForm = (data) => (
 		return api.fetchForm(data)
 			.then(form => {
 				dispatch(requestFormSuccess(normalize(form, schema.form)))
-			}
-			);
+			});
 	}
 );
 

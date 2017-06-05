@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { HeaderContainer, FiltersContainer } from './containers'
 
 const App = () => (
-  <div>
-    <HeaderContainer />
-    <FiltersContainer />
-  </div>
+	<div>
+		<HeaderContainer />
+		<FiltersContainer />
+	</div>
 )
+
 export default App;
 
 // import React, { Component } from 'react';
@@ -35,7 +36,7 @@ export default App;
 //     };
 //   }
 //   componentWillMount() {
-    
+
 //     let forms = this.props.form.completedForms.map( f => {
 //       f.questions = f.questions.sort((a,b) => a.Id - b.Id);
 //       return f;

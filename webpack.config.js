@@ -1,24 +1,29 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-	entry: './app/index.js',
+	devtool: '#source-map',
+	entry: [
+		'webpack-hot-middleware/client?reload=true',
+		'./app/index.js'
+	],
 	output: {
-		path: __dirname,
-		filename: 'bundle.js',
-		publicPath: '/app/assets/'
+		path: path.join(__dirname, '/dist'),
+		filename: '[name].bundle.js'
 	},
 	module: {
 		loaders: [
 			{
-				test: /.js?$/,
+				test: /\.js$/,
 				loader: 'babel-loader',
-				include: path.join(__dirname, 'app'),
-				exclude: /node_modules/,
-				query: {
-					presets: ['es2015', 'react']
-				}
+				exclude: /node_modules/
 			}
 		]
 	},
-};
+	plugins: [
+		new HtmlWebpackPlugin({ template: 'views/formReport.html' }),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin()
+	]
+}
