@@ -15,8 +15,6 @@ const configureStore = () => {
 		applyMiddleware(...middlewares),
 	);
 
-	store.dispatch(fetchForm(form));
-
 	return store;
 }
 

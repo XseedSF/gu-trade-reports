@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import App from './App';
-
+import Root from './Root';
 import configureStore from './configureStore'
-import { fetchForm, toggleAnswerFilter, clearFilters } from './actions';
-import { questionsFiltersSelector } from './selectors';
 
 var store = configureStore();
 
 ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
+	<Root store={store} />,
 	document.getElementById('root')
 );

@@ -3,6 +3,7 @@ var views = new controllers.views();
 var formReport = new controllers.formReport();
 var jwt = require('jsonwebtoken');
 var config = require('config');
+var path = require('path');
 
 const jwtConfig = config.get("jwtConfig");
 
@@ -43,6 +44,16 @@ module.exports = function (app) {
 	/// Errors
 	app.get('/401', function (req, res) {
 		views.unauthorized(req, res);
+	});
+
+	// All remaining requests return the React app, so it can handle routing.
+	// app.get('*', function (req, res) {
+	// 	views.formReport(req, res);
+	// });
+
+	// All remaining requests return the React app, so it can handle routing.
+	app.get('*', function (request, response) {
+		response.sendFile(path.resolve(__dirname, './views', 'formReport.html'));
 	});
 }
 

@@ -22,7 +22,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: 'views/formReport.html' }),
+		// new HtmlWebpackPlugin({ template: 'views/formReport.html' }),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin()
 	]
