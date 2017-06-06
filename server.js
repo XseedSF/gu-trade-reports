@@ -4,14 +4,16 @@ const bodyParser = require('body-parser');
 const engine = require('ejs-mate');
 const port = process.env.PORT || 8081;
 const app = express();
+const path = require('path');
+
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const compiler = webpack(webpackConfig);
 
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV !== 'production') {
 	const webpackDevMiddleware = require('webpack-dev-middleware');
 	const webpackHotMiddleware = require('webpack-hot-middleware');
-	const webpack = require('webpack');
-	const webpackConfig = require('./webpack.config');
-	const compiler = webpack(webpackConfig);
 
 	app.use(webpackDevMiddleware(compiler, {
 		noInfo: true, publicPath: webpackConfig.output.publicPath
@@ -28,7 +30,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.set('views', __dirname + '\\views');
 
-require('./routes.js')(app);
+require('./routes.js')(app, compiler);
 
 var server = app.listen(port, function () {
 	var host = server.address().address;

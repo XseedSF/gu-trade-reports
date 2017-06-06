@@ -7,6 +7,7 @@
   "author": "Xseed",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-plugin-recharts": "^1.1.0",
     "babelify": "^7.3.0",
     "body-parser": "^1.16.0",

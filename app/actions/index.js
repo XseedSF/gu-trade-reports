@@ -3,7 +3,6 @@ import * as schema from './schema';
 import * as api from '../api';
 import { actions } from '../constants';
 
-
 export const toggleAnswerFilter = (id, type, value) => ({
 	type: actions.TOGGLE_ANSWER_FILTER,
 	payload: { id, value, type },
@@ -19,10 +18,10 @@ export const requestFormSuccess = (response) => ({
 	response,
 });
 
-export const fetchForm = (data) => (
+export const fetchForm = (filtersQuery) => (
 	(dispatch) => {
 		dispatch(requestForm());
-		return api.fetchForm(data)
+		return api.fetchForm(filtersQuery)
 			.then(form => {
 				dispatch(requestFormSuccess(normalize(form, schema.form)))
 			});

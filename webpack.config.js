@@ -10,6 +10,7 @@ module.exports = {
 	],
 	output: {
 		path: path.join(__dirname, '/dist'),
+		publicPath: '/',
 		filename: '[name].bundle.js'
 	},
 	module: {
@@ -22,7 +23,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		// new HtmlWebpackPlugin({ template: 'views/formReport.html' }),
+		new HtmlWebpackPlugin({ template: 'index.html' }),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin()
 	]

@@ -1,10 +1,8 @@
-//import axios from 'axios';
+import axios from 'axios';
 
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export const fetchForm = (data) =>
-	delay(500)
-		.then(() => {
-			return data;
+export const fetchForm = (filtersQuery) => {
+	return axios.get(`/api/getCompletedForms${filtersQuery}`)
+		.then(({ data: response }) => {
+			return response.error ? {} : response.data;
 		});
+}

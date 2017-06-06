@@ -8,7 +8,7 @@ var path = require('path');
 const jwtConfig = config.get("jwtConfig");
 
 var sess;
-module.exports = function (app) {
+module.exports = function (app, compiler) {
 
 	/// Login
 	app.get('/login/:token', function (req, res) {
@@ -47,13 +47,16 @@ module.exports = function (app) {
 	});
 
 	// All remaining requests return the React app, so it can handle routing.
-	// app.get('*', function (req, res) {
-	// 	views.formReport(req, res);
-	// });
-
-	// All remaining requests return the React app, so it can handle routing.
-	app.get('*', function (request, response) {
-		response.sendFile(path.resolve(__dirname, './views', 'formReport.html'));
+	app.get('*', function (req, res) {
+		var filename = path.join(compiler.outputPath, 'index.html');
+		compiler.outputFileSystem.readFile(filename, function (err, result) {
+			if (err) {
+				return next(err);
+			}
+			res.set('content-type', 'text/html');
+			res.send(result);
+			res.end();
+		});
 	});
 }
 
