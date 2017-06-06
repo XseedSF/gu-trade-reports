@@ -9,7 +9,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
 	const x = cx + radius * Math.cos(-midAngle * RADIAN);
 	const y = cy + radius * Math.sin(-midAngle * RADIAN);
-	//console.log('renderCustomizedLabel', percent, index);
+
 	return (
 		<text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
 			{(index === 0 ? 'Si - ' : 'No - ') + `${(percent * 100).toFixed(0)}%`}
@@ -22,10 +22,11 @@ const CustomPieChart = ({ questionFilter, toggleFilter }) => {
 	const optionsKeys = Object.keys(options);
 	const dataForChart = optionsKeys.map((f) => options[f]);
 	const activeIndex = optionsKeys.findIndex((e) => options[e].selected);
-	const onClickHandler = ({ value }) => {
-		toggleFilter(id, type, value);
+	const onClickHandler = (value) => {
+		debugger;
+		toggleFilter(id, type, value.key);
 	}
-
+	
 	return (
 		<PieChart className='chart-centered' width={300} height={300} onClick={onClickHandler}>
 			<Pie

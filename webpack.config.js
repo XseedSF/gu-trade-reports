@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
 	devtool: '#source-map',
@@ -19,6 +20,18 @@ module.exports = {
 				test: /\.js$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/
+			},
+			{
+				test: /\.css$/,
+				use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+            },
+          },
+				]
 			}
 		]
 	},
