@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 const CustomBarChart = ({ questionFilter, toggleFilter }) => {
 	const { id, type, options } = questionFilter;
 	const dataForChart = Object.keys(options).map((f) => options[f]);
-	const onClickHandler = ({ value }) => {
-		toggleFilter(value);
+	const onClickHandler = (value) => {
+		toggleFilter(id, type, value.key);
 	}
 
 	return (

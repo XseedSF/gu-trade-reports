@@ -24,14 +24,6 @@ module.exports = function (app, compiler) {
 		});
 	});
 
-	/// Pages
-	// app.get('/formReport', function (req, res) {
-	// 	sess = req.session;
-	// 	if (sess.userId) {
-	// 		views.formReport(req, res);
-	// 	}
-	// });
-
 	/// API
 	app.get('/api/getCompletedForms',
 		function (req, res) {
