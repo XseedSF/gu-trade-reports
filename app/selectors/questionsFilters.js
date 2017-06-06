@@ -88,4 +88,4 @@ const createFitlerOptions = (question, optionsById, filters) => {
 }
 
 const createFilterOption = (filter) => ((name, option) => ({ name, selected: isFilterSelected(filter, option), value: 0, key: option }))
-const isFilterSelected = (filter, option) => filter && filter.selected.includes(option)
+const isFilterSelected = (filter, option) => filter !== undefined && filter.selected.includes(option)

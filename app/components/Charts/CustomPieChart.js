@@ -38,9 +38,9 @@ const CustomPieChart = ({ questionFilter, toggleFilter }) => {
 				outerRadius={115}
 				fill="#8884d8"
 				paddingAngle={0}
-				valueKey="Amount"
 				label={renderCustomizedLabel}
-				labelLine={false}>
+				labelLine={false}
+				dataKey="value">
 				{
 					dataForChart.map((filterOption, index) =>
 						<Cell stroke={filterOption.selected ? '#3e3d44' : '#00FFFFFF'}
