@@ -23,7 +23,6 @@ const CustomPieChart = ({ questionFilter, toggleFilter }) => {
 	const dataForChart = optionsKeys.map((f) => options[f]);
 	const activeIndex = optionsKeys.findIndex((e) => options[e].selected);
 	const onClickHandler = (value) => {
-		debugger;
 		toggleFilter(id, type, value.key);
 	}
 	

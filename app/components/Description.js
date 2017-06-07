@@ -10,9 +10,4 @@ const Description = () => (
 	</div>
 )
 
-// <button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
-// Description.propTypes = {
-// 	clearFilters: PropTypes.func.isRequired,
-// }
-
 export default Description;

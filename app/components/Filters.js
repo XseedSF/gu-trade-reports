@@ -65,39 +65,3 @@ const FilterTitle = ({ text }) => (
 FilterTitle.propTypes = {
 	text: PropTypes.string.isRequired,
 }
-
-
-/*
-compnents/
-	app/
-		index.js
-		app.js
-		header.js
-		descriptions.js
-		title.js
-	filters/
-		index.js
-		filtersGrid.js
-
-
-
-app/
-	header/
-		components/
-			index.js
-			header.js
-			description.js //Quitar clearFitlers de acá
-			title.js
-	filters/
-		components/
-			index.js
-			filtersGrid.js
-			filter.js
-			barChart.js
-			pieChart.js
-		actions/
-			index.js
-			schema.js
-		reducers/
-			index.js
-*/
