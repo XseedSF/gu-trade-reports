@@ -6,7 +6,7 @@ import { CustomBarChart, CustomPieChart } from './Charts';
 const Filters = ({ questionsFilters, toggleFilter, clearFilters }) => (
 	<div>
 		<button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
-		<div>
+		<div className="question-charts-container">
 			{questionsFilters.map((f) => (
 				<Filter key={`filter-${f.id}`}
 					questionFilter={f}
@@ -43,7 +43,7 @@ const Filter = ({ questionFilter, toggleFilter }) => {
 	}
 
 	return (
-		<div className="question-chart-container">
+		<div className="question-chart-box">
 			<FilterTitle text={questionFilter.text} />
 			{specificFilter}
 		</div>
@@ -57,7 +57,7 @@ Filter.propTypes = {
 
 const FilterTitle = ({ text }) => (
 	<div className='question-title-container'>
-		<label className='question-title'> Pregunta: {text} </label>
+		<label className='question-title'> Pregunta: <span className="question-title-text"> {text} </span> </label>
 	</div>
 )
 

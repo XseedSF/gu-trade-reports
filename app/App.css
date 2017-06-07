@@ -1,4 +1,5 @@
 .App {
+	margin: 0;
   text-align: center;
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -27,7 +28,6 @@
 .nav_menu {
   background: #009c4c;
   border-bottom: 1px solid #D9DEE4;
-  /* margin-bottom: 10px; */
   width: 100%;
 }
 
@@ -64,11 +64,19 @@
   border: none;
 }
 
-.question-chart-container {
-  float: left;
-  width: 50%;
+.question-charts-container {
+	margin: 0 auto;
+	max-width: 80%;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+					flex-wrap: wrap;
 }
 
+.question-chart-box {
+	-webkit-flex: 33.33%;
+  				flex: 33.33%;
+}
 
 .chart-centered {
   margin-left: auto;
@@ -88,6 +96,10 @@
 .question-title {
   font-style: italic;
   font-weight: bold;
+}
+
+.question-title-text {
+	color: #3E4551;
 }
 
 .no-data {
