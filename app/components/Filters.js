@@ -43,7 +43,7 @@ const Filter = ({ questionFilter, toggleFilter }) => {
 	}
 
 	return (
-		<div>
+		<div className="question-chart-container">
 			<FilterTitle text={questionFilter.text} />
 			{specificFilter}
 		</div>
