@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const engine = require('ejs-mate');
 const port = process.env.PORT || 8081;
 const app = express();
 const path = require('path');
