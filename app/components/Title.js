@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Title = ({ children }) => (
 	<div className='nav_menu'>
@@ -8,9 +7,5 @@ const Title = ({ children }) => (
 		</div>
 	</div>
 )
-
-Title.propTypes = {
-	children: PropTypes.element.isRequired,
-}
 
 export default Title;
