@@ -23,19 +23,22 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-            },
-          },
+					require.resolve('style-loader'),
+					{
+						loader: require.resolve('css-loader'),
+						options: {
+							importLoaders: 1,
+						},
+					},
 				]
 			}
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: 'index.html' }),
+		new HtmlWebpackPlugin({
+			favicon: 'public/favicon.png',
+			template: 'public/index.html'
+		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin()
 	]
