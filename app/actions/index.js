@@ -21,18 +21,9 @@ export const requestFormSuccess = (response) => ({
 export const fetchForm = (filtersQuery) => (
 	(dispatch) => {
 		dispatch(requestForm());
-		dispatch(toggleIsLoading(true));
 		api.fetchForm(filtersQuery)
 			.then(form => {
 				dispatch(requestFormSuccess(normalize(form, schema.form)))
-			})
-			.then(() => dispatch(toggleIsLoading(false)));
+			});
 	}
 );
-
-const toggleIsLoading = (value) => {
-	return {
-		type: actions.TOGGLE_IS_LOADING,
-		value
-	}
-}
