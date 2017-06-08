@@ -4,21 +4,7 @@ import { filterTypes } from '../constants';
 import { CustomBarChart, CustomPieChart } from './Charts';
 import { compose } from 'recompose';
 import FiltersContainer from '../containers/FiltersContainer';
-
-import { branch, renderComponent } from 'recompose';
-import Spinner from './Spinner';
-
-const isLoading = ({ isLoading }) => isLoading;
-
-const withSpinnerWhileLoading = branch(
-	isLoading,
-	renderComponent(Spinner),
-);
-
-const enhance = compose(
-	FiltersContainer,
-	withSpinnerWhileLoading,
-);
+import withSpinnerWhileLoading from '../hocs/withSpinnerWhileLoading';
 
 const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
 	<div>
@@ -38,6 +24,11 @@ Filters.propTypes = {
 	toggleFilter: PropTypes.func.isRequired,
 	clearFilters: PropTypes.func.isRequired,
 }
+
+const enhance = compose(
+	FiltersContainer,
+	withSpinnerWhileLoading,
+);
 
 export default enhance(Filters);
 

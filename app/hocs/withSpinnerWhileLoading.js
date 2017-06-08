@@ -1,6 +1,6 @@
 import React from 'react';
 import { branch, renderComponent } from 'recompose';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 const isLoading = ({ isLoading }) => isLoading;
 
