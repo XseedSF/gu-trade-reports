@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { filterTypes } from '../constants';
 import { CustomBarChart, CustomPieChart } from './Charts';
 import { compose } from 'recompose';
-import FiltersContainer from '../containers/FiltersContainer';
+import { FiltersContainer } from '../containers';
 import withSpinnerWhileLoading from '../hocs/withSpinnerWhileLoading';
 
 const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>

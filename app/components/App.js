@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom';
-import { HeaderContainer } from '../containers';
-import { Filters } from '../components';
+import Header from './Header';
+import Filters from './Filters';
+import { AppContainer } from '../containers';
 import '../App.css';
 import '../fixed-data-table.css';
 
@@ -18,11 +19,11 @@ class App extends Component {
 	render() {
 		return (
 			<div className='App'>
-				<HeaderContainer />
+				<Header />
 				<Filters />
 			</div>
 		);
 	}
 }
 
-export default App;
+export default AppContainer(App);

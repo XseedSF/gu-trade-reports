@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchForm } from '../actions';
 import { filteredFormsSelector } from '../selectors';
-import { App } from '../components';
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -20,6 +19,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const AppContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(App);
+);
 
 export default AppContainer;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { AppContainer } from './containers';
+import { App } from './components';
 
 const Root = ({ store }) => (
 	<Provider store={store}>
 		<Router>
-			<Route path='/' component={AppContainer} />
+			<Route path='/' component={App} />
 		</Router>
 	</Provider>
 );

@@ -1,5 +1,4 @@
-import { connect } from 'react-redux'
-import { Header } from '../components'
+import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -15,6 +14,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const HeaderContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(Header)
+);
 
-export default HeaderContainer
+export default HeaderContainer;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { HeaderContainer } from '../containers';
 import Title from './Title';
 import Description from './Description';
 
@@ -14,4 +15,4 @@ Header.propTypes = {
 	formName: PropTypes.string.isRequired,
 }
 
-export default Header;
+export default HeaderContainer(Header);
