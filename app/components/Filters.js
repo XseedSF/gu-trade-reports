@@ -2,20 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { filterTypes } from '../constants';
 import { CustomBarChart, CustomPieChart } from './Charts';
+import Loader from './Loader';
 
-const Filters = ({ questionsFilters, toggleFilter, clearFilters }) => (
-	<div>
-		<button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
-		<div className="question-charts-container">
-			{questionsFilters.map((f) => (
-				<Filter key={`filter-${f.id}`}
-					questionFilter={f}
-					toggleFilter={toggleFilter}
-				/>
-			))}
-		</div>
-	</div>
-)
+const Filters = ({ questionsFilters, toggleFilter, clearFilters, isLoading }) => {
+	if (isLoading) {
+		return <Loader />
+	} else {
+		return (
+			<div>
+				<button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
+				<div className="question-charts-container">
+					{questionsFilters.map((f) => (
+						<Filter key={`filter-${f.id}`}
+							questionFilter={f}
+							toggleFilter={toggleFilter}
+						/>
+					))}
+				</div>
+			</div>
+		);
+	}
+}
 
 Filters.propTypes = {
 	questionsFilters: PropTypes.array.isRequired,

@@ -21,16 +21,18 @@ export const requestFormSuccess = (response) => ({
 export const fetchForm = (filtersQuery) => (
 	(dispatch) => {
 		dispatch(requestForm());
-		return api.fetchForm(filtersQuery)
+		dispatch(toggleIsLoading(true));
+		api.fetchForm(filtersQuery)
 			.then(form => {
 				dispatch(requestFormSuccess(normalize(form, schema.form)))
-			});
+			})
+			.then(() => dispatch(toggleIsLoading(false)));
 	}
 );
 
-/*
-{
-type: 'TOGGLE_ANSWER_FILTER',
-payload: { id: 1139, type: 'SINGLE_SELECT', value: true }
+const toggleIsLoading = (value) => {
+	return {
+		type: actions.TOGGLE_IS_LOADING,
+		value
+	}
 }
-*/
