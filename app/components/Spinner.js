@@ -23,8 +23,8 @@ const options = {
 	position: 'absolute'
 };
 
-const Loader = () => {
+const Spinner = () => {
 	return <ReactLoader loaded={false} options={options} className="spinner" />
 }
 
-export default Loader; 
+export default Spinner; 

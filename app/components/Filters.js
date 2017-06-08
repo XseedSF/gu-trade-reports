@@ -2,27 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { filterTypes } from '../constants';
 import { CustomBarChart, CustomPieChart } from './Charts';
-import Loader from './Loader';
+import { compose } from 'recompose';
+import FiltersContainer from '../containers/FiltersContainer';
 
-const Filters = ({ questionsFilters, toggleFilter, clearFilters, isLoading }) => {
-	if (isLoading) {
-		return <Loader />
-	} else {
-		return (
-			<div>
-				<button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
-				<div className="question-charts-container">
-					{questionsFilters.map((f) => (
-						<Filter key={`filter-${f.id}`}
-							questionFilter={f}
-							toggleFilter={toggleFilter}
-						/>
-					))}
-				</div>
-			</div>
-		);
-	}
-}
+import { branch, renderComponent } from 'recompose';
+import Spinner from './Spinner';
+
+const isLoading = ({ isLoading }) => isLoading;
+
+const withSpinnerWhileLoading = branch(
+	isLoading,
+	renderComponent(Spinner),
+);
+
+const enhance = compose(
+	FiltersContainer,
+	withSpinnerWhileLoading,
+);
+
+const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
+	<div>
+		<button className='button-clean-filter' onClick={clearFilters}> Limpiar filtros </button>
+		<div className="question-charts-container">
+			{questionsFilters.map((f) => (
+				<Filter key={`filter-${f.id}`}
+					questionFilter={f}
+					toggleFilter={toggleFilter}
+				/>
+			))}
+		</div>
+	</div>
 
 Filters.propTypes = {
 	questionsFilters: PropTypes.array.isRequired,
@@ -30,7 +39,7 @@ Filters.propTypes = {
 	clearFilters: PropTypes.func.isRequired,
 }
 
-export default Filters;
+export default enhance(Filters);
 
 const Filter = ({ questionFilter, toggleFilter }) => {
 	let specificFilter = null;
@@ -67,7 +76,6 @@ const FilterTitle = ({ text }) => (
 		<label className='question-title'> Pregunta: <span className="question-title-text"> {text} </span> </label>
 	</div>
 )
-
 
 FilterTitle.propTypes = {
 	text: PropTypes.string.isRequired,
