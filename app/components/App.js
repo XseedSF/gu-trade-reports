@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import Header from './Header';
+import FormAnswers from './FormAnswers';
 import Filters from './Filters';
 import { AppContainer } from '../containers';
 import { compose, lifecycle } from 'recompose';
@@ -10,6 +11,7 @@ const App = () =>
 	<div className='App'>
 		<Header />
 		<Filters />
+		<FormAnswers />
 	</div>;
 
 const withFetchForm = lifecycle({

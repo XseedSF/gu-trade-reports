@@ -1,9 +1,8 @@
-import { connect } from 'react-redux'
-import { toggleAnswerFilter, clearFilters } from '../actions'
+import { connect } from 'react-redux';
+import { toggleAnswerFilter, clearFilters } from '../actions';
 import { questionsFiltersSelector } from '../selectors';
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state.form.result !== undefined ? questionsFiltersSelector(state) : []);
 	return {
 		questionsFilters: state.form.result !== undefined ? questionsFiltersSelector(state) : [],
 		isLoading: state.form.isLoading
