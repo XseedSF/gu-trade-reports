@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { HeaderContainer } from '../containers';
 import Title from './Title';
 import Description from './Description';
+import { compose, setPropTypes } from 'recompose';
 
 const Header = ({ formName }) => (
 	<div>
@@ -11,8 +12,11 @@ const Header = ({ formName }) => (
 	</div>
 )
 
-Header.propTypes = {
-	formName: PropTypes.string.isRequired,
-}
+const enhance = compose(
+	HeaderContainer,
+	setPropTypes({
+		formName: PropTypes.string.isRequired,
+	})
+);
 
-export default HeaderContainer(Header);
+export default enhance(Header);
