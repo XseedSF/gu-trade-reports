@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { filterTypes } from '../constants';
-import { CustomBarChart, CustomPieChart } from './Charts';
-import { compose } from 'recompose';
+import { compose, setPropTypes } from 'recompose';
 import { FiltersContainer } from '../containers';
 import withSpinnerWhileLoading from '../hocs/withSpinnerWhileLoading';
+import Filter from './Filter';
 
 const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
 	<div>
@@ -17,57 +16,16 @@ const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
 				/>
 			))}
 		</div>
-	</div>
-
-Filters.propTypes = {
-	questionsFilters: PropTypes.array.isRequired,
-	toggleFilter: PropTypes.func.isRequired,
-	clearFilters: PropTypes.func.isRequired,
-}
+	</div>;
 
 const enhance = compose(
 	FiltersContainer,
 	withSpinnerWhileLoading,
+	setPropTypes({
+		questionsFilters: PropTypes.array.isRequired,
+		toggleFilter: PropTypes.func.isRequired,
+		clearFilters: PropTypes.func.isRequired,
+	}),
 );
 
 export default enhance(Filters);
-
-const Filter = ({ questionFilter, toggleFilter }) => {
-	let specificFilter = null;
-	switch (questionFilter.type) {
-		case filterTypes.MULTI_SELECT:
-			specificFilter = <CustomBarChart key={questionFilter.id}
-				questionFilter={questionFilter}
-				toggleFilter={toggleFilter}
-			/>;
-			break;
-		case filterTypes.SINGLE_SELECT:
-			specificFilter = <CustomPieChart key={questionFilter.id}
-				questionFilter={questionFilter}
-				toggleFilter={toggleFilter}
-			/>
-			break;
-	}
-
-	return (
-		<div className="question-chart-box">
-			<FilterTitle text={questionFilter.text} />
-			{specificFilter}
-		</div>
-	);
-}
-
-Filter.propTypes = {
-	questionFilter: PropTypes.object.isRequired,
-	toggleFilter: PropTypes.func.isRequired,
-}
-
-const FilterTitle = ({ text }) => (
-	<div className='question-title-container'>
-		<label className='question-title'> Pregunta: <span className="question-title-text"> {text} </span> </label>
-	</div>
-)
-
-FilterTitle.propTypes = {
-	text: PropTypes.string.isRequired,
-}
