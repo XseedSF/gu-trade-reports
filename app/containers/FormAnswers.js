@@ -4,12 +4,13 @@ import { filteredFormsSelector } from '../selectors';
 
 const mapStateToProps = (state, props) => {
 	if (state.form.result !== undefined) {
-		const result = filteredFormsSelector(state)
+		const result = filteredFormsSelector(state);
 		return {
 			questions: result.questions,
 			completedForms: result.completedForms
 		}
 	}
+
 	return {
 		questions: [],
 		completedForms: [],

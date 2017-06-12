@@ -16,21 +16,21 @@ export const filteredFormsSelector = createSelector(
 		const filteredCompletedForms = form.completedForms
 			.map((id) => {
 				const completedForm = completedForms[id];
-				const questions = completedForm.questions
-					.map(questionId => answers[questionId]);
+				const completdFormAnswers = completedForm.answers
+					.map(answerId => answers[answerId]);
 
 				return {
 					...completedForm,
-					questions
+					answers: completdFormAnswers
 				}
 			})
 			.filter(filterForm);
 
-			const formQuestions = form.questions.map(id => questions[id]);
+		const formQuestions = form.questions.map(id => questions[id]);
 
-			return {
-				completedForms: filteredCompletedForms,
-				questions: formQuestions
-			}
+		return {
+			completedForms: filteredCompletedForms,
+			questions: formQuestions
+		}
 	}
 );

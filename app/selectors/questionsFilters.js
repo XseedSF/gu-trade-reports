@@ -39,9 +39,9 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 
 	const countForm = (cf) => {
 		// sumar en la pregunta, ojo con los indices creo que uno es de anwer y el otro de question
-		const value = cf.questions
+		const value = cf.answers
 			.map((a) => answers[a])
-			.filter((a) => a.Id === q)
+			.filter((a) => a.QuestionId === q)
 			.reduce((ac, a) => a.value, null);
 		filterOptions[value].value += 1;
 	};

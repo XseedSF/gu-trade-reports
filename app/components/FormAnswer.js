@@ -1,20 +1,20 @@
 import React from 'react';
 
-const FormAnswer = ({ question }) => {
-	const renderReponse = (question) => {
-		switch (question.Type) {
+const FormAnswer = ({ answer }) => {
+	const renderReponse = (answer) => {
+		switch (answer.Type) {
 			case 'MO':
-				return <td> {question.SelectedOptionName} </td>;
+				return <td> {answer.SelectedOptionName} </td>;
 			case 'YN':
-				return <td> {question.YesNoValue ? 'Sí' : 'No'} </td>;
+				return <td> {answer.YesNoValue ? 'Sí' : 'No'} </td>;
 			case 'FT':
-				return <td> {question.FreeText} </td>;
+				return <td> {answer.FreeText} </td>;
 			default:
 				return <td> </td>;
 		}
 	}
 
-	return renderReponse(question);
+	return renderReponse(answer);
 }
 
 export default FormAnswer;

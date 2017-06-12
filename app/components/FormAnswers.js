@@ -17,11 +17,11 @@ const FormAnswers = ({ questions, completedForms }) =>
 				</tr>
 			</thead>
 			<tbody>
-				{completedForms && completedForms.map(form =>
-					<tr key={form.Id}>
-						<td>{form.name}</td>
-						{form.questions.map(question =>
-							<FormAnswer key={question.Id} question={question} />)}
+				{completedForms && completedForms.map(completedForm =>
+					<tr key={completedForm.Id}>
+						<td>{completedForm.name}</td>
+						{completedForm.answers.map(answer =>
+							<FormAnswer key={answer.Id} answer={answer} />)}
 					</tr>
 				)}
 			</tbody>

@@ -58,7 +58,7 @@ class FormsReportDA extends BaseDA{
 		    					Id: a.Id,
 		    					name: a.PointOfInterestName,
 		    					pointOfInterestId: a.PointOfInterestId,
-		    					questions: []
+		    					answers: []
 		    				};
 		    				form.completedForms.push(completedForm);
 		    			}
@@ -67,9 +67,9 @@ class FormsReportDA extends BaseDA{
 		    				? new Buffer(a.AnswerImageArray, 'binary').toString('base64')
 		    				: '';
 		    			
-    					completedForm.questions.push({
-    						Id: a.QuestionId,
-		    				AnswerId: a.AnswerId,
+    					completedForm.answers.push({
+		    				Id: a.AnswerId,
+    						QuestionId: a.QuestionId,
     						Type: a.QuestionType,
     						Text: a.QuestionText,
     						YesNoValue: a.AnswerYesNoOption,

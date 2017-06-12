@@ -3,7 +3,7 @@ export const formSelector = state => state.form;
 export const filtersSelector = state => state.filters;
 
 export const filterFormIgnoringQuestions = (answers, filters, ignoredQuestion) => {
-  return (cf) => cf.questions.reduce((ac, a) => {
+  return (cf) => cf.answers.reduce((ac, a) => {
     const answer = answers[a];
 		if (answer === undefined) return ac;
     const filter = filters[answer.Id];
