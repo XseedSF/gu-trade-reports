@@ -8,14 +8,13 @@ export const filteredFormsSelector = createSelector(
 	filtersSelector,
 	(formSelect, filters) => {
 		const { entities, result } = formSelect;
-		const { completedForms, answers, forms } = entities;
+		const { completedForms, answers, forms, questions } = entities;
 		const form = forms[result];
 
 		const filterForm = filterFormIgnoringQuestions(answers, filters, -1);
 
-		return form.completedForms
+		const filteredCompletedForms = form.completedForms
 			.map((id) => {
-				// debugger;
 				const completedForm = completedForms[id];
 				const questions = completedForm.questions
 					.map(questionId => answers[questionId]);
@@ -26,17 +25,12 @@ export const filteredFormsSelector = createSelector(
 				}
 			})
 			.filter(filterForm);
-	}
-);
 
-export const filteredQuestionsSelector = createSelector(
-	formSelector,
-	filtersSelector,
-	(formSelector, filters) => {
-		const { entities, result } = formSelector;
-		const { questions, forms } = entities;
-		const form = forms[result];
+			const formQuestions = form.questions.map(id => questions[id]);
 
-		return form.questions.map(id => questions[id]);
+			return {
+				completedForms: filteredCompletedForms,
+				questions: formQuestions
+			}
 	}
 );

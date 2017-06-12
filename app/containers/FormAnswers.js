@@ -1,11 +1,18 @@
 import { connect } from 'react-redux';
 import { toggleAnswerFilter, clearFilters } from '../actions'
-import { filteredFormsSelector, filteredQuestionsSelector} from '../selectors';
+import { filteredFormsSelector } from '../selectors';
 
 const mapStateToProps = (state, props) => {
+	if (state.form.result !== undefined) {
+		const result = filteredFormsSelector(state)
+		return {
+			questions: result.questions,
+			completedForms: result.completedForms
+		}
+	}
 	return {
-		questions: state.form.result !== undefined ? filteredQuestionsSelector(state) : [],
-		completedForms: state.form.result !== undefined ? filteredFormsSelector(state) : [],
+		questions: [],
+		completedForms: [],
 	}
 }
 
