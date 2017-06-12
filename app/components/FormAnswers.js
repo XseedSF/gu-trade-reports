@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Response from './Response';
+import FormAnswer from './FormAnswer';
 import NoDataMatching from './NoMatchingData';
 import { filterForms } from '../lib/utils';
 import container from '../containers/FormAnswers';
@@ -11,17 +11,17 @@ const FormAnswers = ({ questions, completedForms }) =>
 		<table className='table'>
 			<thead>
 				<tr>
-					{questions && <th>Nombre del Punto</th>}
-					{questions && questions.map(question =>
+					{questions.length > 0 && <th>Nombre del Punto</th>}
+					{questions.length > 0 && questions.map(question =>
 						<th key={question.Id}> {question.Text} </th>)}
 				</tr>
 			</thead>
 			<tbody>
 				{completedForms && completedForms.map(form =>
-					<tr key={form.pointOfInterestId}>
+					<tr key={form.Id}>
 						<td>{form.name}</td>
 						{form.questions.map(question =>
-							<Response key={question.questionId} question={question} />)}
+							<FormAnswer key={question.Id} question={question} />)}
 					</tr>
 				)}
 			</tbody>
@@ -32,10 +32,9 @@ const FormAnswers = ({ questions, completedForms }) =>
 const enhance = compose(
 	container,
 	setPropTypes({
-		questions: React.PropTypes.array.isRequired,
-		forms: React.PropTypes.array.isRequired,
-		filters: React.PropTypes.array.isRequired
-	})
+		questions: React.PropTypes.array,
+		completedForms: React.PropTypes.array.isRequired,
+	}),
 );
 
-export default FormAnswers;
+export default enhance(FormAnswers);

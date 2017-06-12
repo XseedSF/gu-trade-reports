@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { formSelector, filtersSelector, filterFormsIgnoringQuestions } from './common';
+import { formSelector, filtersSelector, filterFormIgnoringQuestions } from './common';
 
 //--------- Selector questionsFilters ---------//
 // Create the filters that are going to be used
@@ -35,7 +35,7 @@ export const questionsFiltersSelector = createSelector(
 );
 
 const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filters, filterOptions, q) => {
-	const filterForm = filterFormsIgnoringQuestions(answers, filters, q);
+	const filterForm = filterFormIgnoringQuestions(answers, filters, q);
 
 	const countForm = (cf) => {
 		// sumar en la pregunta, ojo con los indices creo que uno es de anwer y el otro de question

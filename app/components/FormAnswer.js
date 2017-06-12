@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Response = ({ question }) => {
+const FormAnswer = ({ question }) => {
 	const renderReponse = (question) => {
 		switch (question.Type) {
 			case 'MO':
@@ -17,4 +17,4 @@ const Response = ({ question }) => {
 	return renderReponse(question);
 }
 
-export default Response;
+export default FormAnswer;
