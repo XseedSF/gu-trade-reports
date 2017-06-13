@@ -14,17 +14,17 @@ export const filteredFormsSelector = createSelector(
 		const filterForm = filterFormIgnoringQuestions(answers, filters, -1);
 
 		const filteredCompletedForms = form.completedForms
-			.map((id) => {
-				const completedForm = completedForms[id];
+			.map((id) => completedForms[id])
+			.filter(filterForm)
+			.map(completedForm => {
 				const completdFormAnswers = completedForm.answers
-					.map(answerId => answers[answerId]);
+					.map(id => answers[id]);
 
 				return {
 					...completedForm,
 					answers: completdFormAnswers
 				}
-			})
-			.filter(filterForm);
+			});
 
 		const formQuestions = form.questions.map(id => questions[id]);
 

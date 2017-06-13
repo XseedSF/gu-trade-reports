@@ -38,7 +38,7 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 	const filterForm = filterFormIgnoringQuestions(answers, filters, q);
 
 	const countForm = (cf) => {
-		// sumar en la pregunta, ojo con los indices creo que uno es de anwer y el otro de question
+		// sumar en la pregunta, ojo con los indices creo que uno es de answer y el otro de question
 		const value = cf.answers
 			.map((a) => answers[a])
 			.filter((a) => a.QuestionId === q)
@@ -47,7 +47,7 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 	};
 
 	form.completedForms
-		.map((cf) => completedForms[cf])
+		.map((id) => completedForms[id])
 		.filter(filterForm)
 		.forEach(countForm);
 

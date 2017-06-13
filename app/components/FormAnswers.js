@@ -21,7 +21,7 @@ const FormAnswers = ({ questions, completedForms }) =>
 					<tr key={completedForm.Id}>
 						<td>{completedForm.name}</td>
 						{completedForm.answers.map(answer =>
-							<FormAnswer key={answer.Id} answer={answer} />)}
+							<FormAnswer key={answer.QuestionId} answer={answer} />)}
 					</tr>
 				)}
 			</tbody>
