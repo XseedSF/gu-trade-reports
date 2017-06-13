@@ -35,10 +35,11 @@ export const questionsFiltersSelector = createSelector(
 );
 
 const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filters, filterOptions, q) => {
-	const filterForm = filterFormIgnoringQuestions(answers, filters, q);
+	const hasFilters = filters[q] !== undefined;
+	const alwaysTrue = () => true;
+	const filterForm = hasFilters ? alwaysTrue : filterFormIgnoringQuestions(answers, filters, q);
 
 	const countForm = (cf) => {
-		// sumar en la pregunta, ojo con los indices creo que uno es de answer y el otro de question
 		const value = cf.answers
 			.map((a) => answers[a])
 			.filter((a) => a.QuestionId === q)
