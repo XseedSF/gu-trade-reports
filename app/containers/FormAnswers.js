@@ -3,17 +3,18 @@ import { toggleAnswerFilter, clearFilters } from '../actions'
 import { filteredFormsSelector } from '../selectors';
 
 const mapStateToProps = (state, props) => {
+	let questions = [];
+	let completedForms = [];
 	if (state.form.result !== undefined) {
 		const result = filteredFormsSelector(state);
-		return {
-			questions: result.questions,
-			completedForms: result.completedForms
-		}
+		questions = result.questions;
+		completedForms = result.completedForms;
 	}
 
 	return {
-		questions: [],
-		completedForms: [],
+		questions,
+		completedForms,
+		isLoading: state.form.isLoading,
 	}
 }
 

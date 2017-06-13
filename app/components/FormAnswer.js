@@ -4,13 +4,13 @@ const FormAnswer = ({ answer }) => {
 	const renderReponse = (answer) => {
 		switch (answer.Type) {
 			case 'MO':
-				return <td> {answer.SelectedOptionName} </td>;
+				return <span> {answer.SelectedOptionName} </span>;
 			case 'YN':
-				return <td> {answer.YesNoValue ? 'Sí' : 'No'} </td>;
+				return <span> {answer.YesNoValue ? 'Sí' : 'No'} </span>;
 			case 'FT':
-				return <td> {answer.FreeText} </td>;
+				return <span> {answer.FreeText} </span>;
 			default:
-				return <td> </td>;
+				return <span> </span>;
 		}
 	}
 
