@@ -1,5 +1,5 @@
 import { actions, filterTypes } from '../constants';
-import { deleteAttribute } from '../lib/utils';
+import { deleteAttribute } from '../utils';
 
 const filter = (state = {}, action) => {
 	switch (action.type) {
