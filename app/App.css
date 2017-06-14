@@ -85,12 +85,6 @@
   margin-right: auto;
 }
 
-.table-centered {
-  margin-left: auto;
-  margin-right: auto;
-  width: 1000px;
-}
-
 .question-title-container {
   margin-bottom : 15px;
 }
@@ -106,4 +100,19 @@
 
 .no-data {
   color: red;
+}
+
+table {
+	border-collapse: collapse;
+}
+td {
+	padding: 8px;
+  border-top: 1px solid #ddd;
+}
+th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #ddd;
+}
+tr:nth-child(even) {
+	background-color: #f2f2f2
 }
