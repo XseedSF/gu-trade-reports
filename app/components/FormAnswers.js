@@ -12,15 +12,15 @@ const FormAnswers = ({ questions, completedForms }) =>
 			<thead>
 				<tr>
 					<th>Nombre del punto de venta</th>
-					{questions.map(question => <th key={question.id}>{question.text}</th>)}
+					{questions.map(question => <th key={question.Id}>{question.Text}</th>)}
 				</tr>
 			</thead>
 			<tbody>
 				{completedForms.map(completedForm =>
-					<tr key={completedForm.id}>
+					<tr key={completedForm.Id}>
 						<td>{completedForm.name}</td>
 						{completedForm.answers.map(answer =>
-							<td key={answer.id}>
+							<td key={answer.Id}>
 								<FormAnswer answer={answer} />
 							</td>
 						)}
