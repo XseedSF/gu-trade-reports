@@ -15,7 +15,7 @@ const loadImage = (image) => {
 	}
 }
 
-const ImageAnswer = ({ image, showImage }) =>
-	<button onClick={() => showImage(image)}>Ver Imagen</button>;
+const ImageAnswer = ({ image }) =>
+	<button onClick={() => loadImage(image)}>Ver Imagen</button>;
 
 export default ImageAnswer;
