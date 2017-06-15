@@ -5,31 +5,39 @@ import NoDataMatching from './NoMatchingData';
 import container from '../containers/FormAnswers';
 import { compose, setPropTypes } from 'recompose';
 import withSpinnerWhileLoading from '../hocs/withSpinnerWhileLoading';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css'
 
-const FormAnswers = ({ questions, completedForms }) =>
-	<div>
-		<table>
-			<thead>
-				<tr>
-					<th>Nombre del punto de venta</th>
-					{questions.map(question => <th key={question.Id}>{question.Text}</th>)}
-				</tr>
-			</thead>
-			<tbody>
-				{completedForms.map(completedForm =>
-					<tr key={completedForm.Id}>
-						<td>{completedForm.name}</td>
-						{completedForm.answers.map(answer =>
-							<td key={answer.Id}>
-								<FormAnswer answer={answer} />
-							</td>
-						)}
-					</tr>
-				)}
-			</tbody>
-		</table>
-		{completedForms && completedForms.length === 0 && <NoDataMatching />}
-	</div>;
+const FormAnswers = ({ questions, completedForms }) => {
+	const columns = [
+		{
+			Header: 'Nombre del punto de venta',
+			accessor: 'name',
+			minWidth: 200,
+		},
+		...questions.map((question, index) => {
+			return {
+				Header: question.Text,
+				accessor: index.toString(),
+				Cell: ({ value }) => <FormAnswer answer={value[index]} />,
+			}
+		})
+	];
+
+	const data = [];
+	for (let completedForm of completedForms) {
+		const answers = completedForm.answers.map((answer, index) => {
+			const attr = index.toString();
+			return { [attr]: answer };
+		});
+		data.push({
+			name: completedForm.name,
+			...answers
+		});
+	}
+
+	return <ReactTable columns={columns} data={data} />
+}
 
 const enhance = compose(
 	container,
