@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const loadImage = (image) => {
 	var myImage = new Image;
@@ -16,6 +17,8 @@ const loadImage = (image) => {
 }
 
 const ImageAnswer = ({ image }) =>
-	<button onClick={() => loadImage(image)}>Ver Imagen</button>;
+	<RaisedButton
+		label="Ver Imagen"
+		onTouchTap={() => loadImage(image)} />;
 
 export default ImageAnswer;
