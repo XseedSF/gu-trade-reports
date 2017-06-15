@@ -2,13 +2,13 @@ import React from 'react';
 
 const FormAnswer = ({ answer }) => {
 	const renderReponse = (answer) => {
-		switch (answer.Type) {
+		switch (answer.type) {
 			case 'MO':
-				return <span> {answer.SelectedOptionName} </span>;
+				return <span> {answer.selectedOptionName} </span>;
 			case 'YN':
-				return <span> {answer.YesNoValue ? 'Sí' : 'No'} </span>;
+				return <span> {answer.yesNoValue ? 'Sí' : 'No'} </span>;
 			case 'FT':
-				return <span> {answer.FreeText} </span>;
+				return <span> {answer.freeText} </span>;
 			default:
 				return <span> </span>;
 		}

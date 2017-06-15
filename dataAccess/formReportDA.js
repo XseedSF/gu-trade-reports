@@ -8,7 +8,7 @@ class FormsReportDA extends BaseDA {
 
 	getCompletedForms(filter, success, error) {
 		//console.log('filter', filter);
-			// Stored Procedure
+		// Stored Procedure
 		sql.connect(this.sqlConfig).then(function () {
 			let sp = new sql.Request()
 				.input('IdForm', sql.Int, filter.id)
@@ -31,11 +31,11 @@ class FormsReportDA extends BaseDA {
 						q = rq[i];
 						if (question == null || question.Id != q.QuestionId) {
 							question = {
-								Id: q.QuestionId,
-								Type: q.Type,
-								Text: q.Text,
-								Required: q.Required,
-								Options: []
+								id: q.QuestionId,
+								type: q.Type,
+								text: q.Text,
+								required: q.Required,
+								options: []
 							};
 							form.questions.push(question);
 						}
@@ -43,9 +43,9 @@ class FormsReportDA extends BaseDA {
 						if (q.QuestionOptionId == null) {
 							delete q.Options;
 						} else {
-							question.Options.push({
-								Id: q.QuestionOptionId,
-								Text: q.QuestionOptionText
+							question.options.push({
+								id: q.QuestionOptionId,
+								text: q.QuestionOptionText
 							});
 						}
 					}
@@ -54,7 +54,7 @@ class FormsReportDA extends BaseDA {
 						a = ra[i];
 						if (completedForm == null || completedForm.Id != a.Id) {
 							completedForm = {
-								Id: a.Id,
+								id: a.Id,
 								name: a.PointOfInterestName,
 								pointOfInterestId: a.PointOfInterestId,
 								answers: []
@@ -67,30 +67,27 @@ class FormsReportDA extends BaseDA {
 							: '';
 
 						completedForm.answers.push({
-							Id: a.AnswerId,
-							QuestionId: a.QuestionId,
-							Type: a.QuestionType,
-							Text: a.QuestionText,
-							YesNoValue: a.AnswerYesNoOption,
-							FreeText: a.AnswerFreeText,
-							SelectedOptionId: a.AnswerOptionId,
-							SelectedOptionName: a.AnswerOptionText,
-							ImageBase64: base64Image,
+							id: a.AnswerId,
+							questionId: a.QuestionId,
+							type: a.QuestionType,
+							text: a.QuestionText,
+							yesNoValue: a.AnswerYesNoOption,
+							freeText: a.AnswerFreeText,
+							selectedOptionId: a.AnswerOptionId,
+							selectedOptionName: a.AnswerOptionText,
+							imageBase64: base64Image,
 							value: getAnswerValue(a),
 						});
 					}
-
 					success(form);
 				} else {
 					success(reader);
 				}
-
-
 			}).catch(error);
 		}).catch(error);
 	}
-
 }
+
 const getAnswerValue = (a) => {
 	switch (a.QuestionType) {
 		case 'CK': return a.AnswerCheck;
@@ -105,8 +102,4 @@ const getAnswerValue = (a) => {
 	}
 }
 
-
 module.exports = FormsReportDA;
-
-
-

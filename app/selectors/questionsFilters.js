@@ -13,10 +13,10 @@ export const questionsFiltersSelector = createSelector(
 
 		return form.questions.map((q) => {
 			const question = questions[q];
-			const { Id, Text, Type, Options: questionOptions } = question;
+			const { id, text, type, options: questionOptions } = question;
 
 			// Me fijo que tipo de filtro es
-			const type = Type === 'MO' ? 'MULTI_SELECT' : 'SINGLE_SELECT';
+			const filterType = type === 'MO' ? 'MULTI_SELECT' : 'SINGLE_SELECT';
 
 			// Creo las opciones posibles
 			let filterOptions = createFitlerOptions(question, options, filters);
@@ -28,7 +28,7 @@ export const questionsFiltersSelector = createSelector(
 			// Quito opciones con valor 0
 			// TODO
 
-			return { id: Id, text: Text, type, options: filterOptions };
+			return { id, text, filterType, options: filterOptions };
 		})
 			.filter((f) => f);
 	}
@@ -42,7 +42,7 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 	const countForm = (cf) => {
 		const value = cf.answers
 			.map((a) => answers[a])
-			.filter((a) => a.QuestionId === q)
+			.filter((a) => a.questionId === q)
 			.reduce((ac, a) => a.value, null);
 		filterOptions[value].value += 1;
 	};
@@ -55,22 +55,22 @@ const countFilteredFormsFilterOptions = (form, { completedForms, answers }, filt
 }
 
 const createFitlerOptions = (question, optionsById, filters) => {
-	const { Id, Type, Options, Required } = question;
-	const filter = filters[Id];
+	const { id, type, options, required } = question;
+	const filter = filters[id];
 	const createOption = createFilterOption(filter);
-	let options = null;
+	let filterOptions = null;
 
-	switch (Type) {
+	switch (type) {
 		// Una opción por opción de pregunta, numeros van a entrar aca en el futuro
 		case 'MO':
-			options = Options.reduce((ac, e) => {
+			filterOptions = options.reduce((ac, e) => {
 				ac[e] = createOption(optionsById[e].Text, e);
 				return ac;
 			}, {});
 			break;
 		// Opción si o no
 		case 'YN': case 'CK':
-			options = {
+			filterOptions = {
 				true: createOption("Si", true),
 				false: createOption("No", false),
 			};
@@ -78,14 +78,14 @@ const createFitlerOptions = (question, optionsById, filters) => {
 		// Opción completado y no completado
 		case 'CODE': case 'DATE': case 'FT': case 'IMG': case 'NUM': case 'SIG':
 			// Si es requerido no hay opciones de filtro
-			if (!Required)
-				options = {
+			if (!required)
+				filterOptions = {
 					true: createOption("Completado", true),
 					false: createOption("No Completado", false),
 				};
 			break;
 	}
-	return options;
+	return filterOptions;
 }
 
 const createFilterOption = (filter) => ((name, option) => ({ name, selected: isFilterSelected(filter, option), value: 0, key: option }))
