@@ -19,7 +19,7 @@ const FormAnswers = ({ questions, completedForms }) => {
 			return {
 				Header: question.Text,
 				accessor: index.toString(),
-				Cell: ({ value }) => <FormAnswer answer={value[index]} />,
+				Cell: ({ value }) => <FormAnswer answer={value[index].answer} name={value[index].name} />,
 			}
 		})
 	];
@@ -28,7 +28,7 @@ const FormAnswers = ({ questions, completedForms }) => {
 	for (let completedForm of completedForms) {
 		const answers = completedForm.answers.map((answer, index) => {
 			const attr = index.toString();
-			return { [attr]: answer };
+			return { [attr]: { answer, name: completedForm.name} };
 		});
 		data.push({
 			name: completedForm.name,

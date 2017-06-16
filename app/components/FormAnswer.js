@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageAnswer from './ImageAnswer';
 
-const FormAnswer = ({ answer }) => {
+const FormAnswer = ({ answer, name }) => {
 	const renderReponse = (answer) => {
 		switch (answer.Type) {
 			case 'MO':
@@ -11,7 +11,7 @@ const FormAnswer = ({ answer }) => {
 			case 'FT':
 				return <span> {answer.FreeText} </span>;
 			case 'CAM':
-				return answer.ImageBase64 ? <ImageAnswer image={answer.ImageBase64} /> : <span> Sin imagen </span>;
+				return answer.ImageBase64 ? <ImageAnswer image={answer.ImageBase64} title={name} /> : <span> Sin imagen </span>;
 			default:
 				return <span> </span>;
 		}
