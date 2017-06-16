@@ -76,7 +76,7 @@ const createFitlerOptions = (question, optionsById, filters) => {
 			};
 			break;
 		// Opción completado y no completado
-		case 'CODE': case 'DATE': case 'FT': case 'IMG': case 'NUM': case 'SIG':
+		case 'CODE': case 'DATE': case 'FT': case 'IMG': case 'NUM': case 'SIG': case 'CAM':
 			// Si es requerido no hay opciones de filtro
 			if (!Required)
 				options = {

@@ -8,7 +8,7 @@ class FormsReportDA extends BaseDA {
 
 	getCompletedForms(filter, success, error) {
 		//console.log('filter', filter);
-			// Stored Procedure
+		// Stored Procedure
 		sql.connect(this.sqlConfig).then(function () {
 			let sp = new sql.Request()
 				.input('IdForm', sql.Int, filter.id)
@@ -84,8 +84,6 @@ class FormsReportDA extends BaseDA {
 				} else {
 					success(reader);
 				}
-
-
 			}).catch(error);
 		}).catch(error);
 	}
@@ -102,11 +100,8 @@ const getAnswerValue = (a) => {
 		case 'DATE': return !a.AnswerSkipped;
 		case 'SIG': return !a.AnswerSkipped;
 		case 'IMG': return !a.AnswerSkipped;
+		case 'CAM': return !a.AnswerSkipped && a.AnswerImageArray != null;
 	}
 }
 
-
 module.exports = FormsReportDA;
-
-
-
