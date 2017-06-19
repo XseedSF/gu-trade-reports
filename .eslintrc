@@ -1,0 +1,17 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+  },
+  "plugins": [ "react" ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      },
+    "sourceType": "module",
+  },
+  "extends": [ "eslint:recommended", "plugin:react/recommended" ],
+}

@@ -7,7 +7,7 @@ import { compose, lifecycle } from "recompose";
 import "../App.css";
 import "../fixed-data-table.css";
 import { Route } from "react-router-dom";
-import { TestDateSelector } from "./TestDateSelector";
+import { TestDateSelector, Cycling } from "./TestDateSelector";
 
 const App = props =>
   <div className="App">
