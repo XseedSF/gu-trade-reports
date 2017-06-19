@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageAnswer from './ImageAnswer';
+import DateText from './DateText';
 
 const FormAnswer = ({ answer, name }) => {
 	const renderReponse = (answer) => {
@@ -12,6 +13,8 @@ const FormAnswer = ({ answer, name }) => {
 				return <span> {answer.FreeText} </span>;
 			case 'CAM':
 				return answer.ImageBase64 ? <ImageAnswer image={answer.ImageBase64} title={name} /> : <span> Sin imagen </span>;
+			case 'DATE':
+				return <span> {<DateText value={answer.DateReply} />} </span>;
 			default:
 				return <span> </span>;
 		}

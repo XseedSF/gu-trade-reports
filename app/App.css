@@ -74,11 +74,11 @@
 					flex-wrap: wrap;
 }
 
-.question-chart-box {
+/*.question-chart-box {
 	-webkit-flex-basis: 33.33%;
 		 -moz-flex-basis: 33.33%;
 					flex-basis: 33.33%;
-}
+}*/
 
 .chart-centered {
   margin-left: auto;

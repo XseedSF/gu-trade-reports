@@ -76,6 +76,7 @@ class FormsReportDA extends BaseDA {
 							SelectedOptionId: a.AnswerOptionId,
 							SelectedOptionName: a.AnswerOptionText,
 							ImageBase64: base64Image,
+							DateReply: a.AnswerDateReply,
 							value: getAnswerValue(a),
 						});
 					}

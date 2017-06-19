@@ -28,7 +28,7 @@ const FormAnswers = ({ questions, completedForms }) => {
 	for (let completedForm of completedForms) {
 		const answers = completedForm.answers.map((answer, index) => {
 			const attr = index.toString();
-			return { [attr]: { answer, name: completedForm.name} };
+			return { [attr]: { answer, name: completedForm.name } };
 		});
 		data.push({
 			name: completedForm.name,
