@@ -7,19 +7,16 @@ import {
   Brush,
   YAxis,
   AreaChart,
-  LineChart,
+  LineChart
 } from "react-timeseries-charts";
-import { TimeSeries, TimeRange, avg, filter, percentile, median } from "pondjs";
+import { TimeSeries } from "pondjs";
 
-const data = require("./dataSet.js");//require("./bike.js");
+const data = require("./dataSet.js"); //require("./bike.js");
 
-const pacePoints = [];
-const speedPoints = [];
-const hrPoints = [];
 const altitudePoints = [];
 for (let i = 0; i < data.time.length; i += 1) {
   if (i > 0) {
-    const time = data.time[i] * 1000;
+    const time = data.time[i];
     const altitude = data.altitude[i];
     altitudePoints.push([time, altitude]);
   }
@@ -34,7 +31,7 @@ const altitude = new TimeSeries({
 class TestDateSelector extends React.Component {
   constructor(props) {
     super(props);
-    const initialRange = null;//new TimeRange([75 * 60 * 1000, 125 * 60 * 1000]);
+    const initialRange = null; //new TimeRange([75 * 60 * 1000, 125 * 60 * 1000]);
     this.state = {
       mode: "channels",
       rollup: "1m",
@@ -45,13 +42,9 @@ class TestDateSelector extends React.Component {
 
     this.handleTrackerChanged = this.handleTrackerChanged.bind(this);
     this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
-    this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
   }
   handleTrackerChanged(t) {
     this.setState({ tracker: t });
-  }
-  handleTimeRangeChange(event) {
-    console.log(event);
   }
   handleTimeRangeChange(timerange) {
     if (timerange) {
@@ -74,7 +67,7 @@ class TestDateSelector extends React.Component {
               timeRange={this.state.brushrange}
               allowSelectionClear
               onTimeRangeChanged={this.handleTimeRangeChange}
-              style={{ fill: '#77e677' }}
+              style={{ fill: "#77e677" }}
             />
             <YAxis
               id="axis1"
@@ -86,21 +79,21 @@ class TestDateSelector extends React.Component {
               format="d"
             />
             <Charts>
-            {
-              // <AreaChart
-              //   axis="axis1"
-              //   columns={{ up: ["altitude"], down: [] }}
-              //   series={altitude}
-              // /> 
-            }
-            {
-            <LineChart
-              axis="axis1"
-              series={altitude}
-              columns={["altitude"]}
-              breakLine={true}
-            />
-            }
+              {
+                <AreaChart
+                  axis="axis1"
+                  columns={{ up: ["altitude"], down: [] }}
+                  series={altitude}
+                />
+              }
+              {
+                //<LineChart
+                //  axis="axis1"
+                //  series={altitude}
+                //  columns={["altitude"]}
+                //  breakLine={true}
+                ///>
+              }
             </Charts>
           </ChartRow>
         </ChartContainer>

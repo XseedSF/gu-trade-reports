@@ -6,26 +6,12 @@ import { AppContainer } from "../containers";
 import { compose, lifecycle } from "recompose";
 import "../App.css";
 import "../fixed-data-table.css";
-import { Route } from "react-router-dom";
-import { TestDateSelector, Cycling } from "./TestDateSelector";
 
-const App = props =>
+const App = () =>
   <div className="App">
-    <Route
-      exact={true}
-      path="/test-date-selector"
-      component={TestDateSelector}
-    />
-    <Route
-      exact={true}
-      path="/"
-      render={() =>
-        <div>
-          <Header />
-          <Filters />
-          <FormAnswers />
-        </div>}
-    />
+    <Header />
+    <Filters />
+    <FormAnswers />
   </div>;
 
 const withFetchForm = lifecycle({
