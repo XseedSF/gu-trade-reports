@@ -19,7 +19,7 @@ export const filterFormIgnoringQuestions = (
       switch (answer.Type) {
         case questionTypes.DATE:
           matchesFilter =
-            filter != null && isDateInRange(answer.DateReply, filter.selected);
+            filter != null && isDateInRange(answer.value, filter.selected);
         default:
           matchesFilter =
             filter != null && filter.selected.includes(answer.value);
@@ -33,7 +33,7 @@ export const filterFormIgnoringQuestions = (
 };
 
 const isDateInRange = (date, range) => {
-  const startDate = moment(range[0]);
-  const endDate = moment(range[1]);
-  return moment(date).isBetween(startDate, endDate);
+  const startDate = range[0];
+  const endDate = range[1];
+  return date >= startDate && date <= endDate;
 };

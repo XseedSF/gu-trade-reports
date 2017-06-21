@@ -131,9 +131,9 @@ const createFitlerOptions = (question, optionsById, filters, answers) => {
         .map(id => answers[id])
         .filter(answer => answer.QuestionId == Id && answer.DateReply != null)
         .map(answer => answer.value)
-        .reduce((ac, e) => {
-          ac[e] = createOption(e, e);
-          return ac;
+        .reduce((acum, elem) => {
+          acum[elem] = createOption(elem, elem);
+          return acum;
         }, {});
       break;
   }
