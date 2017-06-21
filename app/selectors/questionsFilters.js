@@ -17,12 +17,17 @@ export const questionsFiltersSelector = createSelector(
     const form = forms[result];
 
     return form.questions
-      .map(q => {
-        const question = questions[q];
+      .map(questionid => {
+        const question = questions[questionid];
         const { Id, Text, Type, Options: questionOptions } = question;
 
         // Creo las opciones posibles
-        let filterOptions = createFitlerOptions(question, options, filters);
+        let filterOptions = createFitlerOptions(
+          question,
+          options,
+          filters,
+          answers
+        );
         if (!filterOptions) return null;
 
         // Cuanto cantidad de formularios filtrados hay por opción
@@ -31,7 +36,7 @@ export const questionsFiltersSelector = createSelector(
           entities,
           filters,
           filterOptions,
-          q
+          questionid
         );
 
         // Quito opciones con valor 0
@@ -61,20 +66,22 @@ const countFilteredFormsFilterOptions = (
   { completedForms, answers },
   filters,
   filterOptions,
-  q
+  questionId
 ) => {
-  const hasFilters = filters[q] !== undefined;
+  const hasFilters = filters[questionId] !== undefined;
   const alwaysTrue = () => true;
   const filterForm = hasFilters
     ? alwaysTrue
-    : filterFormIgnoringQuestions(answers, filters, q);
+    : filterFormIgnoringQuestions(answers, filters, questionId);
 
-  const countForm = cf => {
-    const value = cf.answers
-      .map(a => answers[a])
-      .filter(a => a.QuestionId === q)
-      .reduce((ac, a) => a.value, null);
-    filterOptions[value].value += 1;
+  const countForm = completedForm => {
+    const value = completedForm.answers
+      .map(id => answers[id])
+      .filter(answer => answer.QuestionId === questionId)
+      .reduce((prev, answer) => answer.value, null);
+    if (filterOptions[value] !== undefined) {
+      filterOptions[value].value += 1;
+    }
   };
 
   form.completedForms
@@ -83,7 +90,7 @@ const countFilteredFormsFilterOptions = (
     .forEach(countForm);
 };
 
-const createFitlerOptions = (question, optionsById, filters) => {
+const createFitlerOptions = (question, optionsById, filters, answers) => {
   const { Id, Type, Options, Required } = question;
   const filter = filters[Id];
   const createOption = createFilterOption(filter);
@@ -111,7 +118,6 @@ const createFitlerOptions = (question, optionsById, filters) => {
     case questionTypes.IMAGE:
     case questionTypes.NUMERIC:
     case questionTypes.SIGNATURE:
-    case questionTypes.DATE:
     case questionTypes.CAMERA:
       // Si es requerido no hay opciones de filtro
       if (!Required)
@@ -119,6 +125,16 @@ const createFitlerOptions = (question, optionsById, filters) => {
           true: createOption("Completado", true),
           false: createOption("No Completado", false)
         };
+      break;
+    case questionTypes.DATE:
+      options = Object.keys(answers)
+        .map(id => answers[id])
+        .filter(answer => answer.QuestionId == Id && answer.DateReply != null)
+        .map(answer => answer.value)
+        .reduce((ac, e) => {
+          ac[e] = createOption(e, e);
+          return ac;
+        }, {});
       break;
   }
   return options;
@@ -130,5 +146,6 @@ const createFilterOption = filter => (name, option) => ({
   value: 0,
   key: option
 });
+
 const isFilterSelected = (filter, option) =>
   filter !== undefined && filter.selected.includes(option);

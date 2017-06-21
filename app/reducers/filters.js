@@ -7,29 +7,27 @@ const filter = (state = {}, action) => {
       const { id, type, value } = action.payload;
       const { selected = [] } = state;
 
-      const alreadySelected = selected.includes(value);
+      const clearSelection = value === null || selected.includes(value);
 
       switch (type) {
         case filterTypes.SINGLE_SELECT:
           return {
             id,
-            selected: alreadySelected
+            selected: clearSelection
               ? selected.filter(e => e != value)
               : [value]
           };
         case filterTypes.MULTI_SELECT:
           return {
             id,
-            selected: alreadySelected
+            selected: clearSelection
               ? selected.filter(e => e != value)
               : [...selected, value]
           };
         case filterTypes.DATE_RANGE_SELECT:
           return {
             id,
-            selected: alreadySelected
-              ? selected.filter(e => e != value)
-              : [value]
+            selected: clearSelection ? [] : value
           };
         default:
           return state;

@@ -10,6 +10,7 @@ import {
   YAxis,
   AreaChart
 } from "react-timeseries-charts";
+import moment from "moment";
 
 const enhance = compose(
   withHandlers({
@@ -22,7 +23,7 @@ const enhance = compose(
   })
 );
 
-const data = require("../TestDateSelector/dataSet.js"); //require("./bike.js");
+const data = require("../TestDateSelector/dataSet.js");
 
 const altitudePoints = [];
 for (let i = 0; i < data.time.length; i += 1) {
@@ -42,7 +43,7 @@ const altitude = new TimeSeries({
 class DateRangeChart extends React.Component {
   constructor(props) {
     super(props);
-    const initialRange = null; //new TimeRange([75 * 60 * 1000, 125 * 60 * 1000]);
+    const initialRange = null;
     this.state = {
       mode: "channels",
       rollup: "1m",
@@ -51,56 +52,57 @@ class DateRangeChart extends React.Component {
       brushrange: initialRange
     };
 
-    this.handleTrackerChanged = this.handleTrackerChanged.bind(this);
     this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
   }
-  handleTrackerChanged(t) {
-    this.setState({ tracker: t });
-  }
+
   handleTimeRangeChange(timerange) {
     if (timerange) {
+      const { id, type } = this.props.questionFilter;
+      const startDate = this.getDateFromTimeRange(timerange, 0);
+      const endDate = this.getDateFromTimeRange(timerange, 1);
+      this.props.toggleFilter(id, type, [startDate, endDate]);
+
       this.setState({ timerange, brushrange: timerange });
     } else {
+      const { id, type } = this.props.questionFilter;
+      this.props.toggleFilter(id, type, null);
       this.setState({ timerange: altitude.range(), brushrange: null });
     }
   }
-
+  getDateFromTimeRange(timerange, index) {
+    const range = timerange._range._tail.array;
+    return moment(range[index]).format("DD/MM/YYYY");
+  }
   render() {
     return (
-      <Resizable>
-        <ChartContainer
-          timeRange={altitude.range()}
-          format="relative"
-          trackerPosition={this.state.tracker}
-        >
-          <ChartRow height="100" debug={false}>
-            <Brush
-              timeRange={this.state.brushrange}
-              allowSelectionClear
-              onTimeRangeChanged={this.handleTimeRangeChange}
-              style={{ fill: "#77e677" }}
-            />
-            <YAxis
-              id="axis1"
-              label="Altitude (ft)"
-              min={0}
-              max={altitude.max("altitude")}
-              width={70}
-              type="linear"
-              format="d"
-            />
-            <Charts>
-              {
-                <AreaChart
-                  axis="axis1"
-                  columns={{ up: ["altitude"], down: [] }}
-                  series={altitude}
-                />
-              }
-            </Charts>
-          </ChartRow>
-        </ChartContainer>
-      </Resizable>
+      <ChartContainer timeRange={altitude.range()} format="relative">
+        <ChartRow height="100" debug={false}>
+          <Brush
+            timeRange={this.state.brushrange}
+            allowSelectionClear
+            onTimeRangeChanged={this.handleTimeRangeChange}
+            style={{ fill: "#77e677" }}
+          />
+          <YAxis
+            id="axis1"
+            label="Altitude (ft)"
+            min={0}
+            max={altitude.max("altitude")}
+            width={70}
+            type="linear"
+            format="d"
+          />
+          <Charts>
+            {
+              <AreaChart
+                axis="axis1"
+                columns={{ up: ["altitude"], down: [] }}
+                series={altitude}
+              />
+            }
+          </Charts>
+        </ChartRow>
+      </ChartContainer>
     );
   }
 }
