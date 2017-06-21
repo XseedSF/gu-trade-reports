@@ -20,9 +20,11 @@ export const filterFormIgnoringQuestions = (
         case questionTypes.DATE:
           matchesFilter =
             filter != null && isDateInRange(answer.value, filter.selected);
+          break;
         default:
           matchesFilter =
             filter != null && filter.selected.includes(answer.value);
+          break;
       }
 
       return (
