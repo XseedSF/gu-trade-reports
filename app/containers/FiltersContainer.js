@@ -3,8 +3,6 @@ import { toggleAnswerFilter, clearFilters } from "../actions";
 import { questionsFiltersSelector } from "../selectors";
 
 const mapStateToProps = (state, ownProps) => {
-  if (state.form.result !== undefined)
-    console.log(questionsFiltersSelector(state));
   return {
     questionsFilters: state.form.result !== undefined
       ? questionsFiltersSelector(state)

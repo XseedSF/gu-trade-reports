@@ -1,5 +1,4 @@
 import React from "react";
-import { compose, withHandlers } from "recompose";
 import { TimeSeries } from "pondjs";
 import {
   Resizable,
@@ -10,6 +9,7 @@ import {
   YAxis,
   AreaChart
 } from "react-timeseries-charts";
+import * as dateUtils from "../../utils/dates";
 
 class DateRangeChart extends React.Component {
   constructor(props) {
@@ -28,19 +28,12 @@ class DateRangeChart extends React.Component {
     this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
   }
 
-  getDataForChart({ id, type, options }) {
-    const optionsKeys = Object.keys(options);
-    return optionsKeys.map(key => options[key]);
+  componentDidMount() {
+    this.setChartData();
   }
-  getDatesRange(data) {
-    const dates = data.map(d => d.name);
-    const max = Math.max(...dates);
-    const min = Math.min(...dates);
-    return { max, min };
-  }
+
   setChartData() {
     const points = this.getAltitudePoints();
-
     const altitude = new TimeSeries({
       name: "Altitude",
       columns: ["time", "altitude"],
@@ -49,10 +42,10 @@ class DateRangeChart extends React.Component {
 
     this.setState({ ...this.state, altitude });
   }
+
   getAltitudePoints() {
     const data = this.getDataForChart(this.props.questionFilter);
     const datesRange = this.getDatesRange(data);
-    const oneDay = 24 * 60 * 60 * 1000;
 
     const points = [];
     let time = datesRange.min;
@@ -63,18 +56,27 @@ class DateRangeChart extends React.Component {
         altitude = completedDate.value;
       }
       points.push([time, altitude]);
-      time += oneDay;
+      time += dateUtils.oneDayMilliseconds;
     }
 
     return points;
   }
-  componentDidMount() {
-    this.setChartData();
+
+  getDataForChart({ id, type, options }) {
+    const optionsKeys = Object.keys(options);
+    return optionsKeys.map(key => options[key]);
+  }
+
+  getDatesRange(data) {
+    const dates = data.map(d => d.name);
+    let range = dateUtils.getDateLimits(dates);
+    range = dateUtils.addDaysMarinToRange(range, 1);
+    range = dateUtils.setMinTotalDaysToRange(range, 7);
+    return range;
   }
 
   handleTimeRangeChange(timerange) {
     const { id, type } = this.props.questionFilter;
-
     if (timerange) {
       const startDate = this.getDateFromTimeRange(timerange, 0);
       const endDate = this.getDateFromTimeRange(timerange, 1);
@@ -89,13 +91,16 @@ class DateRangeChart extends React.Component {
       });
     }
   }
+
   getDateFromTimeRange(timerange, index) {
     const range = timerange._range._tail.array;
-    return range[index].valueOf();
+    return range[index].getTime();
   }
   render() {
     return (
-      <ChartContainer timeRange={this.state.altitude.range()} format="relative">
+      <ChartContainer
+        timeRange={this.state.altitude.range()}
+      >
         <ChartRow height="100" debug={false}>
           <Brush
             timeRange={this.state.brushrange}
@@ -105,7 +110,7 @@ class DateRangeChart extends React.Component {
           />
           <YAxis
             id="axis1"
-            label="Nº completados"
+            label="Nº Completados"
             min={0}
             max={this.state.altitude.max("altitude")}
             width={70}
