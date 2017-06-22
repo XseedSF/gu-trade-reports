@@ -11,6 +11,8 @@ const FormAnswer = ({ answer, name }) => {
       case questionTypes.YES_NO:
         return <span>{answer.YesNoValue ? "Sí" : "No"}</span>;
       case questionTypes.FREE_TEXT:
+      case questionTypes.BAR_CODE:
+      case questionTypes.NUMERIC:
         return <span> {answer.FreeText} </span>;
       case questionTypes.CAMERA:
         return answer.ImageBase64
@@ -23,7 +25,7 @@ const FormAnswer = ({ answer, name }) => {
           ? <input type="checkbox" disabled="disabled" checked />
           : <input type="checkbox" disabled="disabled" />;
       default:
-        return <span> </span>;
+        return <span />;
     }
   };
 
