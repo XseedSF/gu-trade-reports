@@ -23,11 +23,15 @@ class Brush extends Component {
     });
   }
 
+  getCurrentItem() {}
+
   handleDrawBrush() {
     const { startItem, startedBrush, completedBrush } = this.state;
 
     if (startedBrush && !completedBrush) {
-      const { currentItem } = this.refs.component.getMoreProps();
+      const moreProps = this.refs.component.getMoreProps();
+      const { currentItem } = moreProps;
+
       const x1 = this.getBrushXFromItem(startItem);
       const x2 = this.getBrushXFromItem(currentItem);
 
@@ -47,15 +51,8 @@ class Brush extends Component {
 
   getBrushXFromItem(item) {
     const moreProps = this.refs.component.getMoreProps();
-    const { xScale, xAccessor, plotData, chartConfig } = moreProps;
-
-    const xPrecision = chartConfig.width / plotData.length;
-    const x = xScale(xAccessor(item)) - xPrecision / 2;
-
-    if (x < 0) {
-      return x + xPrecision;
-    }
-    return x;
+    const { xScale, xAccessor } = moreProps;
+    return xScale(xAccessor(item));
   }
 
   handleStartAndEnd(e) {
