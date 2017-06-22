@@ -115,7 +115,7 @@ const getAnswerValue = a => {
       return !a.AnswerSkipped && a.AnswerImageArray != null;
     case "DATE":
       return !a.AnswerSkipped && a.AnswerDateReply != null
-        ? a.AnswerDateReply.getTime()
+        ? a.AnswerDateReply.getTime() + 3 * 60 * 60 * 1000
         : null;
     case "FT":
     case "CODE":
