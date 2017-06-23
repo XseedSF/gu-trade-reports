@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import BrushRect from "./BrushRect";
 import { GenericChartComponent, utils } from "react-stockcharts";
 const { isDefined, noop, functor } = utils;
 
@@ -104,7 +105,7 @@ class Brush extends Component {
 
     return (
       <g>
-        {isDefined(rect) ? <rect {...rect} {...rectProps} /> : null}
+        {isDefined(rect) ? <BrushRect {...rect} {...rectProps} /> : null}
         <GenericChartComponent
           ref="component"
           svgDraw={this.renderSVG}

@@ -11,7 +11,7 @@ import {
 } from "react-stockcharts";
 import Brush from "./Brush";
 const { XAxis, YAxis } = axes;
-const { AreaSeries } = series;
+const { AreaSeries, LineSeries, ScatterSeries, SquareMarker } = series;
 const { fitWidth } = helper;
 
 class DateRangeChart extends Component {
@@ -90,8 +90,9 @@ class DateRangeChart extends Component {
 
   render() {
     const { points: data } = this.state;
+    const dataForMarkers = data.map(d => d.count > 0);
     return (
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
         <ChartCanvas
           zoomEvent={false}
           width={800}
@@ -106,7 +107,12 @@ class DateRangeChart extends Component {
           drawMode={true}
         >
           <Chart id={0} yExtents={d => d.count}>
-            <XAxis axisAt="bottom" orient="bottom" ticks={6} />
+            <XAxis
+              axisAt="bottom"
+              orient="bottom"
+              ticks={6}
+              zoomEnabled={false}
+            />
             <YAxis
               axisAt="left"
               orient="left"
@@ -114,10 +120,16 @@ class DateRangeChart extends Component {
               tickFormat={y => `${Math.floor(y)}`}
             />
             <AreaSeries yAccessor={d => d.count} />
+            <ScatterSeries
+              yAccessor={d => d.count}
+              marker={SquareMarker}
+              markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
+            />/>
             <Brush
               onBrush={this.handleBrush}
               onClear={this.handleClearBrush}
               height={160}
+              fill="#E1E4E6"
             />
           </Chart>
         </ChartCanvas>
