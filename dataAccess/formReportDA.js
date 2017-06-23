@@ -118,7 +118,8 @@ const getAnswerValue = a => {
         ? a.AnswerDateReply.getTime() + 3 * 60 * 60 * 1000
         : null;
     case "NUM":
-      return !a.AnswerSkipped ? a.FreeText : 0;
+      const value = parseFloat(a.AnswerFreeText);
+      return !a.AnswerSkipped && value ? value : 0;
     case "FT":
     case "CODE":
     case "SIG":

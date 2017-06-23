@@ -3,7 +3,6 @@ import { ChartCanvas, Chart, axes, series, helper } from "react-stockcharts";
 import Brush from "./Brush";
 const { XAxis, YAxis } = axes;
 const { AreaSeries, LineSeries, ScatterSeries, SquareMarker } = series;
-const { fitWidth } = helper;
 
 const getMaxYValue = data => {
   const yValues = data.map(p => p.yValue);
@@ -50,6 +49,7 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
             orient="left"
             ticks={yAxisMax}
             tickFormat={y => `${Math.floor(y)}`}
+            zoomEnabled={false}
             {...yGrid}
           />
           <AreaSeries yAccessor={d => d.yValue} />
@@ -70,4 +70,4 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
   );
 };
 
-export default fitWidth(RangeChart);
+export default RangeChart;

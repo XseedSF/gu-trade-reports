@@ -32,7 +32,7 @@ class BaseRangeChart extends Component {
       });
       data = this.getDataWithFullRange(options, range, precision);
     } else {
-      data = xValues;
+      data = this.getDataFromOptions(options);
     }
 
     return data;
@@ -49,6 +49,15 @@ class BaseRangeChart extends Component {
       }
       data.push({ xValue: current, yValue: count });
       current += precision;
+    }
+
+    return data;
+  }
+
+  getDataFromOptions(options) {
+    const data = [];
+    for (let option of options) {
+      data.push({ xValue: option.name, yValue: option.value });
     }
 
     return data;
