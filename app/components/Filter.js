@@ -34,6 +34,15 @@ const Filter = ({ questionFilter, toggleFilter }) => {
         />
       );
       break;
+    case filterTypes.NUMERIC_RANGE_SELECT:
+      specificFilter = (
+        <NumericRangeChart
+          key={questionFilter.id}
+          questionFilter={questionFilter}
+          toggleFilter={toggleFilter}
+        />
+      );
+      break;
   }
 
   return (

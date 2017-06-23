@@ -52,6 +52,8 @@ export const questionsFiltersSelector = createSelector(
 
 const getFilterTypeFromQuestionType = questiontype => {
   switch (questiontype) {
+		case questionTypes.NUMERIC:
+			return filterTypes.NUMERIC_RANGE_SELECT;
     case questionTypes.DATE:
       return filterTypes.DATE_RANGE_SELECT;
     case questionTypes.MULTIPLE_OPTION:

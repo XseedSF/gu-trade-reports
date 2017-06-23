@@ -8,7 +8,8 @@ export const actions = {
 export const filterTypes = {
   SINGLE_SELECT: "SINGLE_SELECT",
   MULTI_SELECT: "MULTI_SELECT",
-  DATE_RANGE_SELECT: "DATE_RANGE_SELECT"
+  DATE_RANGE_SELECT: "DATE_RANGE_SELECT",
+  NUMERIC_RANGE_SELECT: "NUMERIC_RANGE_SELECT"
 };
 
 export const questionTypes = {

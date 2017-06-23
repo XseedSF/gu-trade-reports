@@ -25,6 +25,7 @@ const filter = (state = {}, action) => {
               : [...selected, value]
           };
         case filterTypes.DATE_RANGE_SELECT:
+        case filterTypes.NUMERIC_RANGE_SELECT:
           return {
             id,
             selected: clearSelection ? [] : value

@@ -1,25 +1,13 @@
 import React, { Component } from "react";
 import * as dateUtils from "../../utils/dates";
 import { scaleTime } from "d3-scale";
-import {
-  ChartCanvas,
-  Chart,
-  axes,
-  series,
-  helper,
-  interactive
-} from "react-stockcharts";
-import Brush from "./Brush";
-const { XAxis, YAxis } = axes;
-const { AreaSeries, LineSeries, ScatterSeries, SquareMarker } = series;
-const { fitWidth } = helper;
+import RangeChart from "./RangeChart";
 
 class DateRangeChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      points: [{ date: new Date().getTime(), count: 0 }],
-      yAxisCount: 0
+      points: [{ xValue: new Date().getTime(), yValue: 0 }]
     };
 
     this.handleBrush = this.handleBrush.bind(this);
@@ -32,13 +20,7 @@ class DateRangeChart extends Component {
 
   setChartData() {
     const points = this.getPoints();
-    const yAxisCount = this.getMaxCountFromPoints(points);
-    this.setState({ ...this.state, points, yAxisCount });
-  }
-
-  getMaxCountFromPoints(points) {
-    const counts = points.map(p => p.count);
-    return Math.max(...counts);
+    this.setState({ ...this.state, points });
   }
 
   getPoints() {
@@ -53,7 +35,7 @@ class DateRangeChart extends Component {
       if (completedDate) {
         count = completedDate.value;
       }
-      points.push({ date: time, count });
+      points.push({ xValue: time, yValue: count });
       time += dateUtils.oneDayMilliseconds;
     }
 
@@ -90,52 +72,18 @@ class DateRangeChart extends Component {
 
   render() {
     const { points: data } = this.state;
-    const dataForMarkers = data.map(d => d.count > 0);
+
     return (
       <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
-        <ChartCanvas
-          zoomEvent={false}
-          width={800}
-          height={200}
-          margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
-          seriesName="MSFT"
+        <RangeChart
           data={data}
-          type="svg"
-          xAccessor={d => (d ? d.date : undefined)}
           xScale={scaleTime()}
-          ratio={1}
-          drawMode={true}
-        >
-          <Chart id={0} yExtents={d => d.count}>
-            <XAxis
-              axisAt="bottom"
-              orient="bottom"
-              ticks={6}
-              zoomEnabled={false}
-            />
-            <YAxis
-              axisAt="left"
-              orient="left"
-              ticks={this.state.yAxisCount}
-              tickFormat={y => `${Math.floor(y)}`}
-            />
-            <AreaSeries yAccessor={d => d.count} />
-            <ScatterSeries
-              yAccessor={d => d.count}
-              marker={SquareMarker}
-              markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
-            />/>
-            <Brush
-              onBrush={this.handleBrush}
-              onClear={this.handleClearBrush}
-              height={160}
-              fill="#E1E4E6"
-            />
-          </Chart>
-        </ChartCanvas>
+          handleBrush={this.handleBrush}
+          handleClearBrush={this.handleClearBrush}
+        />
       </div>
     );
   }
 }
 
-export default fitWidth(DateRangeChart);
+export default DateRangeChart;
