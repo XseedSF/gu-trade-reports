@@ -11,8 +11,6 @@ const getMaxYValue = data => {
 };
 
 const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
-  if (!data) return null;
-
   const yAxisMax = getMaxYValue(data);
 
   return (

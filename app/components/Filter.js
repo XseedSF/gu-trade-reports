@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CustomBarChart, CustomPieChart, DateRangeChart } from "./Charts";
+import {
+  CustomBarChart,
+  CustomPieChart,
+  DateRangeChart,
+  NumericRangeChart
+} from "./Charts";
 import { filterTypes } from "../constants";
 import FilterTitle from "./FilterTitle";
 
