@@ -16,6 +16,13 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
   }
 
   const yAxisMax = getMaxYValue(data);
+
+  const yGrid = {
+    innerTickSize: -1 * 800,
+    tickStrokeDasharray: "Solid",
+    tickStrokeOpacity: 0.2,
+    tickStrokeWidth: 1
+  };
   return (
     <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
       <ChartCanvas
@@ -43,6 +50,7 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
             orient="left"
             ticks={yAxisMax}
             tickFormat={y => `${Math.floor(y)}`}
+            {...yGrid}
           />
           <AreaSeries yAccessor={d => d.yValue} />
           <ScatterSeries
