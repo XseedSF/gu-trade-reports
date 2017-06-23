@@ -46,7 +46,7 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
           />
           <AreaSeries yAccessor={d => d.yValue} />
           <ScatterSeries
-            yAccessor={d => d.xValue}
+            yAccessor={d => d.yValue}
             marker={SquareMarker}
             markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
           />/>
