@@ -11,8 +11,11 @@ const getMaxYValue = data => {
 };
 
 const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
-  const yAxisMax = getMaxYValue(data);
+  if (!data || data.length <= 1) {
+    return <span>No hay suficientes datos para graficar.</span>;
+  }
 
+  const yAxisMax = getMaxYValue(data);
   return (
     <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
       <ChartCanvas

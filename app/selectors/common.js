@@ -18,8 +18,9 @@ export const filterFormIgnoringQuestions = (
       let matchesFilter;
       switch (answer.Type) {
         case questionTypes.DATE:
+        case questionTypes.NUMERIC:
           matchesFilter =
-            filter != null && isDateInRange(answer.value, filter.selected);
+            filter != null && isValueInRange(answer.value, filter.selected);
           break;
         default:
           matchesFilter =
@@ -34,8 +35,8 @@ export const filterFormIgnoringQuestions = (
     }, true);
 };
 
-const isDateInRange = (date, range) => {
-  const startDate = range[0];
-  const endDate = range[1];
-  return date >= startDate && date <= endDate;
+const isValueInRange = (value, range) => {
+  const min = range[0];
+  const max = range[1];
+  return value >= min && value <= max;
 };

@@ -7,7 +7,7 @@ class NumericRangeChart extends BaseRangeChart {
   constructor(props) {
     super(props);
     this.state = {
-      points: [{ xValue: 0, yValue: 0 }]
+      data: [{ xValue: 0, yValue: 0 }]
     };
   }
 
@@ -16,12 +16,12 @@ class NumericRangeChart extends BaseRangeChart {
   }
 
   setChartData() {
-    const points = this.getPoints(1);
-    this.setState({ ...this.state, points });
+    const data = this.getData();
+    this.setState({ ...this.state, data });
   }
 
   render() {
-    const { points: data } = this.state;
+    const { data } = this.state;
 
     return (
       <RangeChart

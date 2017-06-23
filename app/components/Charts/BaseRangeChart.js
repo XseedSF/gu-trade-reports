@@ -18,33 +18,44 @@ class BaseRangeChart extends Component {
     this.props.toggleFilter(id, type, null);
   }
 
-  getPoints(precision) {
-    const data = this.getDataForChart(this.props.questionFilter);
-    const xValues = data.map(d => d.name);
-    const range = this.getRangeForChart({
-      xValues,
-      precision,
-      margin: 1,
-      minTotal: 7
-    });
+  getData(precision) {
+    const options = this.getOptionsForChart(this.props.questionFilter);
+    const xValues = options.map(option => option.name);
 
-    const points = [];
+    let data;
+    if (precision) {
+      const range = this.getRangeForChart({
+        xValues,
+        precision,
+        margin: 1,
+        minTotal: 7
+      });
+      data = this.getDataWithFullRange(options, range, precision);
+    } else {
+      data = xValues;
+    }
+
+    return data;
+  }
+
+  getDataWithFullRange(options, range, precision) {
+    const data = [];
     let current = range.min;
     while (current <= range.max) {
       let count = 0;
-      const completedData = data.find(d => d.name === current);
+      const completedData = options.find(opt => opt.name === current);
       if (completedData) {
         count = completedData.value;
       }
-      points.push({ xValue: current, yValue: count });
+      data.push({ xValue: current, yValue: count });
       current += precision;
     }
 
-    return points;
+    return data;
   }
 
   // private methods.
-  getDataForChart({ id, type, options }) {
+  getOptionsForChart({ id, type, options }) {
     const optionsKeys = Object.keys(options);
     return optionsKeys.map(key => options[key]);
   }

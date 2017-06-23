@@ -9,7 +9,7 @@ class DateRangeChart extends BaseRangeChart {
   constructor(props) {
     super(props);
     this.state = {
-      points: [{ xValue: new Date().getTime(), yValue: 0 }]
+      data: [{ xValue: new Date().getTime(), yValue: 0 }]
     };
   }
 
@@ -18,12 +18,12 @@ class DateRangeChart extends BaseRangeChart {
   }
 
   setChartData() {
-    const points = this.getPoints(oneDayMilliseconds);
-    this.setState({ ...this.state, points });
+    const data = this.getData(oneDayMilliseconds);
+    this.setState({ ...this.state, data });
   }
 
   render() {
-    const { points: data } = this.state;
+    const { data } = this.state;
 
     return (
       <RangeChart

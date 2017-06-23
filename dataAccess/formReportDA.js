@@ -117,9 +117,10 @@ const getAnswerValue = a => {
       return !a.AnswerSkipped && a.AnswerDateReply != null
         ? a.AnswerDateReply.getTime() + 3 * 60 * 60 * 1000
         : null;
+    case "NUM":
+      return !a.AnswerSkipped ? a.FreeText : 0;
     case "FT":
     case "CODE":
-    case "NUM":
     case "SIG":
     case "IMG":
       return !a.AnswerSkipped;

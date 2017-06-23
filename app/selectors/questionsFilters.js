@@ -52,8 +52,8 @@ export const questionsFiltersSelector = createSelector(
 
 const getFilterTypeFromQuestionType = questiontype => {
   switch (questiontype) {
-		case questionTypes.NUMERIC:
-			return filterTypes.NUMERIC_RANGE_SELECT;
+    case questionTypes.NUMERIC:
+      return filterTypes.NUMERIC_RANGE_SELECT;
     case questionTypes.DATE:
       return filterTypes.DATE_RANGE_SELECT;
     case questionTypes.MULTIPLE_OPTION:
@@ -118,7 +118,6 @@ const createFitlerOptions = (question, optionsById, filters, answers) => {
     case questionTypes.BAR_CODE:
     case questionTypes.FREE_TEXT:
     case questionTypes.IMAGE:
-    case questionTypes.NUMERIC:
     case questionTypes.SIGNATURE:
     case questionTypes.CAMERA:
       // Si es requerido no hay opciones de filtro
@@ -132,6 +131,16 @@ const createFitlerOptions = (question, optionsById, filters, answers) => {
       options = Object.keys(answers)
         .map(id => answers[id])
         .filter(answer => answer.QuestionId == Id && answer.DateReply != null)
+        .map(answer => answer.value)
+        .reduce((acum, elem) => {
+          acum[elem] = createOption(elem, elem);
+          return acum;
+        }, {});
+      break;
+    case questionTypes.NUMERIC:
+      options = Object.keys(answers)
+        .map(id => answers[id])
+        .filter(answer => answer.QuestionId == Id && answer.FreeText != null)
         .map(answer => answer.value)
         .reduce((acum, elem) => {
           acum[elem] = createOption(elem, elem);
