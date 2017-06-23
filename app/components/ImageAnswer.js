@@ -14,7 +14,6 @@ export default class ImageAnswer extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.loadImage = this.loadImage.bind(this);
-    this.handleDownload = this.handleDownload.bind(this);
   }
 
   loadImage() {
