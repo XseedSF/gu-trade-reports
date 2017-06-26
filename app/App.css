@@ -86,19 +86,13 @@
 					flex-wrap: wrap;
 }
 
-/*.question-chart-box {
-	-webkit-flex-basis: 33.33%;
-		 -moz-flex-basis: 33.33%;
-					flex-basis: 33.33%;
-}*/
-
 .chart-centered {
   margin-left: auto;
   margin-right: auto;
 }
 
 .question-title-container {
-  margin-bottom : 15px;
+	margin-top: 40px;
 }
 
 .question-title {
