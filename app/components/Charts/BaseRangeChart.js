@@ -19,60 +19,60 @@ class BaseRangeChart extends Component {
   }
 
   getData(precision, toFixed) {
-    const options = this.getOptionsForChart(toFixed);
-    const xValues = options.map(option => option.name);
+    const options = this.getOptionsForChart();
 
     let data;
-    if (precision) {
-      const range = this.getRangeForChart({
-        xValues,
-        precision,
-        margin: 1,
-        minTotal: 7
-      });
-      data = this.getDataWithFullRange(options, range, precision);
-    } else {
-      data = this.getDataFromOptions(options);
-    }
+    const range = this.getRangeForChart({
+      options,
+      precision,
+      toFixed,
+      margin: 1,
+      minTotal: 7
+    });
+    data = this.getDataWithRange({ options, range, precision, toFixed });
 
     return data;
   }
 
-  getDataWithFullRange(options, range, precision) {
-    const data = [];
+  getDataWithRange({ options, range, precision, toFixed }) {
+    let data = [];
     let current = range.min;
+
     while (current <= range.max) {
       let count = 0;
-      const completedData = options.find(opt => opt.name === current);
+      const completedData = options.find(option => option.name === current);
       if (completedData) {
         count = completedData.value;
       }
       data.push({ xValue: current, yValue: count });
+      data = this.addValuesBetweenSteps(data, options, current, precision);
+
       current += precision;
     }
 
     return data;
   }
 
-  getDataFromOptions(options) {
-    const data = [];
-    for (let option of options) {
-      data.push({ xValue: option.name, yValue: option.value });
+  addValuesBetweenSteps(data, options, current, precision) {
+    const next = current + precision;
+    const optionsToAdd = options.filter(
+      option => option.name > current && option.name < next
+    );
+
+    const result = data;
+    if (optionsToAdd) {
+      for (const option of optionsToAdd) {
+        result.push({ xValue: option.name, yValue: option.value });
+      }
     }
 
-    return data;
+    return result;
   }
 
   // private methods.
-  getOptionsForChart(toFixed) {
+  getOptionsForChart() {
     const { questionFilter } = this.props;
     let options = this.getOptionKeys(questionFilter);
-    if (toFixed) {
-      options = options.map(option => ({
-        ...option,
-        name: Number(option.name.toFixed())
-      }));
-    }
     options.sort();
     return options;
   }
@@ -82,8 +82,9 @@ class BaseRangeChart extends Component {
     return optionsKeys.map(key => options[key]);
   }
 
-  getRangeForChart({ xValues, precision, margin, minTotal }) {
-    let range = this.getArrayRange(xValues);
+  getRangeForChart({ options, precision, toFixed, margin, minTotal }) {
+    const xValues = options.map(option => option.name);
+    let range = this.getArrayRange(xValues, toFixed);
     range = margin ? this.addMarinToRange(range, precision, margin) : range;
     range = minTotal
       ? this.setMinTotalValuesToRange(range, precision, minTotal)
@@ -91,9 +92,15 @@ class BaseRangeChart extends Component {
     return range;
   }
 
-  getArrayRange(array) {
-    const min = Math.min(...array);
-    const max = Math.max(...array);
+  fixFloats(values) {
+    return values.map(value => Number(value.toFixed()));
+  }
+
+  getArrayRange(array, toFixed) {
+    const values = toFixed ? this.fixFloats(array) : array;
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
     return { min, max };
   }
 
