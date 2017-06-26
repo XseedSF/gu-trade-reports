@@ -57,7 +57,7 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
             yAccessor={d => d.yValue}
             marker={SquareMarker}
             markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
-          />/>
+          />
           <Brush
             onBrush={handleBrush}
             onClear={handleClearBrush}

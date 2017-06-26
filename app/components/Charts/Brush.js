@@ -24,8 +24,6 @@ class Brush extends Component {
     });
   }
 
-  getCurrentItem() {}
-
   handleDrawBrush() {
     const { startItem, startedBrush, completedBrush } = this.state;
 

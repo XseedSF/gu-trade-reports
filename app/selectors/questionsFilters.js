@@ -95,7 +95,7 @@ const countFilteredFormsFilterOptions = (
 const createFitlerOptions = (question, optionsById, filters, answers) => {
   const { Id, Type, Options, Required } = question;
   const filter = filters[Id];
-  const createOption = createFilterOption(filter);
+  const createOption = getCreateOption(Type, filter);
   let options = null;
 
   switch (Type) {
@@ -151,7 +151,17 @@ const createFitlerOptions = (question, optionsById, filters, answers) => {
   return options;
 };
 
-const createFilterOption = filter => (name, option) => ({
+const getCreateOption = (type, filter) => {
+  switch (type) {
+    case questionTypes.DATE:
+    case questionTypes.NUMERIC:
+      return createRangeFilterOption(filter);
+    default:
+      return createValueFilterOption(filter);
+  }
+};
+
+const createValueFilterOption = filter => (name, option) => ({
   name,
   selected: isFilterSelected(filter, option),
   value: 0,
@@ -160,3 +170,16 @@ const createFilterOption = filter => (name, option) => ({
 
 const isFilterSelected = (filter, option) =>
   filter !== undefined && filter.selected.includes(option);
+
+const createRangeFilterOption = filter => (name, option) => ({
+  name,
+  selected: isFilterIncluded(filter, option),
+  value: 0,
+  key: option
+});
+
+const isFilterIncluded = (filter, option) =>
+  filter !== undefined &&
+  filter.selected !== undefined &&
+  option >= filter.selected[0] &&
+  option <= filter.selected[1];

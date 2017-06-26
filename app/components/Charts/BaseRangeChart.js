@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { dictionaryToArray } from "../../utils";
 
 class BaseRangeChart extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class BaseRangeChart extends Component {
       margin: 1,
       minTotal: 7
     });
-    data = this.getDataWithRange({ options, range, precision });
+    data = this.getDataBetweenRange({ options, range, precision });
 
     return data;
   }
@@ -41,7 +42,7 @@ class BaseRangeChart extends Component {
     );
   }
 
-  getDataWithRange({ options, range, precision }) {
+  getDataBetweenRange({ options, range, precision }) {
     let data = [];
     let current = range.min;
 
@@ -79,14 +80,9 @@ class BaseRangeChart extends Component {
   // private methods.
   getOptionsForChart() {
     const { questionFilter } = this.props;
-    let options = this.getOptionKeys(questionFilter);
+    let options = dictionaryToArray(questionFilter.options);
     options.sort();
     return options;
-  }
-
-  getOptionKeys({ id, type, options }) {
-    const optionsKeys = Object.keys(options);
-    return optionsKeys.map(key => options[key]);
   }
 
   getRangeForChart({ xValues, precision, margin, minTotal }) {
