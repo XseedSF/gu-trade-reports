@@ -22,19 +22,26 @@ class BaseRangeChart extends Component {
     const options = this.getOptionsForChart();
 
     let data;
+    const xValues = this.getXValues(options, toFixed);
     const range = this.getRangeForChart({
-      options,
+      xValues,
       precision,
       toFixed,
       margin: 1,
       minTotal: 7
     });
-    data = this.getDataWithRange({ options, range, precision, toFixed });
+    data = this.getDataWithRange({ options, range, precision });
 
     return data;
   }
 
-  getDataWithRange({ options, range, precision, toFixed }) {
+  getXValues(options, toFixed) {
+    return options.map(
+      option => (toFixed ? Number(option.name.toFixed()) : option.name)
+    );
+  }
+
+  getDataWithRange({ options, range, precision }) {
     let data = [];
     let current = range.min;
 
@@ -82,9 +89,8 @@ class BaseRangeChart extends Component {
     return optionsKeys.map(key => options[key]);
   }
 
-  getRangeForChart({ options, precision, toFixed, margin, minTotal }) {
-    const xValues = options.map(option => option.name);
-    let range = this.getArrayRange(xValues, toFixed);
+  getRangeForChart({ xValues, precision, margin, minTotal }) {
+    let range = this.getArrayRange(xValues);
     range = margin ? this.addMarinToRange(range, precision, margin) : range;
     range = minTotal
       ? this.setMinTotalValuesToRange(range, precision, minTotal)
@@ -92,15 +98,9 @@ class BaseRangeChart extends Component {
     return range;
   }
 
-  fixFloats(values) {
-    return values.map(value => Number(value.toFixed()));
-  }
-
-  getArrayRange(array, toFixed) {
-    const values = toFixed ? this.fixFloats(array) : array;
-
-    const min = Math.min(...values);
-    const max = Math.max(...values);
+  getArrayRange(array) {
+    const min = Math.min(...array);
+    const max = Math.max(...array);
     return { min, max };
   }
 
