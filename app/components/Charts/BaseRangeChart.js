@@ -18,8 +18,8 @@ class BaseRangeChart extends Component {
     this.props.toggleFilter(id, type, null);
   }
 
-  getData(precision) {
-    const options = this.getOptionsForChart(this.props.questionFilter);
+  getData(precision, toFixed) {
+    const options = this.getOptionsForChart(toFixed);
     const xValues = options.map(option => option.name);
 
     let data;
@@ -64,7 +64,20 @@ class BaseRangeChart extends Component {
   }
 
   // private methods.
-  getOptionsForChart({ id, type, options }) {
+  getOptionsForChart(toFixed) {
+    const { questionFilter } = this.props;
+    let options = this.getOptionKeys(questionFilter);
+    if (toFixed) {
+      options = options.map(option => ({
+        ...option,
+        name: Number(option.name.toFixed())
+      }));
+    }
+    options.sort();
+    return options;
+  }
+
+  getOptionKeys({ id, type, options }) {
     const optionsKeys = Object.keys(options);
     return optionsKeys.map(key => options[key]);
   }

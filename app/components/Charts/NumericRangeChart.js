@@ -16,7 +16,7 @@ class NumericRangeChart extends BaseRangeChart {
   }
 
   setChartData() {
-    const data = this.getData();
+    const data = this.getData(1, true);
     this.setState({ ...this.state, data });
   }
 
