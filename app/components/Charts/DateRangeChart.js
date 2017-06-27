@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { scaleTime } from "d3-scale";
-import BaseRangeChart from "./BaseRangeChart";
 import RangeChart from "./RangeChart";
+import BaseRangeChart from "./BaseRangeChart";
 import { timeFormatES } from "../../utils";
 
 const oneDayMilliseconds = 24 * 60 * 60 * 1000;

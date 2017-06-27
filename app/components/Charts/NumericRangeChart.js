@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { scaleLinear } from "d3-scale";
-import BaseRangeChart from "./BaseRangeChart";
 import RangeChart from "./RangeChart";
+import BaseRangeChart from "./BaseRangeChart";
 
 class NumericRangeChart extends BaseRangeChart {
   constructor(props) {
