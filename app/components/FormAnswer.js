@@ -21,9 +21,9 @@ const FormAnswer = ({ answer, name }) => {
       case questionTypes.DATE:
         return <span>{<DateText value={answer.value} />}</span>;
       case questionTypes.CHECKBOX:
-        return answer.value
-          ? <input type="checkbox" disabled="disabled" checked />
-          : <input type="checkbox" disabled="disabled" />;
+        return (
+          <input type="checkbox" disabled="disabled" checked={answer.value} />
+        );
       default:
         return <span />;
     }
