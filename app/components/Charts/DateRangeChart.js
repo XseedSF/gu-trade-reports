@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { scaleTime } from "d3-scale";
 import BaseRangeChart from "./BaseRangeChart";
 import RangeChart from "./RangeChart";
+import { timeFormatES } from "../../utils";
 
 const oneDayMilliseconds = 24 * 60 * 60 * 1000;
 
@@ -28,6 +29,7 @@ class DateRangeChart extends BaseRangeChart {
     return (
       <RangeChart
         data={data}
+        xTickFormat={d => timeFormatES(d)}
         xScale={scaleTime()}
         handleBrush={this.handleBrush}
         handleClearBrush={this.handleClearBrush}

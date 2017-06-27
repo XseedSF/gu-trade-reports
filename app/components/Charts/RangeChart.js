@@ -9,7 +9,13 @@ const getMaxYValue = data => {
   return Math.max(...yValues);
 };
 
-const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
+const RangeChart = ({
+  data,
+  xScale,
+  handleBrush,
+  handleClearBrush,
+  xTickFormat
+}) => {
   if (!data || data.length <= 1) {
     return <span>No hay suficientes datos para graficar.</span>;
   }
@@ -42,6 +48,7 @@ const RangeChart = ({ data, xScale, handleBrush, handleClearBrush }) => {
             axisAt="bottom"
             orient="bottom"
             ticks={6}
+            tickFormat={xTickFormat}
             zoomEnabled={false}
           />
           <YAxis

@@ -1,3 +1,5 @@
+export * from "./dates";
+
 export const deleteAttribute = key => {
   return state => {
     const newState = Object.assign({}, state);
