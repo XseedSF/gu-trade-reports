@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { ChartCanvas, Chart, axes, series, helper } from "react-stockcharts";
 import Brush from "./Brush";
+import Marker from "./Marker";
 const { XAxis, YAxis } = axes;
-const { AreaSeries, LineSeries, ScatterSeries, SquareMarker } = series;
+const { AreaSeries, LineSeries, ScatterSeries } = series;
 
 const getMaxYValue = data => {
   const yValues = data.map(p => p.yValue);
@@ -62,7 +63,7 @@ const RangeChart = ({
           <AreaSeries yAccessor={d => d.yValue} />
           <ScatterSeries
             yAccessor={d => d.yValue}
-            marker={SquareMarker}
+            marker={Marker}
             markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
           />
           <Brush
