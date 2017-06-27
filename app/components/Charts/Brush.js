@@ -9,6 +9,7 @@ class Brush extends Component {
     super(props);
     this.handleStartAndEnd = this.handleStartAndEnd.bind(this);
     this.handleDrawBrush = this.handleDrawBrush.bind(this);
+
     this.state = {
       startedBrush: false,
       completedBrush: false
@@ -54,13 +55,18 @@ class Brush extends Component {
     return xScale(xAccessor(item));
   }
 
+  isBrushShown() {
+    return this.props.range && isDefined(this.state.rect);
+  }
+
   handleStartAndEnd(e) {
     const moreProps = this.refs.component.getMoreProps();
     const { currentItem, displayXAccessor } = moreProps;
     const xValue = displayXAccessor(currentItem);
 
-    const { startedBrush, completedBrush } = this.state;
-    if (completedBrush) {
+    const { range } = this.props;
+    const { startedBrush, completedBrush, rect } = this.state;
+    if (completedBrush && this.isBrushShown()) {
       // refresh
       this.terminate();
       this.props.onClear();
@@ -97,13 +103,15 @@ class Brush extends Component {
   }
 
   render() {
-    const { rect } = this.state;
-    const { fill, stroke, opacity } = this.props;
+    const { rect, startedBrush } = this.state;
+    const { fill, stroke, opacity, range } = this.props;
     const rectProps = { fill, stroke, opacity };
 
     return (
       <g>
-        {isDefined(rect) ? <BrushRect {...rect} {...rectProps} /> : null}
+        {startedBrush || this.isBrushShown()
+          ? <BrushRect {...rect} {...rectProps} />
+          : null}
         <GenericChartComponent
           ref="component"
           svgDraw={this.renderSVG}

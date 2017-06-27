@@ -15,16 +15,17 @@ const RangeChart = ({
   xScale,
   handleBrush,
   handleClearBrush,
-  xTickFormat
+  xTickFormat,
+  brushRange
 }) => {
   if (!data || data.length <= 1) {
     return <span>No hay suficientes datos para graficar.</span>;
   }
 
   const yAxisMax = getMaxYValue(data);
-
+  const chartWidth = 800;
   const yGrid = {
-    innerTickSize: -1 * 800,
+    innerTickSize: -1 * chartWidth,
     tickStrokeDasharray: "Solid",
     tickStrokeOpacity: 0.2,
     tickStrokeWidth: 1
@@ -33,7 +34,7 @@ const RangeChart = ({
     <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
       <ChartCanvas
         zoomEvent={false}
-        width={800}
+        width={chartWidth}
         height={200}
         margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
         seriesName="MSFT"
@@ -67,6 +68,7 @@ const RangeChart = ({
             markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
           />
           <Brush
+            range={brushRange}
             onBrush={handleBrush}
             onClear={handleClearBrush}
             height={160}

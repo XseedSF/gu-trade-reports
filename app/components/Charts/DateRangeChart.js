@@ -25,10 +25,13 @@ class DateRangeChart extends BaseRangeChart {
 
   render() {
     const { data } = this.state;
+    const { filter } = this.props.questionFilter;
+    const brushRange = filter ? { min: filter[0], max: filter[1] } : null;
 
     return (
       <RangeChart
         data={data}
+        brushRange={brushRange}
         xTickFormat={d => timeFormatES(d)}
         xScale={scaleTime()}
         handleBrush={this.handleBrush}

@@ -44,7 +44,13 @@ export const questionsFiltersSelector = createSelector(
 
         const type = getFilterTypeFromQuestionType(Type);
 
-        return { id: Id, text: Text, type, options: filterOptions };
+        return {
+          id: Id,
+          text: Text,
+          type,
+          options: filterOptions,
+          filter: filters[questionid]
+        };
       })
       .filter(f => f);
   }
