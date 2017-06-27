@@ -40,7 +40,6 @@ export default class ImageAnswer extends React.Component {
       <a
         key="download-button"
         className="modal-download-button"
-        onClick={this.handleDownload}
         href={this.state.image.src}
         download
       >

@@ -33,6 +33,7 @@ const RangeChart = ({
   return (
     <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
       <ChartCanvas
+        zIndex={0}
         zoomEvent={false}
         width={chartWidth}
         height={200}
