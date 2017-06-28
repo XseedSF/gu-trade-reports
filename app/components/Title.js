@@ -6,6 +6,7 @@ const Title = ({ text }) =>
   <AppBar
     style={{ backgroundColor: COLORS.PRIMARY }}
     title={text}
+    showMenuIconButton={false}
   />;
 
 export default Title;
