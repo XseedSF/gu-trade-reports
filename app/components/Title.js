@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
+import { AppBar } from "material-ui";
+import { COLORS } from "../constants";
 
-const Title = ({ children }) => (
-	<div className='nav_menu'>
-		<div className='nav-form-name'>
-			{children}
-		</div>
-	</div>
-)
+const Title = ({ text }) =>
+  <AppBar
+    style={{ backgroundColor: COLORS.PRIMARY }}
+    title={text}
+  />;
 
 export default Title;
