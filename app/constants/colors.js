@@ -1,7 +1,8 @@
+import { blue300, orange300, green500 } from "material-ui/styles/colors";
+
 export const COLORS = {
-	PRIMARY: "#00914b",
-	SECONDARY: "#FFFFFF",
-  PRIMARY_OPTION: "#64B5F6",
-  SECONDARY_OPTION: "#FFB74D",
-  SELECTED_OPTION: "#81C784"
+  PRIMARY: "#00914b",
+  PRIMARY_OPTION: blue300,
+  SECONDARY_OPTION: orange300,
+  SELECTED_OPTION: green500
 };
