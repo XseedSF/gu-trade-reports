@@ -4,12 +4,17 @@ import { compose, setPropTypes } from "recompose";
 import { FiltersContainer } from "../containers";
 import withSpinnerWhileLoading from "../hocs/withSpinnerWhileLoading";
 import Filter from "./Filter";
+import { RaisedButton } from "material-ui";
+import { COLORS } from "../constants";
 
 const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
   <div>
-    <button className="button-clean-filter" onClick={clearFilters}>
-      Limpiar filtros
-    </button>
+    <RaisedButton
+      label={`Limpiar filtros`}
+      labelColor="#FFFFFF"
+      backgroundColor={COLORS.PRIMARY}
+      onClick={clearFilters}
+    />
     <div className="question-charts-container">
       {questionsFilters.map(f =>
         <Filter

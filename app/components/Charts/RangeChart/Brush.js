@@ -16,6 +16,12 @@ class Brush extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.range) {
+      this.terminate();
+    }
+  }
+
   terminate() {
     this.setState({
       startItem: null,
