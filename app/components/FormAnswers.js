@@ -19,6 +19,7 @@ const FormAnswers = ({ questions, completedForms }) => {
       return {
         Header: question.Text,
         accessor: index.toString(),
+        minWidth: 150,
         Cell: ({ value }) =>
           <FormAnswer answer={value[index].answer} name={value[index].name} />
       };
@@ -37,7 +38,11 @@ const FormAnswers = ({ questions, completedForms }) => {
     });
   }
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <div className="form-answers-table">
+      <Table columns={columns} data={data} />
+    </div>
+  );
 };
 
 const enhance = compose(

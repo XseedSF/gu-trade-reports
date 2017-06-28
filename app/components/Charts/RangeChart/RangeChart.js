@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ChartCanvas, Chart, axes, series, helper } from "react-stockcharts";
+import { ChartCanvas, Chart, axes, series } from "react-stockcharts";
 import Brush from "./Brush";
 import Marker from "./Marker";
 const { XAxis, YAxis } = axes;
@@ -16,14 +16,15 @@ const RangeChart = ({
   handleBrush,
   handleClearBrush,
   xTickFormat,
-  brushRange
+  brushRange,
+  fill
 }) => {
   if (!data || data.length <= 1) {
     return <span>No hay suficientes datos para graficar.</span>;
   }
 
   const yAxisMax = getMaxYValue(data);
-  const chartWidth = 800;
+  const chartWidth = 600;
   const yGrid = {
     innerTickSize: -1 * chartWidth,
     tickStrokeDasharray: "Solid",
@@ -31,7 +32,7 @@ const RangeChart = ({
     tickStrokeWidth: 1
   };
   return (
-    <div style={{ textAlign: "left", backgroundColor: "#F6F8FA" }}>
+    <div style={{ textAlign: "left", marginRight: 20, paddingTop: 40 }}>
       <ChartCanvas
         zIndex={0}
         zoomEvent={false}
@@ -62,11 +63,11 @@ const RangeChart = ({
             zoomEnabled={false}
             {...yGrid}
           />
-          <AreaSeries yAccessor={d => d.yValue} />
+          <AreaSeries yAccessor={d => d.yValue} fill={fill} opacity={0.6} />
           <ScatterSeries
             yAccessor={d => d.yValue}
             marker={Marker}
-            markerProps={{ width: 6, stroke: "#3F71B7", fill: "#9FBED8" }}
+            markerProps={{ width: 6, stroke: "#009688", fill: "#B2DFDB" }}
           />
           <Brush
             range={brushRange}

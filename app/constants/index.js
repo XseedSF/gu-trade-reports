@@ -1,3 +1,5 @@
+export { COLORS } from "./colors";
+
 export const actions = {
   TOGGLE_ANSWER_FILTER: "TOGGLE_ANSWER_FILTER",
   CLEAR_FILTERS: "CLEAR_FILTERS",

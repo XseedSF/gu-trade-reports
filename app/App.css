@@ -91,19 +91,6 @@
   margin-right: auto;
 }
 
-.question-title-container {
-	margin-top: 40px;
-}
-
-.question-title {
-  font-style: italic;
-  font-weight: bold;
-}
-
-.question-title-text {
-	color: #3E4551;
-}
-
 .no-data {
   color: red;
 }
@@ -122,4 +109,13 @@ th {
 }
 tr:nth-child(even) {
 	background-color: #f2f2f2
+}
+
+.filter-card {
+	margin-top: 15px;
+	margin-right: 15px;
+}
+
+.form-answers-table {
+	margin-top: 25px;
 }

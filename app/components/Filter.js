@@ -7,7 +7,7 @@ import {
   NumericRangeChart
 } from "./Charts";
 import { filterTypes } from "../constants";
-import FilterTitle from "./FilterTitle";
+import { Card, CardHeader, CardMedia } from "material-ui";
 
 const Filter = ({ questionFilter, toggleFilter }) => {
   let specificFilter = null;
@@ -51,9 +51,16 @@ const Filter = ({ questionFilter, toggleFilter }) => {
   }
 
   return (
-    <div className="question-chart-box">
-      <FilterTitle text={questionFilter.text} />
-      {specificFilter}
+    <div className="filter-card" style={{ maxWidth: 630 }}>
+      <Card>
+        <CardHeader title={`${questionFilter.text}`} />
+        <CardMedia
+          overlayContentStyle={{ alignContent: "center" }}
+          style={{ minHeight: 300 }}
+        >
+          {specificFilter}
+        </CardMedia>
+      </Card>
     </div>
   );
 };

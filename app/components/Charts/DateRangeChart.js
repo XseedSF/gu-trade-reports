@@ -3,6 +3,7 @@ import { scaleTime } from "d3-scale";
 import RangeChart from "./RangeChart";
 import BaseRangeChart from "./BaseRangeChart";
 import { timeFormatES } from "../../utils";
+import { COLORS } from "../../constants";
 
 const oneDayMilliseconds = 24 * 60 * 60 * 1000;
 
@@ -36,6 +37,7 @@ class DateRangeChart extends BaseRangeChart {
         xScale={scaleTime()}
         handleBrush={this.handleBrush}
         handleClearBrush={this.handleClearBrush}
+        fill={COLORS.PRIMARY_OPTION}
       />
     );
   }
