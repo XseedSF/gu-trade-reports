@@ -7,19 +7,25 @@ import Filter from "./Filter";
 import { RaisedButton } from "material-ui";
 import { COLORS } from "../constants";
 
-const Filters = ({ questionsFilters, toggleFilter, clearFilters }) =>
+const Filters = ({
+  questionsFilters,
+  toggleFilter,
+  clearFilters,
+  isFiltered
+}) =>
   <div>
     <RaisedButton
       label={`Limpiar filtros`}
       labelColor="#FFFFFF"
       backgroundColor={COLORS.PRIMARY}
       onClick={clearFilters}
+      disabled={!isFiltered}
     />
     <div className="question-charts-container">
-      {questionsFilters.map(f =>
+      {questionsFilters.map(questionFilter =>
         <Filter
-          key={`filter-${f.id}`}
-          questionFilter={f}
+          key={`filter-${questionFilter.id}`}
+          questionFilter={questionFilter}
           toggleFilter={toggleFilter}
         />
       )}

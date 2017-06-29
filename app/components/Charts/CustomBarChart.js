@@ -40,9 +40,12 @@ const CustomBarChart = ({ questionFilter, toggleFilter }) => {
         {dataForChart.map(filterOption =>
           <Cell
             cursor="pointer"
-            fill={filterOption.selected ? COLORS.SELECTED_OPTION : COLORS.PRIMARY_OPTION}
-            stroke={filterOption.selected ? "#FFFFFF" : "#FFFFFF"}
-            strokeWidth={ 2}
+            fill={
+              filterOption.selected
+                ? COLORS.SELECTED_OPTION
+                : COLORS.PRIMARY_OPTION
+            }
+            strokeWidth={2}
             key={`cell-${id}-${filterOption.key}`}
           />
         )}

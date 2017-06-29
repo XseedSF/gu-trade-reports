@@ -3,10 +3,16 @@ import { toggleAnswerFilter, clearFilters } from "../actions";
 import { questionsFiltersSelector } from "../selectors";
 
 const mapStateToProps = (state, ownProps) => {
+  let isFiltered = false;
+  let questionsFilters = [];
+  if (state.form.result) {
+    questionsFilters = questionsFiltersSelector(state);
+    isFiltered = questionsFilters.some(q => q.filter !== undefined);
+  }
+
   return {
-    questionsFilters: state.form.result !== undefined
-      ? questionsFiltersSelector(state)
-      : [],
+    isFiltered,
+    questionsFilters,
     isLoading: state.form.isLoading
   };
 };
