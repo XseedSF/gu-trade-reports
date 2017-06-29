@@ -10,6 +10,12 @@ const getMaxYValue = data => {
   return Math.max(...yValues);
 };
 
+const getTicksForYAxis = data => {
+  const yAxisMax = getMaxYValue(data);
+  const maxTicks = 6;
+  return Math.min(yAxisMax, maxTicks);
+};
+
 const RangeChart = ({
   data,
   xScale,
@@ -23,8 +29,8 @@ const RangeChart = ({
     return <span>No hay suficientes datos para graficar.</span>;
   }
 
-  const yAxisMax = getMaxYValue(data);
-  const chartWidth = 600;
+  const yAxisTicks = getTicksForYAxis(data);
+  const chartWidth = 615;
   const yGrid = {
     innerTickSize: -1 * chartWidth,
     tickStrokeDasharray: "Solid",
@@ -58,7 +64,7 @@ const RangeChart = ({
           <YAxis
             axisAt="left"
             orient="left"
-            ticks={yAxisMax}
+            ticks={yAxisTicks}
             tickFormat={y => `${Math.floor(y)}`}
             zoomEnabled={false}
             {...yGrid}
