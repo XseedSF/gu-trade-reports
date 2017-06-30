@@ -1,10 +1,10 @@
 export * from "./dates";
 
 export const deleteAttribute = key => {
-  return state => {
-    const newState = Object.assign({}, state);
-    delete newState[key];
-    return newState;
+  return object => {
+    const newObject = Object.assign({}, object);
+    delete newObject[key];
+    return newObject;
   };
 };
 

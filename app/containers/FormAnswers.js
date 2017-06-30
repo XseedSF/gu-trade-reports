@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { toggleAnswerFilter, clearFilters } from "../actions";
 import { filteredFormsSelector } from "../selectors";
 
 const mapStateToProps = (state, props) => {

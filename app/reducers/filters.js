@@ -48,6 +48,7 @@ const filters = (state = {}, action) => {
       const shouldRemove = newFilter.selected
         ? newFilter.selected.length === 0
         : false;
+
       if (shouldRemove) {
         const deleteFilter = deleteAttribute(id);
         return deleteFilter(state);
