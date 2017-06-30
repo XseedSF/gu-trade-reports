@@ -30,7 +30,7 @@ const RangeChart = ({
   }
 
   const yAxisTicks = getTicksForYAxis(data);
-  const chartWidth = 615;
+  const chartWidth = 595;
   const yGrid = {
     innerTickSize: -1 * chartWidth,
     tickStrokeDasharray: "Solid",

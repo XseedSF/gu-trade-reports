@@ -5,24 +5,8 @@ import BaseRangeChart from "./BaseRangeChart";
 import { COLORS } from "../../constants";
 
 class NumericRangeChart extends BaseRangeChart {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [{ xValue: 0, yValue: 0 }]
-    };
-  }
-
-  componentDidMount() {
-    this.setChartData();
-  }
-
-  setChartData() {
-    const data = this.getData(1, true);
-    this.setState({ ...this.state, data });
-  }
-
   render() {
-    const { data } = this.state;
+    const data = this.getData(1, true);
     const { filter } = this.props.questionFilter;
     const brushRange = filter ? { min: filter[0], max: filter[1] } : null;
 

@@ -77,7 +77,6 @@ class BaseRangeChart extends Component {
     return result;
   }
 
-  // private methods.
   getOptionsForChart() {
     const { questionFilter } = this.props;
     let options = dictionaryToArray(questionFilter.options);
