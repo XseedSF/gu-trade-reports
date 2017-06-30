@@ -31,6 +31,8 @@ const RangeChart = ({
 
   const yAxisTicks = getTicksForYAxis(data);
   const chartWidth = 595;
+	const chartHeight = 220;
+	const brushHeight = chartHeight - 40;
   const yGrid = {
     innerTickSize: -1 * chartWidth,
     tickStrokeDasharray: "Solid",
@@ -38,12 +40,12 @@ const RangeChart = ({
     tickStrokeWidth: 1
   };
   return (
-    <div style={{ textAlign: "left", marginRight: 20, paddingTop: 40 }}>
+    <div style={{ textAlign: "left", marginRight: 20, paddingTop: 35 }}>
       <ChartCanvas
         zIndex={0}
         zoomEvent={false}
         width={chartWidth}
-        height={200}
+        height={chartHeight}
         margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
         seriesName="MSFT"
         data={data}
@@ -79,7 +81,7 @@ const RangeChart = ({
             range={brushRange}
             onBrush={handleBrush}
             onClear={handleClearBrush}
-            height={160}
+            height={brushHeight}
             fill="#E1E4E6"
           />
         </Chart>
