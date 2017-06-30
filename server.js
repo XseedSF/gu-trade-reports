@@ -31,7 +31,8 @@ app.use(
 
 app.use(bodyParser.json());
 app.set("views", __dirname + "\\public");
-require("./routes.js")(app, compiler);
+
+require("./server/").setRoutes(app, compiler);
 
 var server = app.listen(port, function() {
   var port = server.address().port;

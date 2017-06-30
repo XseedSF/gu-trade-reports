@@ -1,4 +1,4 @@
-var controllers = require("./controllers");
+var controllers = require("../controllers");
 var views = new controllers.views();
 var formReport = new controllers.formReport();
 var jwt = require("jsonwebtoken");
