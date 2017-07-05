@@ -35,24 +35,10 @@ const config = {
     new HtmlWebpackPlugin({
       favicon: "public/favicon.png",
       template: "public/index.html"
-    })
-  ]
-};
-
-if (process.env.NODE_ENV === "production") {
-  config.plugins.push(
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
     }),
-    new webpack.optimize.UglifyJsPlugin()
-  );
-} else {
-  config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-  );
-}
+  ]
+};
 
 module.exports = config;
