@@ -40,6 +40,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
+    "webpack-merge": "^4.1.0",
     "xs-react-modal-dialog": "git+https://github.com/XseedSF/xs-react-modal-dialog.git"
   },
   "devDependencies": {
