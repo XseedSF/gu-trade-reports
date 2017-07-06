@@ -3,7 +3,7 @@ module.exports = function(env) {
   const HtmlWebpackPlugin = require("html-webpack-plugin");
 
   const config = {
-    entry: "./app/index.js",
+    entry: ["./app/index.js"],
     output: {
       path: path.join(__dirname, "/dist"),
       publicPath: "/",
