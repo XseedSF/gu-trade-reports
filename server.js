@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV === "production" ? "prod" : "dev";
 const webpackConfig = require("./webpack.config")(env);
 const compiler = webpack(webpackConfig);
 
-if (process.env.NODE_ENV !== "production") {
+if (env === "dev") {
   const webpackDevMiddleware = require("webpack-dev-middleware");
   const webpackHotMiddleware = require("webpack-hot-middleware");
 
