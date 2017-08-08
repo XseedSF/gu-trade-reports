@@ -129,25 +129,25 @@ const getCompletedFormsFromResponse = function({ data: response }) {
 const getAnswerValue = answer => {
   switch (answer.Question.Type.Code) {
     case "CK":
-      return answer.AnswerCheck;
+      return answer.CheckOption;
     case "YN":
-      return answer.AnswerYesNoOption;
+      return answer.YesNoOption;
     case "MO":
-      return answer.AnswerOptionId;
+      return answer.ChosenQuestionOption.Id;
     case "CAM":
-      return !answer.AnswerSkipped && answer.AnswerImageArray != null;
+      return !answer.Skipped && answer.ImageArray != null;
     case "DATE":
-      return !answer.AnswerSkipped && answer.AnswerDateReply != null
-        ? answer.AnswerDateReply.getTime() + 3 * 60 * 60 * 1000
+      return !answer.Skipped && answer.DateReply != null
+        ? answer.DateReply.getTime() + 3 * 60 * 60 * 1000
         : null;
     case "NUM":
-      const value = parseFloat(answer.AnswerFreeText);
-      return !answer.AnswerSkipped && value ? value : 0;
+      const value = parseFloat(answer.FreeText);
+      return !answer.Skipped && value ? value : 0;
     case "FT":
     case "CODE":
     case "SIG":
     case "IMG":
-      return !answer.AnswerSkipped;
+      return !answer.Skipped;
   }
 };
 
