@@ -95,10 +95,6 @@ const getCompletedFormsFromResponse = function({ data: response }) {
 
     for (let j = 0; j < cfReponse.Answers.length; j++) {
       const cfAnswer = cfReponse.Answers[j];
-      let base64Image =
-        cfAnswer.ImageArray != null
-          ? new Buffer(cfAnswer.ImageArray, "binary").toString("base64")
-          : "";
 
       const isMultipleOption =
         cfAnswer.Question.Type.Code === questionTypes.MULTIPLE_OPTION;
@@ -115,7 +111,7 @@ const getCompletedFormsFromResponse = function({ data: response }) {
         SelectedOptionName: isMultipleOption
           ? cfAnswer.ChosenQuestionOption.Text
           : null,
-        ImageBase64: base64Image,
+        ImageBase64: cfAnswer.ImageArray,
         DateReply: cfAnswer.DateReply,
         value: getAnswerValue(cfAnswer)
       };
