@@ -1,7 +1,7 @@
 var sql = require("mssql");
 const BaseApi = require("./baseApi.js");
 const httpRequest = require("./httpRequest");
-const questionTypes = require("../constants");
+const questionTypes = require("../constants").questionTypes;
 
 class FormApi extends BaseApi {
   constructor(envCode) {
@@ -59,7 +59,7 @@ const getFormFromResponse = function({ data: response }) {
     const questionResponse = formResponse.Questions[i];
     question = {
       Id: questionResponse.Id,
-      Type: questionResponse.Type,
+      Type: questionResponse.Type.Code,
       Text: questionResponse.Text,
       Required: questionResponse.Required,
       Options: []

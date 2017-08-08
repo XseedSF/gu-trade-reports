@@ -1,4 +1,4 @@
-export const questionTypes = {
+exports.questionTypes = {
   CAMERA: "CAM",
   CHECKBOX: "CK",
   BAR_CODE: "CODE",
