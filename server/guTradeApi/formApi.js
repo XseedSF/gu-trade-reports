@@ -1,6 +1,7 @@
 var sql = require("mssql");
 const BaseApi = require("./baseApi.js");
 const httpRequest = require("./httpRequest");
+const questionTypes = require("../constants");
 
 class FormApi extends BaseApi {
   constructor(envCode) {
@@ -99,7 +100,8 @@ const getCompletedFormsFromResponse = function({ data: response }) {
           ? new Buffer(cfAnswer.ImageArray, "binary").toString("base64")
           : "";
 
-      const isMultipleOption = cfAnswer.ChosenQuestionOption != null;
+      const isMultipleOption =
+        cfAnswer.Question.Type.Code === questionTypes.MULTIPLE_OPTION;
       const answer = {
         Id: cfAnswer.Id,
         QuestionId: cfAnswer.Question.Id,
@@ -128,25 +130,25 @@ const getCompletedFormsFromResponse = function({ data: response }) {
 
 const getAnswerValue = answer => {
   switch (answer.Question.Type.Code) {
-    case "CK":
+    case questionTypes.CHECKBOX:
       return answer.CheckOption;
-    case "YN":
+    case questionTypes.YES_NO:
       return answer.YesNoOption;
-    case "MO":
+    case questionTypes.MULTIPLE_OPTION:
       return answer.ChosenQuestionOption.Id;
-    case "CAM":
+    case questionTypes.CAMERA:
       return !answer.Skipped && answer.ImageArray != null;
-    case "DATE":
+    case questionTypes.DATE:
       return !answer.Skipped && answer.DateReply != null
         ? answer.DateReply.getTime() + 3 * 60 * 60 * 1000
         : null;
-    case "NUM":
+    case questionTypes.NUMERIC:
       const value = parseFloat(answer.FreeText);
       return !answer.Skipped && value ? value : 0;
-    case "FT":
-    case "CODE":
-    case "SIG":
-    case "IMG":
+    case questionTypes.FREE_TEXT:
+    case questionTypes.BAR_CODE:
+    case questionTypes.SIGNATURE:
+    case questionTypes.IMAGE:
       return !answer.Skipped;
   }
 };
