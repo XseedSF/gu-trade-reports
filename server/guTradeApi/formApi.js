@@ -61,16 +61,18 @@ const getFormFromResponse = function({ data: response }) {
       Id: questionResponse.Id,
       Type: questionResponse.Type.Code,
       Text: questionResponse.Text,
-      Required: questionResponse.Required,
-      Options: []
+      Required: questionResponse.Required
     };
 
-    for (let j = 0; j < questionResponse.Options.length; j++) {
-      const option = questionResponse.Options[j];
-      question.Options.push({
-        Id: option.Id,
-        Text: option.Text
-      });
+    if (questionResponse.Options.length > 0) {
+      question.Options = [];
+      for (let j = 0; j < questionResponse.Options.length; j++) {
+        const option = questionResponse.Options[j];
+        question.Options.push({
+          Id: option.Id,
+          Text: option.Text
+        });
+      }
     }
 
     form.questions.push(question);
