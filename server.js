@@ -31,7 +31,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.set("views", __dirname + "\\public");
+// app.set("views", __dirname + "\\public");
 
 require("./server/").setRoutes(app, compiler);
 

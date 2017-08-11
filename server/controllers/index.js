@@ -1,2 +1,1 @@
-exports.views = require("./views.js");
-exports.formReport = require('./formReport.js');
+exports.formReport = require("./formReport.js");

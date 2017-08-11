@@ -1,10 +1,9 @@
-var controllers = require("../controllers");
-var views = new controllers.views();
-var formReport = new controllers.formReport();
-var jwt = require("jsonwebtoken");
-var config = require("config");
-var path = require("path");
+const controllers = require("../controllers");
+const formReport = new controllers.formReport();
+const path = require("path");
 
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const jwtConfig = config.get("jwtConfig");
 
 var sess;
@@ -18,7 +17,7 @@ module.exports = function(app, compiler) {
       sess.userName = decoded.userName;
       sess.ambient = decoded.ambient;
 
-      views.redirect(req, res, "");
+      redirect(req, res, "");
     });
   });
 
@@ -30,26 +29,27 @@ module.exports = function(app, compiler) {
     }
   });
 
-  /// Errors
-  app.get("/401", function(req, res) {
-    views.unauthorized(req, res);
-  });
-
   // All remaining requests return the React app, so it can handle routing.
-  app.get("*", function(req, res) {
-    var filename = path.join(compiler.outputPath, "index.html");
-    compiler.outputFileSystem.readFile(filename, function(err, result, next) {
-      if (err) {
-        return next(err);
-      }
-      res.set("content-type", "text/html");
-      res.send(result);
-      res.end();
-    });
-  });
+  // app.get("*", function(req, res) {
+  //   var filename = path.join(compiler.outputPath, "index.html");
+  //   compiler.outputFileSystem.readFile(filename, function(err, result, next) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //     res.set("content-type", "text/html");
+  //     res.send(result);
+  //     res.end();
+  //   });
+  // });
 };
 
-var verifyTokenParam = function(req, res, callback) {
+const redirect = (req, res, redirection) => {
+  let query = req._parsedOriginalUrl.query;
+  query = query == "" || query == null ? "" : "?" + query;
+  res.redirect("/" + redirection + query);
+};
+
+const verifyTokenParam = (req, res, callback) => {
   let token = req.params.token;
   jwt.verify(token, jwtConfig.secret, jwtConfig, function(err, decoded) {
     if (err) {
