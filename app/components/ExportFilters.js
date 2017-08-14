@@ -12,9 +12,7 @@ const ExportFilters = () => {
   );
 };
 
-const filter = node => {
-  return node.id !== "clear-filters-button";
-};
+const filter = node => node.id !== "clear-filters-button";
 
 const exportFilters = () => {
   domtoimage
