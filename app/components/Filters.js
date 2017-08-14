@@ -23,7 +23,7 @@ const Filters = ({
         disabled={!isFiltered}
       />
     </div>
-    <div className="question-charts-container">
+    <div id="filters-export" className="question-charts-container">
       {questionsFilters.map(questionFilter =>
         <Filter
           key={`filter-${questionFilter.id}`}

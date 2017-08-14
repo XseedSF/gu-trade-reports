@@ -1,13 +1,15 @@
 import React from "react";
 import { AppBar } from "material-ui";
 import { COLORS } from "../constants";
-import ExportFilters from "./ExportFilters";
+import ExportAsImage from "./ExportAsImage";
 
 const Title = ({ text }) =>
   <AppBar
     style={{ backgroundColor: COLORS.PRIMARY }}
     title={text}
-    iconElementLeft={<ExportFilters />}
+    iconElementLeft={
+      <ExportAsImage color="#FFFFFF" elementId="filters-export" />
+    }
     showMenuIconButton={true}
   />;
 

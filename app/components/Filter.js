@@ -7,7 +7,9 @@ import {
   NumericRangeChart
 } from "./Charts";
 import { filterTypes } from "../constants";
-import { Card, CardHeader, CardMedia } from "material-ui";
+import { Card, CardHeader, CardMedia, CardActions } from "material-ui";
+import ExportAsImage from "./ExportAsImage";
+import { grey600 } from "material-ui/styles/colors";
 
 const Filter = ({ questionFilter, toggleFilter }) => {
   let specificFilter = null;
@@ -50,9 +52,11 @@ const Filter = ({ questionFilter, toggleFilter }) => {
       break;
   }
 
+  const filterActionsId = `filter-export-button`;
+  const filterElementId = `filter-export-${questionFilter.id}`;
   return (
     <div className="filter-card" style={{ maxWidth: 630 }}>
-      <Card>
+      <Card id={filterElementId}>
         <CardHeader title={`${questionFilter.text}`} />
         <CardMedia
           overlayContentStyle={{ alignContent: "center" }}
@@ -60,6 +64,14 @@ const Filter = ({ questionFilter, toggleFilter }) => {
         >
           {specificFilter}
         </CardMedia>
+        <CardActions id={filterActionsId}>
+          <ExportAsImage
+            elementId={filterElementId}
+            color={grey600}
+            size={12}
+            elementIdsToExclude={[filterActionsId]}
+          />
+        </CardActions>
       </Card>
     </div>
   );

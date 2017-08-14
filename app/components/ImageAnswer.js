@@ -1,8 +1,6 @@
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import { ModalContainer, ModalDialog } from "xs-react-modal-dialog";
-import FlatButton from "material-ui/FlatButton";
-import FileDownloadIcon from "material-ui/svg-icons/file/file-download";
 
 export default class ImageAnswer extends React.Component {
   constructor(props) {
