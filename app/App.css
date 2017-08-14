@@ -59,7 +59,7 @@
 }
 
 .question-charts-container {
-	margin: 0 auto;
+	margin: 10px auto 0px;
 	max-width: 80%;
 	display: -webkit-flex;
 	display: flex;
@@ -99,6 +99,5 @@ tr:nth-child(even) {
 }
 
 .form-answers-table {
-	margin-top: 25px;
-	margin-bottom: 35px;
+	margin: 25px 25px 35px;
 }

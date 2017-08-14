@@ -14,13 +14,15 @@ const Filters = ({
   isFiltered
 }) =>
   <div>
-    <RaisedButton
-      label={`Limpiar filtros`}
-      labelColor="#FFFFFF"
-      backgroundColor={COLORS.PRIMARY}
-      onClick={clearFilters}
-      disabled={!isFiltered}
-    />
+    <div id="clear-filters-button">
+      <RaisedButton
+        label={`Limpiar filtros`}
+        labelColor="#FFFFFF"
+        backgroundColor={COLORS.PRIMARY}
+        onClick={clearFilters}
+        disabled={!isFiltered}
+      />
+    </div>
     <div className="question-charts-container">
       {questionsFilters.map(questionFilter =>
         <Filter

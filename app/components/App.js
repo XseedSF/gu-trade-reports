@@ -10,8 +10,10 @@ import "../fixed-data-table.css";
 const App = () =>
   <div className="App">
     <Header />
-    <Filters />
-    <FormAnswers />
+    <div id="app-export">
+      <Filters />
+      <FormAnswers />
+    </div>
   </div>;
 
 const withFetchForm = lifecycle({
