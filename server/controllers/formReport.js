@@ -1,7 +1,13 @@
+const BaseController = require("./baseController.js");
 const GuTradeApi = require("../guTradeApi");
 
 var sess;
-class FormsReportController {
+class FormsReportController extends BaseController {
+  constructor(app) {
+    super(app);
+  }
+
+  /// API
   getCompletedForms(req, res) {
     sess = req.session;
     let filter = {
