@@ -9,7 +9,7 @@ import {
 import { filterTypes } from "../constants";
 import { Card, CardHeader, CardMedia, CardActions } from "material-ui";
 import ExportAsImage from "./ExportAsImage";
-import { grey600 } from "material-ui/styles/colors";
+import { COLORS } from "../constants";
 
 const Filter = ({ questionFilter, toggleFilter }) => {
   let specificFilter = null;
@@ -67,7 +67,7 @@ const Filter = ({ questionFilter, toggleFilter }) => {
         <CardActions id={filterActionsId}>
           <ExportAsImage
             elementId={filterElementId}
-            color={grey600}
+            color={COLORS.SECONDARY_TEXT}
             size={12}
             elementIdsToExclude={[filterActionsId]}
           />

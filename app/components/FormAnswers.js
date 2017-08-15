@@ -5,6 +5,7 @@ import NoDataMatching from "./NoMatchingData";
 import container from "../containers/FormAnswers";
 import { compose, setPropTypes } from "recompose";
 import withSpinnerWhileLoading from "../hocs/withSpinnerWhileLoading";
+import TableExport from "./TableExport";
 import Table from "./Table";
 import "react-table/react-table.css";
 
@@ -41,6 +42,7 @@ const FormAnswers = ({ questions, completedForms }) => {
   return (
     <div className="form-answers-table">
       <Table columns={columns} data={data} />
+      <TableExport columns={columns} data={data} />
     </div>
   );
 };
