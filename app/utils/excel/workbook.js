@@ -6,9 +6,9 @@ class Workbook {
     this.sheets = {};
   }
 
-  addWorksheet(name, worksheetCells) {
+  addWorksheet(name, worksheet) {
     this.sheetNames.push(name);
-    this.sheets[name] = worksheetCells;
+    this.sheets[name] = worksheet;
   }
 
   export(downloadName) {

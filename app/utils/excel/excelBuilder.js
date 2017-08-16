@@ -33,7 +33,7 @@ const createExcelFile = workbook => {
 const getWorkbookSheets = workbook => {
   const sheets = {};
   Object.keys(workbook.sheets).map(key => {
-    sheets[key] = workbook.sheets[key].cells;
+    sheets[key] = workbook.sheets[key].getEncodedCells();
   });
 
   return sheets;

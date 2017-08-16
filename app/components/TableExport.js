@@ -1,8 +1,9 @@
 import React from "react";
 import FlatButton from "material-ui/FlatButton";
-import { exportExcel } from "../utils/index";
+// import { exportExcel } from "../utils/index";
 import { questionTypes } from "../constants";
 import { COLORS } from "../constants";
+import { Workbook, Worksheet } from "../utils";
 
 const TableExport = ({ columns, data }) => {
   return (
@@ -11,41 +12,45 @@ const TableExport = ({ columns, data }) => {
         label="Descargar tabla"
         style={{ color: COLORS.SECONDARY_TEXT }}
         onClick={() => {
-          const cells = makeCells(columns, data);
-          const exportOptions = {
-            cells,
-            sheetName: "Reporte",
-            downloadName: "Reporte"
-          };
-          exportExcel(exportOptions);
+          exportTableToExcel(columns, data);
         }}
       />
     </div>
   );
 };
 
-const makeCells = (columns, data) => {
-  const cells = [];
-  const headers = columns.map(c => c.Header);
-  cells.push(headers);
+const exportTableToExcel = (columns, data) => {
+  const worksheetName = "Reporte";
+  const worksheet = getWorksheet(columns, data);
 
-  const count = columns.length - 1;
+  const workbook = new Workbook();
+  workbook.addWorksheet(worksheetName, worksheet);
+
+  const downloadName = "Reporte";
+  workbook.export(downloadName);
+};
+
+const getWorksheet = (columns, data) => {
+  const worksheet = new Worksheet();
+
+  let row = 0;
+  const headers = columns.map((c, index) => {
+    worksheet.setCellValue(row, index, c.Header);
+  });
+
   for (let i = 0; i < data.length; i++) {
-    const newRow = [];
+    row++;
     const rowData = data[i];
+    worksheet.setCellValue(row, 0, rowData.name);
 
-    const name = rowData.name;
-    newRow.push(name);
-    for (let j = 0; j < count; j++) {
-      const answer = rowData[j][j].answer;
+    for (let column = 1; column < columns.length - 1; column++) {
+      const { answer } = rowData[column][column];
       const response = getAnswerResponse(answer);
-      newRow.push(response);
+      worksheet.setCellValue(row, column, response);
     }
-
-    cells.push(newRow);
   }
 
-  return cells;
+  return worksheet;
 };
 
 const getAnswerResponse = answer => {

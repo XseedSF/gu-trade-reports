@@ -1,5 +1,5 @@
 export * from "./dates";
-export { default as exportExcel } from "./excel";
+export * from "./excel";
 
 export const deleteAttribute = key => {
   return object => {
