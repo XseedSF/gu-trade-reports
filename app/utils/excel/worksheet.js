@@ -1,55 +1,57 @@
 import XLSX from "xlsx";
 
+const MAX_RANGE = 10000000;
+
 class Worksheet {
   constructor() {
     this.cells = {};
+    this.range = { s: { c: MAX_RANGE, r: MAX_RANGE }, e: { c: 0, r: 0 } };
   }
 
   setCells(data) {
-    var range = { s: { c: 10000000, r: 10000000 }, e: { c: 0, r: 0 } };
-    for (var R = 0; R != data.length; ++R) {
-      for (var C = 0; C != data[R].length; ++C) {
-        if (range.s.r > R) range.s.r = R;
-        if (range.s.c > C) range.s.c = C;
-        if (range.e.r < R) range.e.r = R;
-        if (range.e.c < C) range.e.c = C;
-        var cell = { v: data[R][C] };
-        if (cell.v == null) continue;
-        var cell_ref = XLSX.utils.encode_cell({ c: C, r: R });
+    for (var row = 0; row != data.length; ++row) {
+      for (var column = 0; column != data[row].length; ++column) {
+        this.updateRange(row, column);
 
-        if (typeof cell.v === "number") cell.t = "n";
-        else if (typeof cell.v === "boolean") cell.t = "b";
-        else if (cell.v instanceof Date) {
-          cell.t = "n";
-          cell.z = XLSX.SSF._table[14];
-          cell.v = datenum(cell.v);
-        } else cell.t = "s";
-
-        if (C == 0) {
-          cell.s = {
-            font: {
-              bold: true
-            }
-          };
+        var cell = { v: data[row][column] };
+        if (cell.v) {
+          setCellType(cell);
+          var cellRef = XLSX.utils.encode_cell({ c: column, r: row });
+          this.cells[cellRef] = cell;
         }
-
-        if (R == 0) {
-          cell.s = {
-            fill: {
-              fgColor: { rgb: "FFFFAA00" }
-            }
-          };
-        }
-
-        this.cells[cell_ref] = cell;
       }
     }
 
-    if (range.s.c < 10000000) {
-      this.cells["!ref"] = XLSX.utils.encode_range(range);
+    this.encodeCellsRange();
+  }
+
+  encodeCellsRange() {
+    if (this.range.s.c < MAX_RANGE) {
+      this.cells["!ref"] = XLSX.utils.encode_range(this.range);
     }
   }
+
+  updateRange(row, column) {
+    if (this.range.s.r > row) this.range.s.r = row;
+    if (this.range.s.c > column) this.range.s.c = column;
+    if (this.range.e.r < row) this.range.e.r = row;
+    if (this.range.e.c < column) this.range.e.c = column;
+  }
 }
+
+const setCellType = cell => {
+  if (typeof cell.v === "number") {
+    cell.t = "n";
+  } else if (typeof cell.v === "boolean") {
+    cell.t = "b";
+  } else if (cell.v instanceof Date) {
+    cell.t = "n";
+    cell.z = XLSX.SSF._table[14];
+    cell.v = datenum(cell.v);
+  } else {
+    cell.t = "s";
+  }
+};
 
 const datenum = (value, date1904) => {
   if (date1904) value += 1462;
