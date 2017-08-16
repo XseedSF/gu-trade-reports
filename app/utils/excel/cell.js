@@ -1,5 +1,5 @@
 import TYPE from "./cellType";
-import XLSX from "xlsx";
+import { dateFormat } from "./excelBuilder";
 
 class Cell {
   constructor(row, column) {
@@ -22,7 +22,7 @@ class Cell {
       this.type = TYPE.BOOL;
     } else if (this.value instanceof Date) {
       this.type = TYPE.NUMBER;
-      this.numberFormat = XLSX.SSF._table[14];
+      this.numberFormat = dateFormat;
       this.value = datenum(this.value);
     } else {
       this.type = TYPE.STRING;
