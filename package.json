@@ -1,7 +1,7 @@
 {
   "name": "gu-trade-reports",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto para Graficar resultados de los formularios completados por clientes en GuTrade",
   "main": "server.js",
   "scripts": {
     "build": "webpack --env=prod --progress --profile --colors",
