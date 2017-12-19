@@ -16,7 +16,7 @@ module.exports = function(app, compiler) {
       sess = req.session;
       sess.userId = decoded.userId;
       sess.userName = decoded.userName;
-      sess.ambient = decoded.ambient;
+			sess.clientCode = decoded.clientCode;
 
       views.redirect(req, res, "");
     });

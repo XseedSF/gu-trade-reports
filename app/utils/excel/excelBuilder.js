@@ -52,7 +52,6 @@ const encodeCells = cells => {
   }
 
   xlsxCells["!ref"] = getCellsRange(cells);
-  debugger;
   return xlsxCells;
 };
 

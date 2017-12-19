@@ -18,7 +18,7 @@ class FormsReportController extends BaseController {
       persons: req.query.persons,
       userId: sess.userId
     };
-    let formsApi = new GuTradeApi.FormApi(sess.ambient);
+    let formsApi = new GuTradeApi.FormApi(sess.clientCode, req.hostname);
     formsApi.getCompletedForms(
       filter,
       data => {

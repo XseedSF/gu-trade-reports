@@ -1,11 +1,28 @@
 var config = require("config");
 const guTradeApiConfig = config.get("guTradeServiceApi");
-const httpRequest = require("./httpRequest");
 const jwt = require("jsonwebtoken");
 
 class BaseApi {
-  constructor(envCode) {
-    this.envCode = envCode;
+  constructor(clientCode, hostname) {
+    this.clientCode = clientCode;
+    var baseUrl = this.getApiBaseUrl(hostname);
+    this.httpRequest = require("./httpRequest")(baseUrl);
+  }
+
+  getApiBaseUrl(hostname) {
+    var domain = hostname.split(",")[0];
+    switch (hostname) {
+      case "cr":
+        return "";
+      case "co":
+      case "ec":
+      case "pe":
+      case "pa":
+        return "";
+      default:
+        // `http://dev.xseed.com.uy/ApiService.svc/api/`,
+        return `http://localhost:26468/api/`;
+    }
   }
 
   getUserToken() {
@@ -13,7 +30,7 @@ class BaseApi {
       {
         username: guTradeApiConfig.username,
         password: guTradeApiConfig.password,
-        envCode: this.envCode
+        clientCode: this.clientCode
       },
       guTradeApiConfig.publicKey,
       { expiresIn: "1h" }
@@ -29,7 +46,7 @@ class BaseApi {
       }
     };
 
-    return httpRequest.get(request).then(({ data: response }) => {
+    return this.httpRequest.get(request).then(({ data: response }) => {
       const sessionToken = response.Data;
       return sessionToken;
     });
