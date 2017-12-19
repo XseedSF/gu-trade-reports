@@ -60,7 +60,7 @@ const CustomPieChart = ({ questionFilter, toggleFilter }) => {
         labelLine={false}
         dataKey="value"
       >
-        {dataForChart.map((filterOption, index) =>
+        {dataForChart.map((filterOption, index) => (
           <Cell
             stroke={"#FFFFFF"}
             strokeWidth={2}
@@ -71,7 +71,7 @@ const CustomPieChart = ({ questionFilter, toggleFilter }) => {
             }
             key={`cell-${id}-${filterOption.value}`}
           />
-        )}
+        ))}
       </Pie>
       <Tooltip />
     </PieChart>

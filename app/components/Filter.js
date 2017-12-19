@@ -10,6 +10,7 @@ import { filterTypes } from "../constants";
 import { Card, CardHeader, CardMedia, CardActions } from "material-ui";
 import ExportAsImage from "./ExportAsImage";
 import { COLORS } from "../constants";
+import { truncateText } from "../utils";
 
 const Filter = ({ questionFilter, toggleFilter }) => {
   let specificFilter = null;
@@ -54,10 +55,20 @@ const Filter = ({ questionFilter, toggleFilter }) => {
 
   const filterActionsId = `filter-export-button`;
   const filterElementId = `filter-export-${questionFilter.id}`;
+
   return (
-    <div className="filter-card" style={{ maxWidth: 630 }}>
+    <div
+      className="filter-card"
+      style={{
+        width: questionFilter.type === filterTypes.SINGLE_SELECT ? 300 : 615
+      }}
+    >
       <Card id={filterElementId}>
-        <CardHeader title={`${questionFilter.text}`} />
+        <CardHeader
+          title={`${truncateText(questionFilter.text, 100)}`}
+          textStyle={{ paddingRight: 0 }}
+          style={{ height: 74 }}
+        />
         <CardMedia
           overlayContentStyle={{ alignContent: "center" }}
           style={{ minHeight: 300 }}

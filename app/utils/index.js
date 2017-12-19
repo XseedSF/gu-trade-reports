@@ -20,3 +20,11 @@ export const stringToArrayBuffer = value => {
   for (var i = 0; i != value.length; ++i) view[i] = value.charCodeAt(i) & 0xff;
   return buffer;
 };
+
+export const truncateText = (value, maxLength) => {
+  if (value && value.length > maxLength) {
+    return value.substr(0, maxLength) + `...`;
+  }
+
+  return value;
+};
