@@ -21,8 +21,9 @@ const FormAnswers = ({ questions, completedForms }) => {
         Header: question.Text,
         accessor: index.toString(),
         minWidth: 150,
-        Cell: ({ value }) =>
+        Cell: ({ value }) => (
           <FormAnswer answer={value[index].answer} name={value[index].name} />
+        )
       };
     })
   ];

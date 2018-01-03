@@ -15,7 +15,8 @@ const Table = ({ columns, data }) => {
         noDataText={"No hay datos"}
         pageText={"Página"}
         ofText={"de"}
-        rowsText={"filas"}
+				rowsText={"filas"}
+				pageSize={10}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import FlatButton from "material-ui/FlatButton";
-// import { exportExcel } from "../utils/index";
+import FileDownload from "material-ui/svg-icons/file/file-download";
 import { questionTypes } from "../constants";
 import { COLORS } from "../constants";
 import { Workbook, Worksheet } from "../utils";
@@ -14,6 +14,7 @@ const TableExport = ({ columns, data }) => {
         onClick={() => {
           exportTableToExcel(columns, data);
         }}
+        icon={<FileDownload />}
       />
     </div>
   );
