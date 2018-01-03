@@ -106,12 +106,14 @@ const getCompletedFormsFromResponse = function({ data: response }) {
         Text: cfAnswer.Question.Text,
         YesNoValue: cfAnswer.YesNoOption,
         FreeText: cfAnswer.FreeText,
-        SelectedOptionId: isMultipleOption
-          ? cfAnswer.ChosenQuestionOption.Id
-          : null,
-        SelectedOptionName: isMultipleOption
-          ? cfAnswer.ChosenQuestionOption.Text
-          : null,
+        SelectedOptionId:
+          isMultipleOption && cfAnswer.ChosenQuestionOption
+            ? cfAnswer.ChosenQuestionOption.Id
+            : null,
+        SelectedOptionName:
+          isMultipleOption && cfAnswer.ChosenQuestionOption
+            ? cfAnswer.ChosenQuestionOption.Text
+            : null,
         ImageBase64: cfAnswer.ImageArray,
         DateReply: cfAnswer.DateReply,
         value: getAnswerValue(cfAnswer)
@@ -132,7 +134,7 @@ const getAnswerValue = answer => {
     case questionTypes.YES_NO:
       return answer.YesNoOption;
     case questionTypes.MULTIPLE_OPTION:
-      return answer.ChosenQuestionOption.Id;
+      return answer.ChosenQuestionOption ? answer.ChosenQuestionOption.Id : "";
     case questionTypes.CAMERA:
       return !answer.Skipped && answer.ImageArray != null;
     case questionTypes.DATE:
