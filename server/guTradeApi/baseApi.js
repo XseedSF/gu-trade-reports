@@ -13,15 +13,15 @@ class BaseApi {
     var domain = hostname.split(",")[0];
     switch (hostname) {
       case "cr":
-        return "";
+        return `http://cr.gutrade.io/ApiServices/api/`;
       case "co":
       case "ec":
       case "pe":
       case "pa":
-        return "";
+        return `http://co.gutrade.io/ApiServices/api/`;
       default:
-        // `http://dev.xseed.com.uy/ApiService.svc/api/`,
-        return `http://localhost:26468/api/`;
+        return `http://gutrade.io/ApiServices/api/`;
+      // return `http://localhost:26468/api/`;
     }
   }
 
