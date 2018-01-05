@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 3000;
 const app = express();
 
 const webpack = require("webpack");
