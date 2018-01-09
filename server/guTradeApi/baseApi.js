@@ -21,7 +21,6 @@ class BaseApi {
         return `http://co.gutrade.io/ApiServices/api/`;
       default:
         return `http://gutrade.io/ApiServices/api/`;
-      // return `http://localhost:26468/api/`;
     }
   }
 

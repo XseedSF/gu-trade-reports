@@ -35,7 +35,7 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "0.8.5",
     "react-stockcharts": "^0.6.1",
-    "react-table": "^6.3.0",
+    "react-table": "^6.7.6",
     "react-tap-event-plugin": "^2.0.1",
     "recharts": "^0.21.1",
     "recompose": "^0.23.5",

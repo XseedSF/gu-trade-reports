@@ -17,6 +17,7 @@ const Table = ({ columns, data }) => {
         ofText={"de"}
 				rowsText={"filas"}
 				pageSize={10}
+				showPageSizeOptions={false}
       />
     </div>
   );
