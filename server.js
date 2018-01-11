@@ -31,7 +31,9 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.set("views", __dirname + "\\public");
+
+var viewsPath = env === "dev" ? "\\public" : "\\dist";
+app.set("views", __dirname + viewsPath);
 
 require("./server/").setRoutes(app, compiler);
 
