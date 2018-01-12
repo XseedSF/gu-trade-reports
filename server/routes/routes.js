@@ -16,7 +16,7 @@ module.exports = function(app, compiler) {
       sess = req.session;
       sess.userId = decoded.userId;
       sess.userName = decoded.userName;
-			sess.clientCode = decoded.clientCode;
+      sess.clientCode = decoded.clientCode;
 
       views.redirect(req, res, "");
     });
@@ -38,14 +38,7 @@ module.exports = function(app, compiler) {
   // All remaining requests return the React app, so it can handle routing.
   app.get("*", function(req, res) {
     var filename = path.join(compiler.outputPath, "index.html");
-    compiler.outputFileSystem.readFile(filename, function(err, result, next) {
-      if (err) {
-        return next(err);
-      }
-      res.set("content-type", "text/html");
-      res.send(result);
-      res.end();
-    });
+    res.sendFile(filename);
   });
 };
 

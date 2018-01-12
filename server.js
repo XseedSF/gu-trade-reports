@@ -35,6 +35,11 @@ app.use(bodyParser.json());
 var viewsPath = env === "dev" ? "\\public" : "\\dist";
 app.set("views", __dirname + viewsPath);
 
+if (env === "prod") {
+  // Priority serve any static files.
+  app.use(express.static(__dirname + "/dist"));
+}
+
 require("./server/").setRoutes(app, compiler);
 
 var server = app.listen(port, function() {
