@@ -60,12 +60,13 @@
 
 .question-charts-container {
 	margin: 10px auto 0px;
-	max-width: 80%;
+	max-width: 90%;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-wrap: wrap;
 		 -moz-flex-wrap: wrap;
 					flex-wrap: wrap;
+	justify-content: center;
 }
 
 .chart-centered {
