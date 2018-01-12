@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack --env=prod --progress --profile --colors",
-    "debug": "node --inspect server.js"
+		"debug": "node --inspect server.js",
+		"postinstall": "npm run build"
   },
   "author": "Xseed",
   "license": "ISC",
