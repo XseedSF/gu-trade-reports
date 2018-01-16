@@ -1,6 +1,7 @@
 var controllers = require("../controllers");
 var views = new controllers.views();
-var formReport = new controllers.formReport();
+var formController = new controllers.formController();
+var answerController = new controllers.answerController();
 var jwt = require("jsonwebtoken");
 var config = require("config");
 var path = require("path");
@@ -26,7 +27,14 @@ module.exports = function(app, compiler) {
   app.get("/api/getCompletedForms", function(req, res) {
     sess = req.session;
     if (sess.userId) {
-      formReport.getCompletedForms(req, res);
+      formController.getCompletedForms(req, res);
+    }
+  });
+
+  app.get("/api/getAnswerImage", function(req, res) {
+    sess = req.session;
+    if (sess.userId) {
+      answerController.getImage(req, res);
     }
   });
 

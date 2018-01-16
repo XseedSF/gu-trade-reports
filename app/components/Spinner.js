@@ -2,14 +2,13 @@ import React from "react";
 import ReactLoader from "react-loader";
 import { COLORS } from "../constants";
 
-const options = {
+const defaultOptions = {
   lines: 13,
   length: 20,
   width: 10,
   radius: 30,
   scale: 0.5,
   corners: 1,
-  color: COLORS.PRIMARY,
   opacity: 0.25,
   rotate: 0,
   direction: 1,
@@ -24,8 +23,14 @@ const options = {
   position: "absolute"
 };
 
-const Spinner = () => {
+const Spinner = ({ color }) => {
+  var options = Object.assign({}, defaultOptions, { color });
+
   return <ReactLoader loaded={false} options={options} className="spinner" />;
+};
+
+Spinner.defaultProps = {
+  color: COLORS.PRIMARY
 };
 
 export default Spinner;

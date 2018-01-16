@@ -10,5 +10,6 @@ export const COLORS = {
   PRIMARY_OPTION: blue300,
   SECONDARY_OPTION: orange300,
   SELECTED_OPTION: green500,
-  SECONDARY_TEXT: grey600
+	SECONDARY_TEXT: grey600,
+	OVER_MODAL: "#ccffcc"
 };

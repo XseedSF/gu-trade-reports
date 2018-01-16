@@ -68,7 +68,7 @@ const getAnswerResponse = answer => {
     case questionTypes.CAMERA:
       // TODO: add image to the exported excel
       // return answer.ImageBase64 ? answer.ImageBase64 : "Sin imagen";
-      return answer.ImageBase64 ? "Con imagen" : "Sin imagen";
+      return answer.ImageName ? "Con imagen" : "";
     case questionTypes.DATE:
       return answer.value;
     default:

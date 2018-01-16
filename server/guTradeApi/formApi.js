@@ -1,4 +1,3 @@
-var sql = require("mssql");
 const BaseApi = require("./baseApi.js");
 const questionTypes = require("../constants").questionTypes;
 
@@ -114,7 +113,7 @@ const getCompletedFormsFromResponse = function({ data: response }) {
           isMultipleOption && cfAnswer.ChosenQuestionOption
             ? cfAnswer.ChosenQuestionOption.Text
             : null,
-        ImageBase64: cfAnswer.ImageArray,
+        ImageName: cfAnswer.ImageName,
         DateReply: cfAnswer.DateReply,
         value: getAnswerValue(cfAnswer)
       };
@@ -136,7 +135,7 @@ const getAnswerValue = answer => {
     case questionTypes.MULTIPLE_OPTION:
       return answer.ChosenQuestionOption ? answer.ChosenQuestionOption.Id : "";
     case questionTypes.CAMERA:
-      return !answer.Skipped && answer.ImageArray != null;
+      return !answer.Skipped && answer.ImageName != null;
     case questionTypes.DATE:
       return !answer.Skipped && answer.DateReply != null
         ? new Date(answer.DateReply).getTime() + 3 * 60 * 60 * 1000

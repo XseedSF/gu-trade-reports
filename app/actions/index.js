@@ -23,3 +23,15 @@ export const fetchForm = filtersQuery => dispatch => {
     dispatch(requestFormSuccess(normalize(form, schema.form)));
   });
 };
+
+export const setAnswerImage = (answerId, imageBase64) => ({
+  type: actions.SET_ANSWER_IMAGE,
+  answerId,
+  imageBase64
+});
+
+export const fetchAnswerImage = answerId => dispatch => {
+  api.fetchAnswerImage(answerId).then(imageBase64 => {
+    dispatch(setAnswerImage(answerId, imageBase64));
+  });
+};

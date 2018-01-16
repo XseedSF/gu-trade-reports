@@ -15,9 +15,15 @@ const FormAnswer = ({ answer, name }) => {
       case questionTypes.NUMERIC:
         return <span> {answer.FreeText} </span>;
       case questionTypes.CAMERA:
-        return answer.ImageBase64
-          ? <ImageAnswer image={answer.ImageBase64} title={name} />
-          : <span> Sin imagen </span>;
+        return answer.ImageName ? (
+          <ImageAnswer
+            answerId={answer.Id}
+            image={answer.ImageBase64}
+            title={name}
+          />
+        ) : (
+          <span />
+        );
       case questionTypes.DATE:
         return <span>{<DateText value={answer.value} />}</span>;
       case questionTypes.CHECKBOX:
