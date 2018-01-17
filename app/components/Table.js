@@ -5,6 +5,7 @@ const Table = ({ columns, data }) => {
   return (
     <div>
       <ReactTable
+        className={"-highlight"}
         id="table-export"
         columns={columns}
         data={data}
@@ -15,9 +16,9 @@ const Table = ({ columns, data }) => {
         noDataText={"No hay datos"}
         pageText={"Página"}
         ofText={"de"}
-				rowsText={"filas"}
-				pageSize={10}
-				showPageSizeOptions={false}
+        rowsText={"filas"}
+        pageSize={10}
+        showPageSizeOptions={false}
       />
     </div>
   );

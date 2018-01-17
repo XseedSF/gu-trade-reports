@@ -44,8 +44,8 @@ const FormAnswers = ({ questions, completedForms }) => {
 
   return (
     <div className="form-answers-table">
-      <Table columns={columns} data={data} />
       <TableExport columns={columns} data={data} />
+      <Table columns={columns} data={data} />
     </div>
   );
 };

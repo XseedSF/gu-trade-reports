@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FlatButton } from "material-ui";
+import FileDownload from "material-ui/svg-icons/file/file-download";
 import domtoimage from "dom-to-image";
 
 const ExportAsImage = ({ elementId, color, size, elementIdsToExclude }) => {
@@ -14,6 +15,7 @@ const ExportAsImage = ({ elementId, color, size, elementIdsToExclude }) => {
       onClick={() => {
         exportElementAsImage(elementId, filter);
       }}
+      icon={<FileDownload />}
     />
   );
 };
