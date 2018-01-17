@@ -8,24 +8,66 @@ class Cell {
     this.value = null;
     this.type = null;
     this.numberFormat = null;
+    this.style = {};
   }
 
-  setValue(value) {
+  setValue(value, isHeader) {
     this.value = value;
-    this._setValueType();
+    this._setValueType(isHeader);
   }
 
-  _setValueType() {
-    if (typeof this.value === "number") {
-      this.type = TYPE.NUMBER;
-    } else if (typeof this.value === "boolean") {
-      this.type = TYPE.BOOL;
-    } else if (this.value instanceof Date) {
-      this.type = TYPE.NUMBER;
-      this.numberFormat = dateFormat;
-      this.value = datenum(this.value);
-    } else {
+  _setValueType(isHeader) {
+    if (isHeader) {
       this.type = TYPE.STRING;
+      this.style = {
+        alignment: {
+          wrapText: true,
+          horizontal: "center",
+          vertical: "center"
+        },
+        font: { bold: true }
+      };
+    } else {
+      if (typeof this.value === "number") {
+        this.type = TYPE.NUMBER;
+        this.style = {
+          alignment: {
+            wrapText: true,
+            horizontal: "right",
+            vertical: "center"
+          }
+        };
+      } else if (typeof this.value === "boolean") {
+        this.type = TYPE.STRING;
+        this.value = this.value ? "Si" : "No";
+        this.style = {
+          alignment: {
+            wrapText: true,
+            horizontal: "center",
+            vertical: "center"
+          }
+        };
+      } else if (this.value instanceof Date) {
+        this.type = TYPE.NUMBER;
+        this.numberFormat = dateFormat;
+        this.value = datenum(this.value);
+        this.style = {
+          alignment: {
+            wrapText: true,
+            horizontal: "center",
+            vertical: "center"
+          }
+        };
+      } else {
+        this.type = TYPE.STRING;
+        this.style = {
+          alignment: {
+            wrapText: true,
+            horizontal: "left",
+            vertical: "center"
+          }
+        };
+      }
     }
   }
 }

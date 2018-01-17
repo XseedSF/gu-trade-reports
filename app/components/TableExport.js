@@ -3,7 +3,7 @@ import FlatButton from "material-ui/FlatButton";
 import FileDownload from "material-ui/svg-icons/file/file-download";
 import { questionTypes } from "../constants";
 import { COLORS } from "../constants";
-import { Workbook, Worksheet } from "../utils";
+import { Workbook, getFormattedDate } from "../utils";
 
 const TableExport = ({ columns, data }) => {
   return (
@@ -21,37 +21,28 @@ const TableExport = ({ columns, data }) => {
 };
 
 const exportTableToExcel = (columns, data) => {
-  const worksheetName = "Reporte";
-  const worksheet = getWorksheet(columns, data);
-
   const workbook = new Workbook();
-  workbook.addWorksheet(worksheetName, worksheet);
 
-  const downloadName = "Reporte";
-  workbook.export(downloadName);
-};
+  const worksheetName = "Reporte";
+  const headers = columns.map(column => column.Header);
+  const keys = columns.map(column => column.accessor);
 
-const getWorksheet = (columns, data) => {
-  const worksheet = new Worksheet();
-
-  let row = 0;
-  const headers = columns.map((c, index) => {
-    worksheet.setCellValue(row, index, c.Header);
-  });
-
+  const rows = data.map(() => ({}));
   for (let i = 0; i < data.length; i++) {
-    row++;
-    const rowData = data[i];
-    worksheet.setCellValue(row, 0, rowData.name);
+    var dataValue = data[i];
+    const firstKey = keys[0];
+    rows[i][firstKey] = dataValue[firstKey];
 
-    for (let column = 1; column < columns.length - 1; column++) {
-      const { answer } = rowData[column][column];
-      const response = getAnswerResponse(answer);
-      worksheet.setCellValue(row, column, response);
+    for (let j = 1; j < keys.length; j++) {
+      const key = keys[j];
+      rows[i][key] = getAnswerResponse(dataValue[j - 1][j - 1].answer);
     }
   }
 
-  return worksheet;
+  workbook.addWorksheet(worksheetName, headers, keys, rows);
+
+  const downloadName = "Reporte";
+  workbook.export(downloadName);
 };
 
 const getAnswerResponse = answer => {
@@ -70,7 +61,8 @@ const getAnswerResponse = answer => {
       // return answer.ImageBase64 ? answer.ImageBase64 : "Sin imagen";
       return answer.ImageName ? "Con imagen" : "";
     case questionTypes.DATE:
-      return answer.value;
+      const date = new Date(answer.value);
+      return getFormattedDate(date);
     default:
       return null;
   }

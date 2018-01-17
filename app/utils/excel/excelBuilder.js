@@ -1,5 +1,5 @@
 import { saveAs } from "file-saver";
-import XLSX from "xlsx";
+import "script-loader!../../../node_modules/xlsx-style/dist/xlsx.core.min.js";
 import { stringToArrayBuffer } from "../../utils";
 
 export const dateFormat = XLSX.SSF._table[14];
@@ -35,23 +35,34 @@ const createExcelFile = workbook => {
 const getWorkbookSheets = workbook => {
   const sheets = {};
   Object.keys(workbook.sheets).map(key => {
-    sheets[key] = encodeCells(workbook.sheets[key].cells);
+    sheets[key] = encodeCells(
+      workbook.sheets[key].cells,
+      workbook.sheets[key].wscols
+    );
   });
 
   return sheets;
 };
 
-const encodeCells = cells => {
+const encodeCells = (cells, wscols) => {
   const xlsxCells = {};
   for (let i = 0; i < cells.length; i++) {
     const cell = cells[i];
 
     const xslxCell = cellToXslsFormat(cell);
+
     const cellRef = getCellRef(cell);
     xlsxCells[cellRef] = xslxCell;
   }
 
   xlsxCells["!ref"] = getCellsRange(cells);
+
+  wscols.map((col, index) => {
+    wscols[index] = { wch: col };
+  });
+
+  xlsxCells["!cols"] = wscols;
+  //debugger;
   return xlsxCells;
 };
 
@@ -63,7 +74,8 @@ const cellToXslsFormat = cell => {
   return {
     v: cell.value,
     t: cell.type,
-    z: cell.numberFormat
+    z: cell.numberFormat,
+    s: cell.style
   };
 };
 

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --env=prod --progress --profile --colors",
     "debug": "node --inspect server.js",
-    "postinstall": "npm run build"
+    "postinstall-disabled": "npm run build"
   },
   "author": "Xseed",
   "license": "ISC",
@@ -44,7 +44,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "webpack-merge": "^4.1.0",
-    "xlsx": "^0.11.2",
+    "xlsx-style": "^0.8.13",
     "xs-react-modal-dialog": "git+https://github.com/XseedSF/xs-react-modal-dialog.git"
   },
   "devDependencies": {
@@ -60,6 +60,7 @@
     "install": "^0.10.1",
     "npm": "^4.6.1",
     "react-hot-loader": "^1.3.1",
+    "script-loader": "^0.7.2",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",

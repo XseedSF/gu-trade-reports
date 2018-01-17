@@ -40,6 +40,8 @@ const FormAnswers = ({ questions, completedForms }) => {
     });
   }
 
+  const answers = completedForms.map(completedForm => completedForm.answers);
+
   return (
     <div className="form-answers-table">
       <Table columns={columns} data={data} />

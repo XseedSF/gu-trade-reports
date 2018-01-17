@@ -1,4 +1,5 @@
 import ExcelBuilder from "./excelBuilder";
+import { getWorksheet } from "./Worksheet";
 
 class Workbook {
   constructor() {
@@ -6,9 +7,9 @@ class Workbook {
     this.sheets = {};
   }
 
-  addWorksheet(name, worksheet) {
+  addWorksheet(name, headers, keys, rows) {
     this.sheetNames.push(name);
-    this.sheets[name] = worksheet;
+    this.sheets[name] = getWorksheet(headers, keys, rows);
   }
 
   export(downloadName) {
