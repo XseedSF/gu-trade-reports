@@ -5,7 +5,7 @@ import ExportAsImage from "./ExportAsImage";
 
 const Title = ({ text }) => (
   <AppBar
-    style={{ backgroundColor: COLORS.PRIMARY }}
+    style={{ backgroundColor: COLORS.PRIMARY, zIndex: 1 }}
     title={text}
     iconElementLeft={
       <ExportAsImage color="#FFFFFF" elementId="filters-export" />
