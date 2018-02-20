@@ -21,19 +21,15 @@ class BaseRangeChart extends Component {
 
   getData(precision, toFixed) {
     const options = this.getOptionsForChart();
-
-    let data;
     const xValues = this.getXValues(options, toFixed);
     const range = this.getRangeForChart({
       xValues,
       precision,
-      toFixed,
       margin: 1,
       minTotal: 7
     });
-    data = this.getDataBetweenRange({ options, range, precision });
 
-    return data;
+    return this.getDataBetweenRange({ options, range, precision });
   }
 
   getXValues(options, toFixed) {
@@ -90,6 +86,7 @@ class BaseRangeChart extends Component {
     range = minTotal
       ? this.setMinTotalValuesToRange(range, precision, minTotal)
       : range;
+
     return range;
   }
 

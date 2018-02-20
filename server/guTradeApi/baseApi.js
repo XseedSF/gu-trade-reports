@@ -19,6 +19,7 @@ class BaseApi {
       case "pe":
       case "pa":
         return `http://co.gutrade.io/ApiServices/api/`;
+      case "py":
       default:
         return `http://gutrade.io/ApiServices/api/`;
       // return `http://localhost:26468/api`;
