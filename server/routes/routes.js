@@ -18,6 +18,7 @@ module.exports = function(app, compiler) {
       sess.userId = decoded.userId;
       sess.userName = decoded.userName;
       sess.clientCode = decoded.clientCode;
+      sess.serverDomain = decoded.serverDomain;
 
       views.redirect(req, res, "");
     });

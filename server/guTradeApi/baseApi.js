@@ -1,27 +1,27 @@
-var config = require("config");
+const config = require("config");
 const guTradeApiConfig = config.get("guTradeServiceApi");
+const apiUrls = guTradeApiConfig.get("urls");
 const jwt = require("jsonwebtoken");
 
 class BaseApi {
-  constructor(clientCode, hostname) {
+  constructor(clientCode, serverDomain) {
     this.clientCode = clientCode;
-    var baseUrl = this.getApiBaseUrl(hostname);
+    var baseUrl = this.getApiBaseUrl(serverDomain);
     this.httpRequest = require("./httpRequest")(baseUrl);
   }
 
-  getApiBaseUrl(hostname) {
-    var domain = hostname.split(",")[0];
-    switch (hostname) {
+  getApiBaseUrl(serverDomain) {
+    switch (serverDomain) {
       case "cr":
-        return `http://cr.gutrade.io/ApiServices/api/`;
+        return apiUrls.cr;
       case "co":
       case "ec":
       case "pe":
       case "pa":
-        return `http://co.gutrade.io/ApiServices/api/`;
+        return apiUrls.co;
       case "py":
       default:
-        return `http://gutrade.io/ApiServices/api/`;
+        return apiUrls.uy;
       // return `http://localhost:26468/api`;
     }
   }

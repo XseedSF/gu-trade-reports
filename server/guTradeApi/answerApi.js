@@ -2,7 +2,7 @@ const BaseApi = require("./baseApi.js");
 const questionTypes = require("../constants").questionTypes;
 
 class AnswerApi extends BaseApi {
-  constructor(clientCode, hostname) {
+  constructor({ clientCode, serverDomain }) {
     super(clientCode, hostname);
   }
 

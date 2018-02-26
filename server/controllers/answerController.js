@@ -12,7 +12,7 @@ class AnswerController extends BaseController {
     const answerId = req.query.answerId;
 
     sess = req.session;
-    const answerApi = new GuTradeApi.AnswerApi(sess.clientCode, req.hostname);
+    const answerApi = new GuTradeApi.AnswerApi(sess);
 
     answerApi.getImage(
       answerId,

@@ -2,8 +2,8 @@ const BaseApi = require("./baseApi.js");
 const questionTypes = require("../constants").questionTypes;
 
 class FormApi extends BaseApi {
-  constructor(clientCode, hostname) {
-    super(clientCode, hostname);
+  constructor({ clientCode, serverDomain }) {
+    super(clientCode, serverDomain);
   }
 
   getCompletedForms(filter, success, error) {
