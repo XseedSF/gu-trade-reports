@@ -3,7 +3,7 @@ const questionTypes = require("../constants").questionTypes;
 
 class AnswerApi extends BaseApi {
   constructor({ clientCode, serverDomain }) {
-    super(clientCode, hostname);
+    super(clientCode, serverDomain);
   }
 
   getImage(answerId, success, error) {
