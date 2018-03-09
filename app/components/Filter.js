@@ -13,10 +13,11 @@ import { COLORS } from "../constants";
 import { truncateText } from "../utils";
 
 const Filter = ({ questionFilter, toggleFilter }) => {
-  let specificFilter = null;
+  let filterChart = null;
+  let canDisplayChart = true;
   switch (questionFilter.type) {
     case filterTypes.MULTI_SELECT:
-      specificFilter = (
+      filterChart = (
         <CustomBarChart
           key={questionFilter.id}
           questionFilter={questionFilter}
@@ -25,7 +26,7 @@ const Filter = ({ questionFilter, toggleFilter }) => {
       );
       break;
     case filterTypes.SINGLE_SELECT:
-      specificFilter = (
+      filterChart = (
         <CustomPieChart
           key={questionFilter.id}
           questionFilter={questionFilter}
@@ -34,7 +35,7 @@ const Filter = ({ questionFilter, toggleFilter }) => {
       );
       break;
     case filterTypes.DATE_RANGE_SELECT:
-      specificFilter = (
+      filterChart = (
         <DateRangeChart
           key={questionFilter.id}
           questionFilter={questionFilter}
@@ -43,12 +44,20 @@ const Filter = ({ questionFilter, toggleFilter }) => {
       );
       break;
     case filterTypes.NUMERIC_RANGE_SELECT:
-      specificFilter = (
+      canDisplayChart = !NumericRangeChart.isDataTooLargeForRangeChart(
+        questionFilter
+      );
+      filterChart = canDisplayChart ? (
         <NumericRangeChart
           key={questionFilter.id}
           questionFilter={questionFilter}
           toggleFilter={toggleFilter}
         />
+      ) : (
+        <span>
+          No se pudieron graficar estos datos numéricos: Las distancias entre
+          los datos numéricos es muy grande.
+        </span>
       );
       break;
   }
@@ -60,7 +69,10 @@ const Filter = ({ questionFilter, toggleFilter }) => {
     <div
       className="filter-card"
       style={{
-        width: questionFilter.type === filterTypes.SINGLE_SELECT ? 300 : 615
+        width:
+          !canDisplayChart || questionFilter.type === filterTypes.SINGLE_SELECT
+            ? 300
+            : 615
       }}
     >
       <Card id={filterElementId}>
@@ -71,9 +83,12 @@ const Filter = ({ questionFilter, toggleFilter }) => {
         />
         <CardMedia
           overlayContentStyle={{ alignContent: "center" }}
-          style={{ minHeight: 300 }}
+          style={{
+            minHeight: 300,
+            padding: canDisplayChart ? "0" : "0 30px"
+          }}
         >
-          {specificFilter}
+          {filterChart}
         </CardMedia>
         <CardActions id={filterActionsId}>
           <ExportAsImage
