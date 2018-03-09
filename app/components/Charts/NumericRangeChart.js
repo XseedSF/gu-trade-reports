@@ -6,14 +6,15 @@ import CustomBarChart from "./CustomBarChart";
 import { COLORS } from "../../constants";
 import { dictionaryToArray } from "../../utils";
 
+const RANGE_LIMIT = 1000;
+
 class NumericRangeChart extends BaseRangeChart {
   static isDataTooLargeForRangeChart(questionFilter) {
     let options = dictionaryToArray(questionFilter.options);
     options.sort();
     return (
-      !options ||
-      (options[0] &&
-        Math.abs(options[options.length - 1].key - options[0].key) > 1000)
+      options[0] &&
+      Math.abs(options[options.length - 1].key - options[0].key) > RANGE_LIMIT
     );
   }
 
