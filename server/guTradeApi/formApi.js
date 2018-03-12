@@ -88,8 +88,8 @@ const getCompletedFormsFromResponse = function({ data: response }) {
     cfReponse = completedFormsResponse[i];
     const completedForm = {
       Id: cfReponse.Id,
-      name: cfReponse.PointOfInterestName,
-      pointOfInterestId: cfReponse.PointOfInterestId,
+      name: cfReponse.PointOfInterest.Name,
+      pointOfInterestId: cfReponse.PointOfInterest.Id,
       answers: []
     };
 
