@@ -12,6 +12,10 @@ class BaseApi {
 
   getApiBaseUrl(serverDomain) {
     switch (serverDomain) {
+      case "dipo":
+        return apiUrls.dipo;
+      case "dipo-qa":
+        return apiUrls["dipo-qa"];
       case "cr":
         return apiUrls.cr;
       case "co":
